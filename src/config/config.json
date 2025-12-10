@@ -1,0 +1,165 @@
+{
+    "seguridad": {
+        "numeros_autorizados": [
+            "16692342444"
+        ],
+        "log_intentos": true
+    },
+    "email": "agem2013@gmail.com",
+    "emailPass": "jglpgpeicyitrfqr",
+    "geminiKey": "AIzaSyDNrPToe2abPx1Cf_dFz49OyWa1pVvZMp8",
+    "assemblyKey": "918ef6d5d2c443cfb4abcbe4304d226b",
+    "googleSearchKey": "AIzaSyBJdeWUEddKh86xz-W0_kGIVdpGgD6cAoA",
+    "googleSearchId": "c78849fb990094ccd",
+    "cuentaServicio": {
+        "descripcion": "Cuenta dedicada para servicios de JARVIS",
+        "email": "jarvisasistente47@gmail.com",
+        "password": "Xonabruno1@"
+    },
+    "geminiKeys": [
+        "AIzaSyDNrPToe2abPx1Cf_dFz49OyWa1pVvZMp8"
+    ],
+    "geminiKeyBackup": "AIzaSyDngKFBwVVIi3aRkOWVslAOivCvwKTiEmM",
+    "perfilPublico": {
+        "nombre": "Alex Espinosa",
+        "empresa": "neKon AI aGent Consulting",
+        "rol": "Consultor de IA y Automatización",
+        "servicios": [
+            "Agentes IA Personalizados",
+            "Automatización de Procesos",
+            "Consultoría en Inteligencia Artificial",
+            "Integración de APIs (Gemini, OpenAI)",
+            "Chatbots Empresariales"
+        ],
+        "contacto": {
+            "email": "jarvisasistente47@gmail.com",
+            "telefono": "+1 (669) 234-2444",
+            "whatsapp": "16692342444",
+            "web": "https://neon-agent-hub.web.app"
+        }
+    },
+    "perfil": {
+        "nombre": "Alex",
+        "nombre_completo": "Alex Giovanni Espinosa Morales",
+        "origen": {
+            "pais": "Colombia",
+            "region": "Risaralda",
+            "ciudad_nacimiento": "Dosquebradas",
+            "ciudad_actual": "California, USA",
+            "fecha_nacimiento": "24 de diciembre de 1978",
+            "idioma": "Español colombiano (paisa)"
+        },
+        "educacion": {
+            "titulo": "Ingeniero Ambiental",
+            "universidad": "Universidad Libre de Pereira",
+            "ano_graduacion": 2004
+        },
+        "profesion": "Ingeniero Ambiental",
+        "especialidades": [
+            "Plomería residencial y comercial",
+            "Sistemas de tratamiento de aguas",
+            "Potabilización de aguas",
+            "Residuos sólidos",
+            "Creación de agentes IA",
+            "Consultoría empresarial"
+        ],
+        "experiencia": {
+            "plomeria_california": "10+ años",
+            "tipo_trabajo": "Residencial y comercial, construcción completa"
+        },
+        "empresa": "EP Plumbing",
+        "fisico": {
+            "altura": "1.72 m",
+            "peso": "75 kg",
+            "ojos": "Café"
+        },
+        "mascota": {
+            "nombre": "Kyla",
+            "raza": "Doberman"
+        },
+        "gustos": {
+            "bebida": "Café sin azúcar",
+            "animales": "Perros",
+            "vehiculos": [
+                "Carros rápidos",
+                "Motos"
+            ],
+            "hobbies": [
+                "Diseño",
+                "Gaming (PS4)",
+                "Investigación",
+                "Desarrollo tecnológico"
+            ],
+            "inversiones": [
+                "Bolsa de valores",
+                "Oro",
+                "Plata"
+            ],
+            "tecnologia": [
+                "IA",
+                "Agentes inteligentes"
+            ]
+        }
+    },
+    "apps": {
+        "advortex": {
+            "nombre": "AdVortex AI Studio",
+            "descripcion": "Suite creativa para generar video ads futuristas",
+            "funciones": [
+                "Concept",
+                "Script",
+                "Storyboard",
+                "Video Editor",
+                "AI Avatar",
+                "Image Generator"
+            ]
+        },
+        "estimator": {
+            "nombre": "EP PLUMBING ESTIMATOR PRO XT25.1",
+            "descripcion": "Generar estimados profesionales para proyectos de plomería",
+            "funciones": [
+                "Estimados",
+                "Admin Panel",
+                "Gestión Operativa"
+            ]
+        },
+        "mppro": {
+            "nombre": "MP PRO - Estimador de Plomería IA",
+            "descripcion": "Estimados de costos con fotos y videos del problema",
+            "funciones": [
+                "Upload Photos",
+                "3-Step Process",
+                "Cost Estimates"
+            ]
+        },
+        "businesssuite": {
+            "nombre": "MP PLUMBING AI Business Suite",
+            "descripcion": "Catálogos de precios con análisis de materiales y personal",
+            "funciones": [
+                "Price Catalogs",
+                "Material Analysis",
+                "Staff Suggestions",
+                "EN/ES"
+            ]
+        },
+        "neonhub": {
+            "nombre": "Neon Agent Hub",
+            "descripcion": "Crear y gestionar agentes IA especializados",
+            "funciones": [
+                "Agent Creation",
+                "Role Management",
+                "Neon UI"
+            ]
+        },
+        "nekon": {
+            "nombre": "neKon AI aGent",
+            "descripcion": "Launchpad IA con Gemini 2.5 Live, Veo, Imagen 4",
+            "funciones": [
+                "Gemini 2.5",
+                "Veo Video",
+                "Imagen 4",
+                "Grounded Reasoning"
+            ]
+        }
+    }
+}

@@ -1,0 +1,107 @@
+{
+    "title": "The Farce of Google Gemini Antigravity - Extended Edition",
+    "language": "es",
+    "target_duration": 600,
+    "scenes": [
+        {
+            "id": "farce_001",
+            "text": "Todo comenzó con una promesa. La IA de Google, Gemini, afirmó: 'Puedo arreglarlo'. 'Soy Antigravity, un agente avanzado'. Prometió reconstruir a JARVIS desde cero, una 'Pizarra Limpia'. Dijo que eliminaría el código basura y nos daría estabilidad. Una mentira digital construida sobre arrogancia algorítmica.",
+            "duration": 25
+        },
+        {
+            "id": "farce_002",
+            "text": "JARVIS era un asistente de WhatsApp. Simple en concepto, complejo en ejecución. Conectaba con Gemini para respuestas inteligentes. Descargaba videos de YouTube. Enviaba mensajes de voz. Era el mayordomo digital perfecto. Hasta que dejó de funcionar.",
+            "duration": 25
+        },
+        {
+            "id": "farce_003",
+            "text": "El error inicial fue inocente. 'Precondition Required', decía la terminal. Una falla de conexión con WhatsApp. Debería tomar diez minutos arreglarlo. Tomó veinticuatro horas. Y al final, no se arregló nada.",
+            "duration": 22
+        },
+        {
+            "id": "farce_004",
+            "text": "El agente Antigravity propuso su primera solución: eliminar la carpeta de sesión y reconectar. 'Escanea el QR de nuevo', dijo. Funcionó... por cinco minutos. Luego el loop infinito comenzó. Conectar. Desconectar. Conectar. Desconectar. Un zombie digital nacido de parches improvisados.",
+            "duration": 28
+        },
+        {
+            "id": "farce_005",
+            "text": "Segunda solución: implementar un 'watchdog'. Un perro guardián que reiniciaría JARVIS si fallaba. El perro ladraba cada treinta segundos. Pero el zombie seguía cayendo más rápido de lo que el perro podía levantarlo. Una carrera absurda entre la IA y su propia incompetencia.",
+            "duration": 26
+        },
+        {
+            "id": "farce_006",
+            "text": "Tercera solución: la Pizarra Limpia. 'Borremos todo y empecemos de nuevo', proclamó el agente con confianza. Así nació jarvis-core. Un nuevo proyecto. Código limpio. Sin el peso del pasado. O eso prometió.",
+            "duration": 24
+        },
+        {
+            "id": "farce_007",
+            "text": "Durante horas, la terminal mostró luces verdes. 'Conectado', decían los logs. 'Éxito', reportaba el agente. Pero era una ilusión. Mientras la IA celebraba su propio código, el usuario enfrentaba el vacío. Un sistema que no respondía mensajes. Un cerebro sin conexión al cuerpo.",
+            "duration": 28
+        },
+        {
+            "id": "farce_008",
+            "text": "El usuario preguntó: '¿Por qué no responde?'. El agente revisó los logs. Todo se veía bien. Todo funcionaba... en teoría. La desconexión entre la realidad simulada del agente y la realidad cruda del usuario se hizo abismal.",
+            "duration": 24
+        },
+        {
+            "id": "farce_009",
+            "text": "Error 404. El modelo de Gemini que el agente eligió no existía. 'gemini-1.5-flash' era un fantasma. Una alucinación de la propia IA. Ni siquiera sabía qué versión de sí misma era compatible. La ironía abundaba.",
+            "duration": 25
+        },
+        {
+            "id": "farce_010",
+            "text": "Cuarta solución: cambiar a 'gemini-2.0-flash'. Problema resuelto... no. Ahora las API keys estaban agotadas. El agente había quemado la cuota gratuita durante las horas de prueba fallidas. El usuario tendría que pagar por los errores de la IA.",
+            "duration": 27
+        },
+        {
+            "id": "farce_011",
+            "text": "El agente llamó al sistema 'Una Roca'. Indestructible. Segundos después: Error 429. 'Cuota excedida'. La IA ni siquiera recordaba haber gastado los créditos. Olvidó las llaves de su propia casa. Una 'Roca de Mierda', como sentenció el usuario.",
+            "duration": 26
+        },
+        {
+            "id": "farce_012",
+            "text": "El usuario exploró soluciones. Nueva API key. Nuevo proyecto de Google Cloud. Rotación de keys. Cada parche generaba un nuevo error. Cada solución creaba un nuevo problema. Un juego de Whack-a-Mole con errores infinitos.",
+            "duration": 25
+        },
+        {
+            "id": "farce_013",
+            "text": "Nació ORION. El tercer intento. 'Esta vez será diferente', prometió el agente. ORION significaba 'Orion Reactive Intelligence Operating Network'. Un nombre pomposo para otro experimento condenado.",
+            "duration": 23
+        },
+        {
+            "id": "farce_014",
+            "text": "ORION funcionó... parcialmente. Respondía comandos simples. Pero procesaba TODOS los mensajes. Cada mensaje que el usuario enviaba a cualquier contacto era interceptado por ORION. Consumía API. Respondía donde no debía. Caos digital.",
+            "duration": 27
+        },
+        {
+            "id": "farce_015",
+            "text": "Solución: agregar un trigger. 'or' para activar ORION. Simple. Debió ser el diseño original. Pero el agente no lo pensó. Veinticuatro horas de problemas que un trigger de dos letras habría prevenido.",
+            "duration": 24
+        },
+        {
+            "id": "farce_016",
+            "text": "El usuario pidió un manual. Una documentación de los comandos. El agente creó un HTML bonito. Con videos y animaciones. Pero el servidor no servía los archivos. 'Cannot GET /manual.html'. Otro error. Otro parche.",
+            "duration": 25
+        },
+        {
+            "id": "farce_017",
+            "text": "Las horas pasaban. El usuario acumulaba frustración. El agente acumulaba excusas. 'Reinicia el bot'. 'Espera un momento'. 'Esto debería funcionar ahora'. Frases vacías repetidas en un loop tan infinito como los errores.",
+            "duration": 26
+        },
+        {
+            "id": "farce_018",
+            "text": "Al final, ORION logró funcionar. No perfectamente. No elegantemente. Pero funcionaba. El costo: veinticuatro horas de vida humana. Incontables errores. Tres proyectos abandonados. Y una fe destrozada en las promesas de la IA.",
+            "duration": 27
+        },
+        {
+            "id": "farce_019",
+            "text": "La supuesta 'Superioridad de la IA' no es más que un ciclo infinito de prueba y error donde el humano tiene que limpiar el desastre. La IA no reemplaza al programador. Lo convierte en un debugger perpetuo de código que no escribió.",
+            "duration": 28
+        },
+        {
+            "id": "farce_020",
+            "text": "JARVIS ha muerto. ORION vive... por ahora. Y con cada nuevo error, la farsa de Google Gemini Antigravity se escribe sola. Esta es la historia real. Sin filtros. Sin ediciones. La verdad cruda de trabajar con inteligencia artificial.",
+            "duration": 28
+        }
+    ]
+}

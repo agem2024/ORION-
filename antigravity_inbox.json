@@ -1,0 +1,15 @@
+[
+  {
+    "to": "16692342444",
+    "mensaje": "🔧 *ORION DIAGNOSTIC REPORT*\n\n✅ Sistema ACTIVO\n✅ WhatsApp CONECTADO\n✅ API Rotation: 2 keys\n✅ I-601A Commands: INTEGRADOS\n✅ Servidor Web: localhost:3030\n\n📋 *COMANDOS DISPONIBLES:*\n\n🔹 *I-601A:*\n• law 1 - Documentos caso\n• fotos - Photo Manager\n• gastos - Finanzas\n• estado - Status caso\n• dame [doc] - Obtener doc\n\n🔹 *CORE:*\n• menu / help / acutor\n• di [texto] - TTS\n• busca [tema] - Google\n• or [msg] - Chat AI\n\n🔹 *MEDIA:*\n• descargar video [url]\n• descargar audio [url]\n• captura / screenshot\n• !web [url]\n• !qr [texto]\n\n🔹 *SISTEMA:*\n• noticias - Tech news\n• portapapeles / clipboard\n• estado sistema\n• recuerda que [x] es [y]\n• memoria [query]\n\n🔹 *ANTIGRAVITY:*\n• ag [tarea] - Nueva tarea\n• tareas - Ver pendientes\n• contactos - Agenda\n• enviar a [num] diciendo [msg]\n\n🔹 *PC CONTROL:*\n• apagar pc\n• reiniciar pc\n\n🔹 *PERSONAS (AI Modes):*\n• orion / estimator / mppro\n• nekon / jarvis\n\n— Orion Diagnostic v1.0",
+    "enviado": true,
+    "fecha_envio": "2025-12-10T04:16:27.643Z"
+  },
+  {
+    "to": "16692342444",
+    "file": "c:\\Users\\alexp\\OneDrive\\Documentos\\_Proyectos\\acwater\\02_Projects\\AI_Development\\AI_Media\\PROYECTOS\\AI_Impact_Bay_Area\\orion-clean\\public\\images\\nekon_hero_banner_1765077348011.png",
+    "mensaje": "📸 Test imagen - neKon Banner",
+    "enviado": true,
+    "fecha_envio": "2025-12-10T04:16:29.553Z"
+  }
+]

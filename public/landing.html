@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex G. Espinosa | AI Architect of the Future</title>
+    <style>
+        :root {
+            --bg-color: #050510;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --neon-green: #0aff0a;
+            --text-color: #ffffff;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: radial-gradient(circle at center, #1a1a40 0%, #000000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 45%, var(--neon-blue) 50%, transparent 55%);
+            animation: light-sweep 6s infinite linear;
+            opacity: 0.1;
+        }
+
+        @keyframes light-sweep {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+            z-index: 2;
+            text-align: center;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: #ccc;
+            z-index: 2;
+        }
+
+        .btn-glow {
+            margin-top: 40px;
+            padding: 15px 40px;
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            box-shadow: 0 0 10px var(--neon-blue);
+            z-index: 2;
+            text-decoration: none;
+        }
+
+        .btn-glow:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        /* SERVICES GRID */
+        .container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 0 20px;
+        }
+
+        h2.section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--neon-green);
+            text-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            transition: 0.4s;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 30px rgba(188, 19, 254, 0.3);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            transition: 0.4s;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.05);
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--neon-blue);
+        }
+
+        .card p {
+            color: #ddd;
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* SKILLS METRICS */
+        .metrics {
+            margin-top: 100px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+
+        .metric-box {
+            margin: 20px;
+        }
+
+        .metric-val {
+            font-size: 4rem;
+            font-weight: bold;
+            color: var(--neon-purple);
+        }
+
+        .metric-label {
+            font-size: 1.2rem;
+            color: #aaa;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 100px;
+            padding: 50px;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            background: #020205;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <h1>Alex G. Espinosa</h1>
+        <p>AI ARCHITECT | FUTURE ENGINEER | VISIONARY</p>
+        <a href="#contact" class="btn-glow">Access The Future</a>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">THE TECH STACK</h2>
+
+        <div class="grid">
+            <!-- AI Consulting Card -->
+            <div class="card">
+                <img src="images/ai_future.png" alt="AI Consulting" class="card-img"
+                    onerror="this.src='https://via.placeholder.com/400x300/000033/00f3ff?text=AI+Neural+Net'">
+                <h3>AI ARCHITECTURE</h3>
+                <p>Building autonomous agents that think, learn, and execute. From neural networks to real-world
+                    business automation.</p>
+            </div>
+
+            <!-- Eco Engineering Card -->
+            <div class="card">
+                <img src="images/eco_future.png" alt="Eco Engineering" class="card-img"
+                    onerror="this.src='https://via.placeholder.com/400x300/001100/0aff0a?text=Eco+Tech'">
+                <h3>ECO-SYSTEMS</h3>
+                <p>Merging 21 years of environmental engineering with sustainable tech systems. The planet meets the
+                    digital age.</p>
+            </div>
+
+            <!-- Plumbing Card (Placeholder until generated) -->
+            <div class="card">
+                <img src="images/smart_plumbing_future.png" alt="Smart Infrastructure" class="card-img"
+                    onerror="this.src='https://via.placeholder.com/400x300/000044/00f3ff?text=Smart+Infrastructure'">
+                <h3>SMART INFRASTRUCTURE</h3>
+                <p>Revolutionizing physical infrastructure with AI-driven diagnostics and high-precision estimations.
+                </p>
+            </div>
+
+            <!-- Digital Transformation (Placeholder) -->
+            <div class="card">
+                <img src="images/digital_transformation_future.png" alt="Digital Ops" class="card-img"
+                    onerror="this.src='https://via.placeholder.com/400x300/220022/bc13fe?text=Digital+Ops'">
+                <h3>DIGITAL OPS</h3>
+                <p>Transforming legacy businesses into data-driven powerhouses. Paperless, efficient, and intelligent.
+                </p>
+            </div>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-box">
+                <div class="metric-val">21+</div>
+                <div class="metric-label">YEARS ENGINEERING</div>
+                <p style="color: var(--neon-blue); margin-top: 10px;">(669) 234-2444</p>
+                <p style="font-size: 0.8rem; margin-top: 20px; color: #555;">POWERED BY ORION AI SYSTEM</p>
+                </footer>
+
+</body>
+
+</html>

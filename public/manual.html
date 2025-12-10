@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORION SYSTEM - Manual Interactivo</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f2ff;
+            --secondary: #7b2cbf;
+            --accent: #ff006e;
+            --dark: #0a0a1a;
+            --darker: #050510;
+            --card: rgba(20, 20, 50, 0.8);
+            --glow: 0 0 30px rgba(0, 242, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: var(--darker);
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                linear-gradient(90deg, rgba(0, 242, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 242, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(50px, 50px);
+            }
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--darker) 0%, #0d1530 100%);
+        }
+
+        .hero-video {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 20px;
+            box-shadow: var(--glow);
+            margin-bottom: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 6vw, 4rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .version-badge {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            display: inline-block;
+        }
+
+        nav {
+            position: sticky;
+            top: 0;
+            background: rgba(10, 10, 26, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0, 242, 255, 0.2);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(0, 242, 255, 0.2);
+            box-shadow: var(--glow);
+        }
+
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            object-fit: cover;
+            box-shadow: var(--glow);
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: var(--secondary);
+            margin: 2rem 0 1rem;
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .command-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            border: 1px solid rgba(0, 242, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .command-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: var(--glow);
+        }
+
+        .command-code {
+            font-family: 'Courier New', monospace;
+            background: rgba(0, 242, 255, 0.1);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .command-desc {
+            color: #a0a0a0;
+            margin-top: 0.5rem;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
+
+        .tag-core {
+            background: var(--primary);
+            color: black;
+        }
+
+        .tag-pc {
+            background: #ff9500;
+            color: black;
+        }
+
+        .tag-ai {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .personas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .persona-card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(0, 242, 255, 0.1);
+            transition: all 0.3s;
+        }
+
+        .persona-card:hover {
+            border-color: var(--primary);
+        }
+
+        .persona-emoji {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-start {
+            background: linear-gradient(135deg, rgba(0, 242, 255, 0.1) 0%, rgba(123, 44, 191, 0.1) 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(0, 242, 255, 0.2);
+        }
+
+        .steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+
+        .access-box {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 2px solid var(--primary);
+        }
+
+        .access-box h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .access-box a {
+            color: var(--primary);
+            font-size: 1.2rem;
+            word-break: break-all;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--dark);
+            border-top: 1px solid rgba(0, 242, 255, 0.1);
+        }
+
+        footer p {
+            color: #606060;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .commands-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .section-header {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-grid"></div>
+
+    <!-- Hero -->
+    <section class="hero">
+        <video src="images/grok-video-033ad738-41fc-45a5-9298-aaa347b31323.mp4" class="hero-video" autoplay loop muted
+            playsinline></video>
+        <h1>🌌 ORION SYSTEM</h1>
+        <p>Orion Reactive Intelligence Operating Network<br>Tu Asistente Personal de WhatsApp con IA Gemini</p>
+        <span class="version-badge">vClean + ANTIGRAVITY</span>
+    </section>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#inicio">🚀 Inicio</a></li>
+            <li><a href="#core">⚡ Core</a></li>
+            <li><a href="#pc">🖥️ PC Control</a></li>
+            <li><a href="#apps">📱 Apps</a></li>
+            <li><a href="#personas">🎭 Personas</a></li>
+            <li><a href="#antigravity">🔐 Antigravity</a></li>
+            <li><a href="#access">🌐 Acceso</a></li>
+        </ul>
+    </nav>
+
+    <!-- Quick Start -->
+    <section id="inicio">
+        <div class="quick-start">
+            <h2>🚀 Inicio Rápido</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>Iniciar Bot</h4>
+                    <code>node index.js</code>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Escanear QR</h4>
+                    <p>Con WhatsApp</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Escribir "!menu"</h4>
+                    <p>Ver comandos</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Core Commands -->
+    <section id="core">
+        <div class="section-header">
+            <video src="images/grok-video-e9e2a37c-4205-43d2-8b04-12ebad9fc3cb.mp4" class="section-icon" autoplay loop
+                muted playsinline></video>
+            <div>
+                <h2>⚡ COMANDOS CORE</h2>
+                <p>Funciones principales sin necesidad de API</p>
+            </div>
+        </div>
+
+        <h3>📋 Sistema</h3>
+        <div class="commands-grid">
+            <div class="command-card">
+                <span class="tag tag-core">CORE</span>
+                <div class="command-code">!menu</div>
+                <p class="command-desc">Ver todos los comandos y estado del sistema.</p>
+            </div>
+            <div class="command-card">
+                <span class="tag tag-core">CORE</span>
+                <div class="command-code">!acutor</div>
+                <p class="command-desc">Recibir link del manual interactivo (Firebase).</p>
+            </div>
+            <div class="command-card">
+                <span class="tag tag-core">CORE</span>
+                <div class="command-code">!acutor2</div>
+                <p class="command-desc">Recibir link de la landing page neKon AI.</p>
+            </div>
+            <div class="command-card">
+                <span class="tag tag-core">CORE</span>
+                <div class="command-code">!reset</div>
+                <p class="command-desc">Reiniciar al modo ORION y borrar historial.</p>
+            </div>
+        </div>
+
+        <h3>🗣️ Voz y Multimedia</h3>
+        <div class="commands-grid">
+            <div class="command-card">
+                <div class="command-code">!say [texto]</div>
+                <p class="command-desc">Convierte texto a audio de WhatsApp.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">!yt [URL]</div>
+                <p class="command-desc">Descarga video de YouTube y lo envía.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">!search [texto]</div>
+                <p class="command-desc">Busca en Google y muestra resultados.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">!cal</div>
+                <p class="command-desc">Ver próximos eventos de Google Calendar.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">!noticias</div>
+                <p class="command-desc">Obtener las últimas noticias tech.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">!qr [texto]</div>
+                <p class="command-desc">Generar código QR como imagen.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PC Control -->
+    <section id="pc">
+        <div class="section-header">
+            <video src="images/grok-video-f143a3fb-ed16-45d5-a487-e4d4f411a473.mp4" class="section-icon" autoplay loop
+                muted playsinline></video>
+            <div>
+                <h2>🖥️ CONTROL PC</h2>
+                <p>Controla tu computadora desde WhatsApp</p>
+            </div>
+        </div>
+
+        <div class="commands-grid">
+            <div class="command-card">
+                <span class="tag tag-pc">PC</span>
+                <div class="command-code">!captura</div>
+                <p class="command-desc">Captura de pantalla del PC.</p>
+            </div>
+            <div class="command-card">
+                <span class="tag tag-pc">PC</span>
+                <div class="command-code">!web [URL]</div>
+                <p class="command-desc">Captura de pantalla de una página web.</p>
+            </div>
+            <div class="command-card">
+                <span class="tag tag-pc">PC</span>
+                <div class="command-code">!portapapeles</div>
+                <p class="command-desc">Leer contenido del clipboard.</p>
+            </div>
+            <div class="command-card">
+                <span class="tag tag-pc">PC</span>
+                <div class="command-code">!copiar [texto]</div>
+                <p class="command-desc">Escribir texto al portapapeles.</p>
+            </div>
+            <div class="command-card">
+                <span class="tag tag-pc">PC</span>
+                <div class="command-code">!estado</div>
+                <p class="command-desc">Ver estado del sistema (CPU/RAM).</p>
+            </div>
+            <div class="command-card">
+                <span class="tag tag-pc">PC</span>
+                <div class="command-code">!apagar pc</div>
+                <p class="command-desc">Apagar la computadora en 10 segundos.</p>
+            </div>
+            <div class="command-card">
+                <span class="tag tag-pc">PC</span>
+                <div class="command-code">!reiniciar pc</div>
+                <p class="command-desc">Reiniciar la computadora en 10 segundos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Apps & Memory -->
+    <section id="apps">
+        <div class="section-header">
+            <video src="images/grok-video-d47e78f4-136a-404e-b30f-740a5232c085.mp4" class="section-icon" autoplay loop
+                muted playsinline></video>
+            <div>
+                <h2>📱 APPS & MEMORIA</h2>
+                <p>Sistema de memoria persistente y contactos</p>
+            </div>
+        </div>
+
+        <h3>🧠 Memoria</h3>
+        <div class="commands-grid">
+            <div class="command-card">
+                <div class="command-code">!recuerda [X] es [Y]</div>
+                <p class="command-desc">Guardar información en la memoria.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">!memoria [tema]</div>
+                <p class="command-desc">Buscar en la memoria guardada.</p>
+            </div>
+        </div>
+
+        <h3>📞 Contactos</h3>
+        <div class="commands-grid">
+            <div class="command-card">
+                <div class="command-code">!contactos</div>
+                <p class="command-desc">Ver tu agenda de contactos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Antigravity -->
+    <section id="antigravity">
+        <div class="section-header">
+            <video src="images/grok-video-33ee54cf-2343-40f8-b611-42113b8d18bf.mp4" class="section-icon" autoplay loop
+                muted playsinline></video>
+            <div>
+                <h2>🔐 ANTIGRAVITY</h2>
+                <p>Sistema de tareas y automatización</p>
+            </div>
+        </div>
+
+        <div class="commands-grid">
+            <div class="command-card">
+                <div class="command-code">!ag [tarea]</div>
+                <p class="command-desc">Registrar una tarea en Antigravity.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">!tareas</div>
+                <p class="command-desc">Ver todas las tareas pendientes.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personas -->
+    <section id="personas">
+        <h2>🎭 PERSONAS (MIRROR MODE)</h2>
+        <p style="margin-bottom: 2rem;">Cambia la personalidad de ORION escribiendo el nombre</p>
+
+        <div class="personas-grid">
+            <div class="persona-card">
+                <div class="persona-emoji">🌌</div>
+                <h4>ORION</h4>
+                <code>orion</code>
+                <p>Profesional y preciso</p>
+            </div>
+            <div class="persona-card">
+                <div class="persona-emoji">🔧</div>
+                <h4>ESTIMATOR</h4>
+                <code>estimator</code>
+                <p>Experto en plomería</p>
+            </div>
+            <div class="persona-card">
+                <div class="persona-emoji">💼</div>
+                <h4>MPPRO</h4>
+                <code>mppro</code>
+                <p>Negocios y estrategia</p>
+            </div>
+            <div class="persona-card">
+                <div class="persona-emoji">⚡</div>
+                <h4>NEKON</h4>
+                <code>nekon</code>
+                <p>Código y sistemas</p>
+            </div>
+            <div class="persona-card">
+                <div class="persona-emoji">🤖</div>
+                <h4>JARVIS</h4>
+                <code>jarvis</code>
+                <p>Modo legacy/glitch</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Access Links -->
+    <section id="access">
+        <h2>🌐 ACCESO GLOBAL</h2>
+
+        <div class="access-box">
+            <h3>📖 MANUAL JARVIS (Firebase)</h3>
+            <a href="https://neon-agent-hub.web.app/jarvis_manual.html"
+                target="_blank">https://neon-agent-hub.web.app/jarvis_manual.html</a>
+        </div>
+
+        <div class="access-box">
+            <h3>🚀 LANDING NEKON AI (Firebase)</h3>
+            <a href="https://neon-agent-hub.web.app/nekon_ai.html"
+                target="_blank">https://neon-agent-hub.web.app/nekon_ai.html</a>
+        </div>
+
+        <div class="access-box">
+            <h3>📱 CONTACTO</h3>
+            <p style="font-size: 1.2rem;">WhatsApp: <strong>+1 (669) 234-2444</strong></p>
+            <p style="font-size: 1.2rem;">Email: <strong>jarvisasistente47@gmail.com</strong></p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>ORION SYSTEM | Powered by Gemini AI | neKon AI aGent Consulting</p>
+        <p>© 2024 AGEM. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
