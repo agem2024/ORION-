@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORION TECH | AI Automation for Business</title>
+    <style>
+        :root {
+            --bg-color: #050510;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --neon-blue: #00f3ff;
+            --neon-purple: #bc13fe;
+            --neon-green: #0aff0a;
+            --text-color: #ffffff;
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background: radial-gradient(circle at center, #0a0a20 0%, #000000 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 45%, var(--neon-purple) 50%, transparent 55%);
+            animation: light-sweep 8s infinite linear;
+            opacity: 0.15;
+        }
+
+        @keyframes light-sweep {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .hero h1 {
+            font-size: 6rem;
+            text-transform: uppercase;
+            letter-spacing: 8px;
+            background: linear-gradient(to right, var(--neon-blue), #ffffff, var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
+            z-index: 2;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            color: #ccc;
+            z-index: 2;
+            letter-spacing: 2px;
+        }
+
+        .btn-glow {
+            margin-top: 50px;
+            padding: 18px 50px;
+            background: rgba(0, 243, 255, 0.1);
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-size: 1.2rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+            z-index: 2;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .btn-glow:hover {
+            background: var(--neon-blue);
+            color: #000;
+            box-shadow: 0 0 50px var(--neon-blue);
+            transform: scale(1.05);
+        }
+
+        /* SERVICES SECTION */
+        .container {
+            max-width: 1200px;
+            margin: 100px auto;
+            padding: 0 20px;
+        }
+
+        h2.section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 80px;
+            color: var(--neon-purple);
+            text-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 50px;
+        }
+
+        .card {
+            background: rgba(10, 10, 30, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 40px 30px;
+            backdrop-filter: blur(15px);
+            transition: 0.4s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            opacity: 0;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .card:hover::after {
+            opacity: 1;
+        }
+
+        .card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card p {
+            color: #aaa;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .price-tag {
+            display: block;
+            margin-top: 25px;
+            font-size: 1.5rem;
+            color: var(--neon-green);
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(10, 255, 10, 0.3);
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 150px;
+            padding: 80px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: #020205;
+        }
+
+        .footer-logo {
+            width: 100px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <img src="images/orion_logo.png" alt="Orion Tech Logo"
+            style="width: 280px; margin-bottom: 30px; filter: drop-shadow(0 0 30px rgba(0, 243, 255, 0.3)); animation: float 6s ease-in-out infinite;">
+        <h1>ORION TECH</h1>
+        <p>AI AUTOMATION FOR THE BAY AREA</p>
+        <a href="https://wa.me/16692342444?text=Hola,%20me%20interesa%20automatizar%20mi%20negocio"
+            class="btn-glow">Start Automation</a>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title">Business Solutions</h2>
+
+        <div class="grid">
+            <!-- STARTER -->
+            <div class="card">
+                <h3>Starter Bot</h3>
+                <p>24/7 Auto-Reply for Restaurants & Shops. Never miss a customer message again.</p>
+                <span class="price-tag">$997 / setup</span>
+            </div>
+
+            <!-- BUSINESS -->
+            <div class="card">
+                <h3>Business Pro</h3>
+                <p>Full Booking System + Calendar Sync. Integrated Google Scheduling for Service Pros.</p>
+                <span class="price-tag">$1,997 / setup</span>
+            </div>
+
+            <!-- ENTERPRISE -->
+            <div class="card">
+                <h3>Enterprise AI</h3>
+                <p>Custom LLM Training, CRM Integration, and Multi-Agent Systems.</p>
+                <span class="price-tag">$4,997+</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <img src="images/orion_logo.png" alt="Orion" class="footer-logo">
+        <p style="color: #666; font-size: 0.9rem;">&copy; 2025 ORION TECH. Silicon Valley, CA.</p>
+        <p style="color: #444; font-size: 0.8rem; margin-top: 10px;">Powered by Alex G. Espinosa</p>
+    </footer>
+
+    <style>
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+    </style>
+
+</body>
+
+</html>

@@ -1,15 +1,59 @@
 [
   {
     "to": "16692342444",
-    "mensaje": "🔧 *ORION DIAGNOSTIC REPORT*\n\n✅ Sistema ACTIVO\n✅ WhatsApp CONECTADO\n✅ API Rotation: 2 keys\n✅ I-601A Commands: INTEGRADOS\n✅ Servidor Web: localhost:3030\n\n📋 *COMANDOS DISPONIBLES:*\n\n🔹 *I-601A:*\n• law 1 - Documentos caso\n• fotos - Photo Manager\n• gastos - Finanzas\n• estado - Status caso\n• dame [doc] - Obtener doc\n\n🔹 *CORE:*\n• menu / help / acutor\n• di [texto] - TTS\n• busca [tema] - Google\n• or [msg] - Chat AI\n\n🔹 *MEDIA:*\n• descargar video [url]\n• descargar audio [url]\n• captura / screenshot\n• !web [url]\n• !qr [texto]\n\n🔹 *SISTEMA:*\n• noticias - Tech news\n• portapapeles / clipboard\n• estado sistema\n• recuerda que [x] es [y]\n• memoria [query]\n\n🔹 *ANTIGRAVITY:*\n• ag [tarea] - Nueva tarea\n• tareas - Ver pendientes\n• contactos - Agenda\n• enviar a [num] diciendo [msg]\n\n🔹 *PC CONTROL:*\n• apagar pc\n• reiniciar pc\n\n🔹 *PERSONAS (AI Modes):*\n• orion / estimator / mppro\n• nekon / jarvis\n\n— Orion Diagnostic v1.0",
+    "mensaje": "🔧 *PRUEBA DE RUTINA - ORION v5.4*\n\n📋 *PROPUESTA CHRIS*\n📍 611 S Henry Ave, San Jose 95117\n🔗 https://agem2024.github.io/ORION-info-public/propuesta_chris.html\n\n💰 3 Opciones: $2,785 / $3,050 / $5,545\n\n✅ Links funcionando correctamente\n— Orion System",
     "enviado": true,
-    "fecha_envio": "2025-12-10T04:16:27.643Z"
+    "fecha_envio": "2025-12-10T22:26:10.998Z"
   },
   {
     "to": "16692342444",
-    "file": "c:\\Users\\alexp\\OneDrive\\Documentos\\_Proyectos\\acwater\\02_Projects\\AI_Development\\AI_Media\\PROYECTOS\\AI_Impact_Bay_Area\\orion-clean\\public\\images\\nekon_hero_banner_1765077348011.png",
-    "mensaje": "📸 Test imagen - neKon Banner",
+    "file": "C:/Users/alexp/OneDrive/Documentos/_Proyectos/acwater/02_Projects/AI_Development/AI_Media/PROYECTOS/AI_Impact_Bay_Area/orion-clean/public/images/smart_plumbing_future.png",
+    "mensaje": "🖼️ *IMAGEN DE PRUEBA - ORION*\n\n📸 Asset: Smart Plumbing Future\n✅ Sistema de envío de archivos funcionando",
     "enviado": true,
-    "fecha_envio": "2025-12-10T04:16:29.553Z"
+    "fecha_envio": "2025-12-10T22:26:12.198Z"
+  },
+  {
+    "to": "16692342444",
+    "mensaje": "🚀 *PRICE BOOK v4.0 (LKC)*\n\nAquí tienes el link local para probarlo:\nfile:///C:/Users/alexp/OneDrive/Documentos/_Proyectos/PRICE_BOOK_ECOSYSTEM/PRICE_BOOK_WEB_VERSION.html\n\nAbajo te adjunto el archivo HTML listo para compartir.",
+    "enviado": true,
+    "fecha_envio": "2025-12-11T20:31:05.513Z"
+  },
+  {
+    "to": "16692342444",
+    "file": "C:\\Users\\alexp\\OneDrive\\Documentos\\_Proyectos\\PRICE_BOOK_ECOSYSTEM\\PRICE_BOOK_WEB_VERSION.html",
+    "mensaje": "🌐 PRICE_BOOK_WEB_VERSION.html",
+    "enviado": true,
+    "fecha_envio": "2025-12-11T20:31:06.160Z"
+  },
+  {
+    "to": "16692342444",
+    "mensaje": "📄 *Aquí tienes el PDF oficial.*\n\nEl link anterior (file:///) solo funciona en tu PC. El archivo HTML necesita un navegador.\n\nEste PDF es universal y se ve perfecto en el celular.",
+    "enviado": true,
+    "fecha_envio": "2025-12-11T20:37:00.869Z"
+  },
+  {
+    "to": "16692342444",
+    "file": "C:\\Users\\alexp\\OneDrive\\Documentos\\_Proyectos\\PRICE_BOOK_ECOSYSTEM\\PRICE_BOOK_MASTER_V4.pdf",
+    "mensaje": "📕 PRICE_BOOK_MASTER_V4.pdf",
+    "enviado": true,
+    "fecha_envio": "2025-12-11T20:37:04.735Z"
+  },
+  {
+    "to": "16692342444",
+    "mensaje": "🚀 *PRICE BOOK v4.0 - LINK EN VIVO*\n\n🔗 https://agem2024.github.io/SEGURITI-USC/pricebook.html\n\n✅ Este SÍ abre en cualquier dispositivo.\n📱 Comparte este link con quien quieras.",
+    "enviado": true,
+    "fecha_envio": "2025-12-11T20:44:06.327Z"
+  },
+  {
+    "to": "16692342444",
+    "mensaje": "✅ *LINK CORREGIDO - PRICE BOOK*\n\n🔗 https://agem2024.github.io/SEGURITI-USC/pricebook.html\n\n⚡ Ahora sí funciona. El archivo ya está en la carpeta correcta de GitHub Pages.",
+    "enviado": true,
+    "fecha_envio": "2025-12-11T20:52:07.055Z"
+  },
+  {
+    "to": "16692342444",
+    "mensaje": " *PRICE BOOK PRO - VERSIÓN INTERACTIVA*\n\n https://agem2024.github.io/SEGURITI-USC/pricebook.html\n\n AHORA INCLUYE:\n  Calculadora dinámica de precios\n  Selector Good/Better/Best\n  Catálogo expandible\n  Scripts de venta\n  Config de rates",
+    "enviado": true,
+    "fecha_envio": "2025-12-12T01:37:31.486Z"
   }
 ]

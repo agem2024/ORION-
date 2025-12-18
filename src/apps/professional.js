@@ -36,10 +36,41 @@ http://localhost:3030/landing.html`;
 }
 
 function handleProfessionalCommand(msgLower) {
-    if (msgLower === 'cv' || msgLower === 'curriculum' || msgLower === 'resume') {
-        return getCVSummary();
+    // CV COMMAND
+    if (msgLower === 'cv' || msgLower === 'curriculum' || msgLower === 'resume' || msgLower === 'hoja de vida' || msgLower === 'web') {
+        return `📄 *CV Profesional (ORION)*
+
+🎓 Ingeniero Ambiental // Plomero Pro California // Tech Lead
+🔗 https://agem2024.github.io/SEGURITI-USC/cv_pro.html`;
     }
 
+    // CV 2 - PROFESSIONAL CV (Traditional Format)
+    if (msgLower === 'cv 2' || msgLower === 'cv2' || msgLower === 'cv profesional' || msgLower === 'cv real') {
+        return `📄 *CV Profesional Tradicional*
+
+✨ Formato profesional ATS-friendly con logros cuantificables
+📊 21+ años experiencia | 100+ proyectos | Bilingüe
+🔗 https://agem2024.github.io/SEGURITI-USC/cv_professional.html`;
+    }
+
+    // TARJETA DIGITAL COMMAND
+    if (msgLower === 'tj' || msgLower === 'tarjeta' || msgLower === 'tarjeta digital' || msgLower === 'card') {
+        return `💳 *Tarjeta Digital (ORION)*
+
+📱 Conexión Directa
+🔗 https://agem2024.github.io/SEGURITI-USC/card.html`;
+    }
+
+    // PROPUESTA PLOMERÍA (CHRIS)
+    if (msgLower === 'propuesta' || msgLower === 'propuesta chris' || msgLower === 'quote' || msgLower === 'cotizacion' || msgLower === 'cotización') {
+        return `🔧 *Propuesta Profesional de Plomería*
+
+📍 611 S Henry Ave, San Jose CA 95117
+💰 Estimado completo con trabajos detallados
+🔗 https://agem2024.github.io/ORION-info-public/propuesta_chris.html`;
+    }
+
+    // SKILLS
     if (msgLower === 'skills' || msgLower === 'habilidades') {
         return `🛠️ *HABILIDADES TÉCNICAS*
 
@@ -59,16 +90,31 @@ function handleProfessionalCommand(msgLower) {
 • Consultoría Estratégica`;
     }
 
-    if (msgLower === 'landing' || msgLower === 'web' || msgLower === 'portfolio') {
-        return `🌐 *PORTAFOLIO PROFESIONAL*
+    // LANDING & HUB
+    if (msgLower === 'landing' || msgLower === 'web' || msgLower === 'hub') {
+        return `🌐 *NEON AGENT HUB*
+Acceso global a tus agentes:
+🔗 https://neon-agent-hub.web.app/`;
+    }
 
-Accede a la nueva experiencia interactiva:
-👉 http://localhost:3030/landing.html
+    // APPS COMMAND (New)
+    if (msgLower === 'apps' || msgLower === 'aplicaciones') {
+        return `📱 *ORION AI APPS SUITE*
 
-*Incluye:*
-• Casos de Estudio AI
-• Trayectoria de Ingeniería
-• Servicios de Consultoría`;
+1️⃣ *AdVortex AI* (Video Marketing)
+2️⃣ *EP Estimator* (Plomería Expert)
+3️⃣ *MP PRO* (Estimación de Costos)
+4️⃣ *Business Suite* (Gestión)
+5️⃣ *Neon Hub* (Agentes)
+6️⃣ *neKon AI* (Experiments)
+
+🔗 *Acceder al Hub:* https://neon-agent-hub.web.app/`;
+    }
+
+    // LIST COMMAND
+    if (msgLower === 'list' || msgLower === 'lista' || msgLower === 'comandos') {
+        const menu = getCVMenu().replace('http://localhost:3030/landing.html', 'https://neon-agent-hub.web.app/');
+        return menu;
     }
 
     return null;

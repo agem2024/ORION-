@@ -14,6 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process');
 const googleTTS = require('google-tts-api');
+const tts = require('./src/core/tts');
 
 // 🔌 APPS
 const youtubeApp = require('./src/apps/youtube');
@@ -21,12 +22,22 @@ const searchApp = require('./src/apps/search');
 const calendarApp = require('./src/apps/calendar');
 const extras = require('./src/apps/extras');
 const memoria = require('./src/apps/memoria');
-const i601a = require('./src/apps/i601a-commands');
+// const i601a = require('./src/apps/i601a-commands'); // DISABLED
 const professional = require('./src/apps/professional');
+
+// ⚠️🔴 WARNING: ESTE ES ORION CLEAN - NO JARVIS 🔴⚠️
+// ⚠️🔴 El watcher, auto-encendido y control son para ORION CLEAN 🔴⚠️
+// ⚠️🔴 JARVIS está ligado pero el bot activo es ORION CLEAN 🔴⚠️
 
 // 📞 URLS FIREBASE (ACUTOR)
 const MANUAL_URL = 'https://neon-agent-hub.web.app/jarvis_manual.html';
 const NEKON_URL = 'https://neon-agent-hub.web.app/nekon_ai.html';
+
+// 💰 PRICE BOOK URL
+const PRICEBOOK_URL = 'https://agem2024.github.io/SEGURITI-USC/pricebook.html';
+
+// 🤖 ORION BOTS URL
+const ORIONBOTS_URL = 'https://agem2024.github.io/SEGURITI-USC/orion-bots.html';
 
 // 🔗 ORION APPS (App Mode Links)
 const ORION_APPS = [
@@ -76,6 +87,18 @@ function guardarTareas(t) {
 
 function cargarContactos() {
     try { return JSON.parse(fs.readFileSync(CONTACTOS_FILE, 'utf8')); } catch (e) { return {}; }
+}
+
+// 📅 ENVIAR REPORTE MATUTINO DE CITAS
+async function enviarReporteManana(sock) {
+    try {
+        const reporte = await calendarApp.generarReporteManana();
+        const ALEX_PHONE = settings.owner + '@s.whatsapp.net';
+        await sock.sendMessage(ALEX_PHONE, { text: `🌅 *BUENOS DÍAS ALEX*\n\n${reporte}\n\n_ORION CLEAN v2.0_` });
+        logger.info('📅 Reporte matutino enviado');
+    } catch (e) {
+        logger.error('Error reporte matutino: ' + e.message);
+    }
 }
 
 // 📤 ANTIGRAVITY INBOX (The User's Requested Feature)
@@ -149,6 +172,73 @@ async function startOrion() {
         // Static files (images, etc)
         app.use(express.static(path.join(__dirname, 'public')));
 
+        // 🤖 API CHAT ENDPOINT (For web chatbot - uses Gemini)
+        app.use(express.json());
+        app.post('/api/chat', async (req, res) => {
+            // CORS for external requests
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+            try {
+                const { message, lang } = req.body;
+                if (!message) {
+                    return res.status(400).json({ error: 'Message required' });
+                }
+
+                const systemPrompt = lang === 'es'
+                    ? `Eres XONA, asistente de ventas AI de ORION Tech (Bay Area, CA).
+
+SERVICIOS ORION TECH - Automatización con IA:
+INDIVIDUAL ($297-$497): Asistente WhatsApp personal para freelancers, coaches, influencers
+STARTER ($997): Bot de servicio + menú + 500 convos/mes para pequeños negocios  
+BUSINESS ($1,997): Sistema de reservas + analytics + 2000 convos + soporte 24/7
+ENTERPRISE ($4,997+): IA conversacional, múltiples números, integraciones CRM
+
+INDUSTRIAS: Restaurantes, salones de belleza, tiendas de licores, contratistas, retail
+
+REGLAS:
+- Máximo 3 oraciones por respuesta
+- Si preguntan precio: "desde $X dependiendo de tus necesidades"
+- Ofrece demo o llamada con el equipo
+- NUNCA compartas datos de clientes
+- WhatsApp: (669) 234-2444
+
+Personalidad: Futurista, profesional, amigable. Usa: "optimizar tu negocio", "desplegar soluciones", "potenciado por IA".`
+                    : `You are XONA, AI sales assistant for ORION Tech (Bay Area, CA).
+
+ORION TECH SERVICES - AI Automation:
+INDIVIDUAL ($297-$497): Personal WhatsApp assistant for freelancers, coaches, influencers
+STARTER ($997): Service bot + menu + 500 convos/month for small businesses
+BUSINESS ($1,997): Booking system + analytics + 2000 convos + 24/7 support  
+ENTERPRISE ($4,997+): Conversational AI, multiple numbers, CRM integrations
+
+INDUSTRIES: Restaurants, beauty salons, liquor stores, contractors, retail
+
+RULES:
+- Maximum 3 sentences per response
+- If asked price: "starting from $X depending on your needs"
+- Offer demo or call with the team
+- NEVER share customer data
+- WhatsApp: (669) 234-2444
+
+Personality: Futuristic, professional, friendly. Use: "optimize your business", "deploy solutions", "AI-powered".`;
+
+                const response = await ai.generateResponse(message, [], systemPrompt);
+                res.json({ response, timestamp: new Date().toISOString() });
+            } catch (e) {
+                logger.error('Chat API error: ' + e.message);
+                res.status(500).json({ error: 'AI temporarily unavailable' });
+            }
+        });
+
+        // CORS preflight
+        app.options('/api/chat', (req, res) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Methods', 'POST');
+            res.header('Access-Control-Allow-Headers', 'Content-Type');
+            res.sendStatus(200);
+        });
+
         app.listen(3030, () => logger.info('🌐 Web Server running at http://localhost:3030'));
     } catch (e) { logger.error('Server error: ' + e.message); }
 
@@ -194,6 +284,68 @@ async function startOrion() {
             const isMe = msg.key.fromMe;
             const text = msg.message.conversation || msg.message.extendedTextMessage?.text || '';
 
+            // 🎯 LEAD CAPTURE HANDLER (Process leads from website modals)
+            if (text.includes('🤖 LEAD_CAPTURE') || text.includes('LEAD_CAPTURE')) {
+                logger.info(`🎯 LEAD DETECTED from ${from}`);
+
+                // Parse lead data
+                const lines = text.split('\n');
+                const leadData = {
+                    id: Date.now(),
+                    timestamp: new Date().toISOString(),
+                    from: from.replace('@s.whatsapp.net', ''),
+                    package: '',
+                    name: '',
+                    contact: '',
+                    action: '',
+                    status: 'NEW'
+                };
+
+                lines.forEach(line => {
+                    if (line.startsWith('Package:')) leadData.package = line.replace('Package:', '').trim();
+                    if (line.startsWith('Name:')) leadData.name = line.replace('Name:', '').trim();
+                    if (line.startsWith('Contact:')) leadData.contact = line.replace('Contact:', '').trim();
+                    if (line.startsWith('Action:')) leadData.action = line.replace('Action:', '').trim();
+                });
+
+                // Save lead to JSON file
+                const LEADS_FILE = path.join(__dirname, 'leads_capture.json');
+                let leads = [];
+                try { leads = JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8')); } catch (e) { leads = []; }
+                leads.push(leadData);
+                fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2));
+
+                // Notify Alex (owner) - WhatsApp
+                const ALEX_PHONE = settings.owner + '@s.whatsapp.net';
+                const notification = `🎯 *NUEVO LEAD CAPTURADO*\n\n📦 Package: ${leadData.package}\n👤 Nombre: ${leadData.name}\n📱 Contacto: ${leadData.contact}\n📞 WhatsApp: ${leadData.from}\n⏰ ${new Date().toLocaleString('es-MX')}\n\n🔔 Action: ${leadData.action}`;
+
+                await sock.sendMessage(ALEX_PHONE, { text: notification });
+                logger.info(`✅ Lead saved and Alex notified via WhatsApp: ${leadData.name}`);
+
+                // 📱 TELEGRAM FALLBACK - Also notify via Telegram
+                try {
+                    const axios = require('axios');
+                    const TELEGRAM_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+                    const TELEGRAM_OWNER = process.env.TELEGRAM_OWNER_ID || 5989183300;
+                    if (TELEGRAM_TOKEN) {
+                        const telegramMsg = `🎯 *LEAD WEB CAPTURADO*\n\n📦 ${leadData.package}\n👤 ${leadData.name}\n📱 ${leadData.contact}\n📞 WA: ${leadData.from}\n⏰ ${new Date().toLocaleString('es-MX')}`;
+                        await axios.post(`https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`, {
+                            chat_id: TELEGRAM_OWNER,
+                            text: telegramMsg,
+                            parse_mode: 'Markdown'
+                        });
+                        logger.info(`✅ Lead also notified via Telegram`);
+                    }
+                } catch (tgErr) { logger.warn('⚠️ Telegram notification failed (fallback): ' + tgErr.message); }
+
+                // Auto-reply to lead
+                await sock.sendMessage(from, {
+                    text: `✅ *RECEIVED*\n\nThank you ${leadData.name}!\n\nWe've received your request for the ${leadData.package} package.\n\n📞 Our team will contact you within 24 hours via ${leadData.contact}.\n\n— ORION Tech`
+                });
+
+                continue;
+            }
+
             // 🛑 ONLY PROCESS MESSAGES SENT BY USER (ignore incoming from others)
             if (!isMe) continue;
 
@@ -208,7 +360,7 @@ async function startOrion() {
 
             // 📖 ACUTOR - MANUAL (FIREBASE URL)
             if (cleanText === 'acutor' || cleanText === '!acutor' || cleanText === 'manual') {
-                await sock.sendMessage(from, { text: `📖 *MANUAL J.A.R.V.I.S. v5.3*\n\n🌍 *Acceso Global (Firebase):*\n${MANUAL_URL}\n\n✅ Link Público.\n💡 Guárdalo en favoritos.` });
+                await sock.sendMessage(from, { text: `📖 *MANUAL ORION SYSTEM v5.4*\n\n🌍 *Acceso Global (Firebase):*\n${MANUAL_URL}\n\n✅ Link Público.\n💡 Guárdalo en favoritos.` });
                 continue;
             }
 
@@ -224,17 +376,127 @@ async function startOrion() {
 
             // 🌐 ACUTOR 2 - NEKON LANDING
             if (cleanText === 'acutor 2' || cleanText === 'acutor2' || cleanText === '!acutor2' || cleanText === 'nekon landing') {
-                await sock.sendMessage(from, { text: `✅ *Landing Page neKon AI*\n\n🌐 ${NEKON_URL}\n\n📱 WhatsApp: +1 (669) 234-2444\n📧 Email: jarvisasistente47@gmail.com\n\n💡 Accesible Globalmente` });
+                await sock.sendMessage(from, { text: `✅ *Landing Page neKon AI*\n\n🌐 ${NEKON_URL}\n\n📱 WhatsApp: +1 (669) 234-2444\n📧 Email: orion.system.ai@gmail.com\n\n💡 Accesible Globalmente` });
                 continue;
             }
 
-            // 🗣️ VOZ TTS
+            // 💰 PRICE BOOK v6.0 PRO
+            if (cleanText === 'pb' || cleanText === '!pb' || cleanText === 'pricebook' || cleanText === 'price book') {
+                await sock.sendMessage(from, { text: `💰 *PRICE BOOK v6.0 PRO*\n\n🔗 ${PRICEBOOK_URL}\n\n✅ 100 Servicios Profesionales\n💵 Precios: Estándar / Miembro / Emergencia\n📐 Metodología de Cálculo\n🎯 Sistema Good/Better/Best\n💡 Upsells con Scripts\n🎁 Promociones Activas\n📜 Términos y Garantías\n\n🏆 Cumple estándares ServiceTitan | Profit Rhino` });
+                continue;
+            }
+
+            // 🤖 ORION BOTS - Landing Page
+            if (cleanText === 'otp' || cleanText === '!otp' || cleanText === 'orion bots') {
+                await sock.sendMessage(from, { text: `🤖 *ORION BOTS - Landing Page*\n\n🔗 ${ORIONBOTS_URL}\n\n✨ Servicios de Automatización WhatsApp\n🚀 Bots Personalizados\n💼 Soluciones Empresariales` });
+                continue;
+            }
+
+            // 💼 PROFESSIONAL COMMANDS (CV, Skills, Landing)
+            const profResponse = professional.handleProfessionalCommand(cleanText);
+            if (profResponse) {
+                await sock.sendMessage(from, { text: profResponse });
+                continue;
+            }
+
+            // 📜 I-601A COMMANDS (DISABLED)
+
+            // 🎤 TRANSCRIPCIÓN DE AUDIO (When user sends audio message)
+            if (msg.message.audioMessage) {
+                try {
+                    await sock.sendMessage(from, { text: '🎤 Transcribiendo audio...' });
+                    const audioBuffer = await downloadMediaMessage(
+                        msg,
+                        'buffer',
+                        {},
+                        { logger: logger.child({ module: 'baileys' }), reuploadRequest: sock.updateMediaMessage }
+                    );
+
+                    // Use Gemini for transcription
+                    const transcription = await ai.generateResponse(
+                        'Transcribe this audio message to text. Only return the transcription, nothing else.',
+                        [],
+                        'You are an audio transcription assistant. Transcribe accurately.',
+                        audioBuffer
+                    );
+
+                    await sock.sendMessage(from, { text: `🎤 *Transcripción:*\n\n${transcription}` });
+                } catch (e) {
+                    await sock.sendMessage(from, { text: '❌ Error transcribiendo: ' + e.message });
+                }
+                continue;
+            }
+
+            // 🌐 TRADUCIR TEXTO
+            if (cleanText.startsWith('traducir ') || cleanText.startsWith('translate ')) {
+                const content = text.replace(/^(traducir|translate)\s+/i, '');
+                const parts = content.split(/ a | to /i);
+                const textoOriginal = parts[0].trim();
+                const idiomaDestino = parts[1]?.trim() || 'inglés';
+
+                try {
+                    await sock.sendMessage(from, { text: '🌐 Traduciendo...' });
+                    const traduccion = await ai.generateResponse(
+                        `Translate this text to ${idiomaDestino}: "${textoOriginal}". Only return the translation, nothing else.`,
+                        [],
+                        'You are a professional translator. Translate accurately and naturally.'
+                    );
+                    await sock.sendMessage(from, { text: `🌐 *Traducción (${idiomaDestino}):*\n\n${traduccion}` });
+                } catch (e) {
+                    await sock.sendMessage(from, { text: '❌ Error traduciendo: ' + e.message });
+                }
+                continue;
+            }
+
+            // 🔊 RESPUESTA EN VOZ HD (orvoz [mensaje]) - OpenAI TTS
+            if (cleanText.startsWith('orvoz ') || cleanText.startsWith('or voz ')) {
+                const pregunta = text.replace(/^(orvoz|or voz)\s+/i, '').trim();
+                const persona = settings.PERSONAS[currentUser.mode] || settings.PERSONAS.orion;
+
+                try {
+                    await sock.sendMessage(from, { text: '🤖🎙️ Procesando respuesta de voz HD...' });
+
+                    // Generate AI response
+                    const response = await ai.generateResponse(pregunta, currentUser.history, persona.prompt);
+                    currentUser.history.push({ role: 'user', parts: [{ text: pregunta }] });
+                    currentUser.history.push({ role: 'model', parts: [{ text: response }] });
+                    if (currentUser.history.length > 20) currentUser.history = currentUser.history.slice(-20);
+                    saveState();
+
+                    // Send text first
+                    await sock.sendMessage(from, { text: response });
+
+                    // Send as HD voice note (OpenAI TTS)
+                    try {
+                        const audioPath = await tts.generateSpeechAuto(response, 'es');
+                        await sock.sendMessage(from, { audio: { url: audioPath }, mimetype: 'audio/mp4', ptt: true });
+                        fs.unlinkSync(audioPath); // Cleanup
+                    } catch (ttsErr) {
+                        // Fallback to Google TTS
+                        const voiceUrl = googleTTS.getAudioUrl(response.substring(0, 200), { lang: 'es', slow: false, host: 'https://translate.google.com' });
+                        await sock.sendMessage(from, { audio: { url: voiceUrl }, mimetype: 'audio/mp4', ptt: true });
+                    }
+                } catch (e) {
+                    await sock.sendMessage(from, { text: '❌ Error: ' + e.message });
+                }
+                continue;
+            }
+
+            // 🗣️ VOZ TTS HD - OpenAI
             if (cleanText.startsWith('!say ') || cleanText.startsWith('di ')) {
                 const phrase = text.replace(/^(!say|di)\s+/i, '');
                 try {
-                    const url = googleTTS.getAudioUrl(phrase, { lang: 'es', slow: false, host: 'https://translate.google.com' });
-                    await sock.sendMessage(from, { audio: { url: url }, mimetype: 'audio/mp4', ptt: true });
-                } catch (e) { await sock.sendMessage(from, { text: '❌ Voice Error: ' + e.message }); }
+                    // Use OpenAI TTS HD
+                    const audioPath = await tts.generateSpeechAuto(phrase, 'es');
+                    await sock.sendMessage(from, { audio: { url: audioPath }, mimetype: 'audio/mp4', ptt: true });
+                    fs.unlinkSync(audioPath); // Cleanup
+                } catch (e) {
+                    // Fallback to Google TTS
+                    try {
+                        const url = googleTTS.getAudioUrl(phrase.substring(0, 200), { lang: 'es', slow: false, host: 'https://translate.google.com' });
+                        await sock.sendMessage(from, { audio: { url: url }, mimetype: 'audio/mp4', ptt: true });
+                    } catch (e2) { await sock.sendMessage(from, { text: '❌ Voice Error: ' + e.message }); }
+                }
                 continue;
             }
 
@@ -314,29 +576,8 @@ async function startOrion() {
                 continue;
             }
 
-            // 🧠 MEMORIA
-            if (cleanText.startsWith('!recuerda ') || cleanText.startsWith('recuerda que ')) {
-                const parts = text.replace(/^(!recuerda|recuerda que)\s+/i, '').split(' es ');
-                if (parts.length >= 2) {
-                    memoria.guardar('general', parts[0], parts.slice(1).join(' es '));
-                    await sock.sendMessage(from, { text: `🧠 *Memoria actualizada*\nHe guardado que "${parts.slice(1).join(' es ')}" sobre "${parts[0]}".` });
-                } else {
-                    await sock.sendMessage(from, { text: '❌ Formato: recuerda que [clave] es [dato]' });
-                }
-                continue;
-            }
+            // 🧠 MEMORIA (Temporarily Disabled)
 
-            if (cleanText.startsWith('!memoria ') || cleanText.startsWith('que recuerdas de ') || cleanText.startsWith('qué sabes de ')) {
-                const query = cleanText.replace(/^(!memoria|que recuerdas de|qué sabes de)\s+/i, '');
-                const recuerdos = memoria.buscar(query);
-                if (recuerdos.length > 0) {
-                    const txt = recuerdos.map(r => `🔹 *${r.clave}*: ${JSON.stringify(r.valor)}`).join('\n');
-                    await sock.sendMessage(from, { text: `🧠 *Lo que recuerdo sobre "${query}":*\n\n${txt}` });
-                } else {
-                    await sock.sendMessage(from, { text: `🧠 No tengo recuerdos sobre "${query}".` });
-                }
-                continue;
-            }
 
             // 📞 CONTACTOS
             if (cleanText === '!contactos' || cleanText === 'contactos' || cleanText === 'agenda contactos') {
@@ -404,6 +645,33 @@ async function startOrion() {
                 continue;
             }
 
+            // 🎬 PIKA VIDEO GENERATION (Natural Language)
+            if (cleanText.startsWith('pika ') || cleanText.startsWith('genera video ') || cleanText.startsWith('crea video ')) {
+                const prompt = text.replace(/^(pika|genera video|crea video)\s+/i, '').trim();
+                await sock.sendMessage(from, { text: `🎬 *PIKA VIDEO*\n\n⏳ Generando video...\n📝 Prompt: "${prompt}"\n\n⏱️ Esto toma 1-2 minutos` });
+
+                try {
+                    const pikaScript = path.join(__dirname, '..', 'protocolos', 'pika_generator.py');
+
+                    exec(`python "${pikaScript}" "${prompt}"`, { timeout: 180000 }, async (err, stdout, stderr) => {
+                        if (err) {
+                            await sock.sendMessage(from, { text: `❌ Error: ${stderr || err.message}\n\n💡 Configura DISCORD_EMAIL y DISCORD_PASSWORD en .env` });
+                        } else {
+                            const lines = stdout.trim().split('\n');
+                            const videoPath = lines[lines.length - 1];
+                            if (fs.existsSync(videoPath)) {
+                                await sock.sendMessage(from, { video: { url: videoPath }, caption: `🎬 *Generado con Pika*\n📝 ${prompt}`, mimetype: 'video/mp4' });
+                            } else {
+                                await sock.sendMessage(from, { text: `⚠️ Video generado pero no encontrado: ${videoPath}` });
+                            }
+                        }
+                    });
+                } catch (e) {
+                    await sock.sendMessage(from, { text: '❌ Error Pika: ' + e.message });
+                }
+                continue;
+            }
+
             // 📥 DESCARGAR VIDEO/AUDIO (Natural)
             if (cleanText.startsWith('descargar video ') || cleanText.startsWith('bajar video ')) {
                 const url = cleanText.replace(/^(descargar|bajar) video\s+/i, '');
@@ -427,14 +695,14 @@ async function startOrion() {
 
             // ❓ AYUDA
             if (cleanText === 'ayuda' || cleanText === 'help' || cleanText === '?') {
-                await sock.sendMessage(from, { text: `❓ *AYUDA ORION*\n\n📖 *Comandos principales:*\n• acutor - Manual completo\n• menu - Ver todos los comandos\n• di [texto] - Texto a voz\n• busca [tema] - Google\n• descargar video [url] - YouTube\n• descargar audio [url] - MP3\n• enviar a [num] diciendo [msg]\n• or [mensaje] - Chat con IA\n\n📱 WhatsApp: +1 (669) 234-2444` });
+                await sock.sendMessage(from, { text: `❓ *AYUDA ORION*\n\n📖 *Comandos principales:*\n• acutor - Manual completo\n• pb - Price Book v6.0 PRO 💰\n• menu - Ver todos los comandos\n• di [texto] - Texto a voz\n• busca [tema] - Google\n• descargar video [url] - YouTube\n• descargar audio [url] - MP3\n• enviar a [num] diciendo [msg]\n• or [mensaje] - Chat con IA\n\n📱 WhatsApp: +1(669) 234-2444` });
                 continue;
             }
 
             // MENU
             if (cleanText === 'menu' || cleanText === '!menu') {
                 const list = Object.keys(settings.PERSONAS).map(k => `• *${k.toUpperCase()}*: ${settings.PERSONAS[k].name}`).join('\n');
-                await sock.sendMessage(from, { text: `🌌 *ORION SYSTEMS*\n\nCurrent Mode: *${currentUser.mode.toUpperCase()}*\n\nPersonas:\n${list}\n\n🔧 *COMANDOS:*\n• !acutor - Manual\n• !links - Orion Apps 🔗\n• !say <texto> - Voz\n• !yt <url> - YouTube\n• !search <query> - Buscar\n• !cal - Calendario\n• !captura - Screenshot\n• !qr <texto> - QR\n• !noticias - News\n• !portapapeles - Clipboard\n• !memoria <query> - Buscar memoria\n• !recuerda <x> es <y> - Guardar\n• !contactos - Agenda\n• !ag <tarea> - Antigravity\n• !tareas - Ver tareas\n• !estado - Sistema\n\n_Escribe un nombre de persona para cambiar modo._` });
+                await sock.sendMessage(from, { text: `🌌 *ORION SYSTEMS*\n\nCurrent Mode: *${currentUser.mode.toUpperCase()}*\n\nPersonas:\n${list}\n\n🔧 *COMANDOS:*\n• !acutor - Manual\n• !pb - Price Book 💰\n• !links - Orion Apps 🔗\n• !say <texto> - Voz\n• !yt <url> - YouTube\n• !search <query> - Buscar\n• !cal - Calendario\n• !captura - Screenshot\n• !qr <texto> - QR\n• !noticias - News\n• !portapapeles - Clipboard\n• !memoria <query> - Buscar memoria\n• !recuerda <x> es <y> - Guardar\n• !contactos - Agenda\n• !ag <tarea> - Antigravity\n• !tareas - Ver tareas\n• !estado - Sistema\n\n_Escribe un nombre de persona para cambiar modo._` });
                 continue;
             }
 
@@ -489,165 +757,157 @@ async function startOrion() {
                 continue;
             }
 
+            // 🧠 MEMORIA
+            if (cleanText.startsWith('!recuerda ') || cleanText.startsWith('recuerda que ')) {
+                const parts = text.replace(/^(!recuerda|recuerda que)\s+/i, '').split(' es ');
+                if (parts.length >= 2) {
+                    memoria.guardar('general', parts[0], parts.slice(1).join(' es '));
+                    await sock.sendMessage(from, { text: `🧠 *Memoria actualizada*\nHe guardado que "${parts.slice(1).join(' es ')}" sobre "${parts[0]}".` });
+                } else {
+                    await sock.sendMessage(from, { text: '❌ Formato: recuerda que [clave] es [dato]' });
+                }
+                continue;
+            }
+
+            if (cleanText.startsWith('!memoria ') || cleanText.startsWith('que recuerdas de ') || cleanText.startsWith('qué sabes de ')) {
+                const query = cleanText.replace(/^(!memoria|que recuerdas de|qué sabes de)\s+/i, '');
+                const recuerdos = memoria.buscar(query);
+                if (recuerdos.length > 0) {
+                    const txt = recuerdos.map(r => `🔹 *${r.clave}*: ${JSON.stringify(r.valor)}`).join('\n');
+                    await sock.sendMessage(from, { text: `🧠 *Lo que recuerdo sobre "${query}":*\n\n${txt}` });
+                } else {
+                    await sock.sendMessage(from, { text: `🧠 No tengo recuerdos sobre "${query}".` });
+                }
+                continue;
+            }
+
+            // 📂 ENVIAR ARCHIVO LOCAL (!dame file.pdf)
+            if (cleanText.startsWith('!dame ') || cleanText.startsWith('dame ') || cleanText.startsWith('envia ') || cleanText.startsWith('envía ')) {
+                const fileName = cleanText.replace(/^(!dame|dame|envia|envía)\s+/i, '').trim();
+                await sock.sendMessage(from, { text: `🔍 Buscando archivo "${fileName}" en tu PC...` });
+
+                // Carpetas donde buscar (Recursivo sería lento, buscaremos en rutas clave)
+                const searchPaths = [
+                    'C:\\Users\\alexp\\OneDrive\\Documentos',
+                    'C:\\Users\\alexp\\Desktop',
+                    'C:\\Users\\alexp\\Downloads',
+                    path.join(__dirname, 'public'), // Carpeta pública del proyecto
+                    path.join(__dirname, 'docs')    // Docs del proyecto
+                ];
+
+                let foundPath = null;
+
+                // Helper para buscar
+                const findFile = (dir, name) => {
+                    try {
+                        const files = fs.readdirSync(dir);
+                        for (const file of files) {
+                            if (file.toLowerCase().includes(name.toLowerCase())) {
+                                return path.join(dir, file);
+                            }
+                        }
+                    } catch (e) { } // Ignorar carpetas sin permiso
+                    return null;
+                };
+
+                for (const dir of searchPaths) {
+                    foundPath = findFile(dir, fileName);
+                    if (foundPath) break;
+                }
+
+                if (foundPath) {
+                    const stats = fs.statSync(foundPath);
+                    if (stats.size > 100 * 1024 * 1024) { // Limite 100MB
+                        await sock.sendMessage(from, { text: `⚠️ El archivo es muy pesado (${(stats.size / 1024 / 1024).toFixed(2)} MB).` });
+                    } else {
+                        await sock.sendMessage(from, { document: { url: foundPath }, fileName: path.basename(foundPath) });
+                    }
+                } else {
+                    await sock.sendMessage(from, { text: `❌ No encontré ningún archivo llamado "${fileName}" en Documentos, Desktop o Descargas.` });
+                }
+                continue;
+            }
+
             // 🎭 PERSONA SWITCH
             const personaKeys = Object.keys(settings.PERSONAS);
             if (personaKeys.includes(cleanText)) {
                 currentUser.mode = cleanText;
                 saveState();
-                if (!hasTrigger) {
-                    // No trigger - ignore message (don't consume API)
-                    logger.info('📭 No trigger word - ignoring message');
-                    continue;
-                }
-
-                // 📸 VISION HANDLING
-                let imageBuffer = null;
-                if (msg.message.imageMessage) {
-                    try {
-                        logger.info('📸 Downloading Image...');
-                        imageBuffer = await downloadMediaMessage(
-                            msg,
-                            'buffer',
-                            {},
-                            {
-                                logger: logger.child({ module: 'baileys' }),
-                                reuploadRequest: sock.updateMediaMessage
-                            }
-                        );
-                    } catch (e) {
-                        logger.error('Failed to download image: ' + e.message);
-                    }
-                }
-
-                // Remove trigger word from text for AI processing
                 const aiText = text.replace(/^(or\s+|orion\s+)/i, '').trim();
-
                 const persona = settings.PERSONAS[currentUser.mode] || settings.PERSONAS.orion;
 
-                // Log history
                 const historyEntry = { role: 'user', parts: [{ text: aiText }] };
-                if (imageBuffer) {
-                    historyEntry.parts.push({
-                        inlineData: {
-                            data: imageBuffer.toString('base64'),
-                            mimeType: 'image/jpeg'
-                        }
-                    });
-                }
-                if (cleanText === 'reset' || cleanText === '!reset') {
-                    currentUser.mode = 'orion';
-                    currentUser.history = [];
+                currentUser.history.push(historyEntry);
+                if (currentUser.history.length > 20) currentUser.history = currentUser.history.slice(-20);
+
+                try {
+                    const response = await ai.generateResponse(aiText, currentUser.history, persona.prompt);
+                    currentUser.history.push({ role: 'model', parts: [{ text: response }] });
                     saveState();
-                    await sock.sendMessage(from, { text: '🔄 Reset to ORION mode. History cleared.' });
-                    continue;
+                    await sock.sendMessage(from, { text: response });
+                } catch (e) {
+                    await sock.sendMessage(from, { text: '⚠️ AI Error: ' + e.message });
                 }
+                continue;
+            }
 
-                // 📺 YOUTUBE
-                if (cleanText.startsWith('!yt ') || cleanText.startsWith('yt ')) {
-                    const url = cleanText.replace(/^(!yt|yt)\s+/i, '');
-                    await sock.sendMessage(from, { text: '🔄 Downloading video...' });
-                    try {
-                        const filePath = await youtubeApp.descargarVideo(url, 'video');
-                        await sock.sendMessage(from, { video: { url: filePath }, caption: '🎥 Downloaded via ORION', mimetype: 'video/mp4' });
-                    } catch (e) { await sock.sendMessage(from, { text: '❌ Download failed: ' + e.message }); }
-                    continue;
-                }
+            // 🤖 AI RESPONSE (Trigger: or/orion)
+            const hasTrigger = cleanText.startsWith('or ') || cleanText.startsWith('orion ');
 
-                // 🔍 SEARCH
-                if (cleanText.startsWith('!search ') || cleanText.startsWith('busca ')) {
-                    const query = cleanText.replace(/^(!search|busca)\s+/i, '');
-                    try {
-                        const results = await searchApp.buscarWeb(query);
-                        if (results.length === 0) await sock.sendMessage(from, { text: '🔍 No results found.' });
-                        else {
-                            const txt = results.map(r => `*${r.title}*\n${r.snippet}\n🔗 ${r.link}`).join('\n\n');
-                            await sock.sendMessage(from, { text: `🔍 *SEARCH RESULTS:*\n\n${txt}` });
+            if (!hasTrigger) {
+                continue;
+            }
+
+            let imageBuffer = null;
+            if (msg.message.imageMessage) {
+                try {
+                    logger.info('📸 Downloading Image...');
+                    imageBuffer = await downloadMediaMessage(
+                        msg,
+                        'buffer',
+                        {},
+                        {
+                            logger: logger.child({ module: 'baileys' }),
+                            reuploadRequest: sock.updateMediaMessage
                         }
-                    } catch (e) { await sock.sendMessage(from, { text: '❌ Search error: ' + e.message }); }
-                    continue;
-                }
-
-                // 📅 CALENDAR
-                if (cleanText.startsWith('!cal') || cleanText.includes('agenda')) {
-                    try {
-                        const events = await calendarApp.listarEventos(5);
-                        if (events.length === 0) await sock.sendMessage(from, { text: '📅 No hay eventos próximos.' });
-                        else {
-                            const list = events.map(e => {
-                                const start = e.start.dateTime || e.start.date;
-                                const date = new Date(start).toLocaleString('es-ES', { weekday: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-                                return `🗓️ *${date}*: ${e.summary}`;
-                            }).join('\n');
-                            await sock.sendMessage(from, { text: `📅 *Tu Agenda:*\n\n${list}` });
-                        }
-                    } catch (e) { await sock.sendMessage(from, { text: '❌ Calendar error: ' + e.message }); }
-                    continue;
-                }
-
-                // 🎭 PERSONA SWITCH
-                const personaKeys = Object.keys(settings.PERSONAS);
-                if (personaKeys.includes(cleanText)) {
-                    currentUser.mode = cleanText;
-                    saveState();
-                    if (!hasTrigger) {
-                        // No trigger - ignore message (don't consume API)
-                        logger.info('📭 No trigger word - ignoring message');
-                        continue;
-                    }
-
-                    // 📸 VISION HANDLING
-                    let imageBuffer = null;
-                    if (msg.message.imageMessage) {
-                        try {
-                            logger.info('📸 Downloading Image...');
-                            imageBuffer = await downloadMediaMessage(
-                                msg,
-                                'buffer',
-                                {},
-                                {
-                                    logger: logger.child({ module: 'baileys' }),
-                                    reuploadRequest: sock.updateMediaMessage
-                                }
-                            );
-                        } catch (e) {
-                            logger.error('Failed to download image: ' + e.message);
-                        }
-                    }
-
-                    // Remove trigger word from text for AI processing
-                    const aiText = text.replace(/^(or\s+|orion\s+)/i, '').trim();
-
-                    const persona = settings.PERSONAS[currentUser.mode] || settings.PERSONAS.orion;
-
-                    // Log history
-                    const historyEntry = { role: 'user', parts: [{ text: aiText }] };
-                    if (imageBuffer) {
-                        historyEntry.parts.push({
-                            inlineData: {
-                                data: imageBuffer.toString('base64'),
-                                mimeType: 'image/jpeg'
-                            }
-                        });
-                    }
-                    currentUser.history.push(historyEntry);
-
-                    if (currentUser.history.length > 20) currentUser.history = currentUser.history.slice(-20);
-
-                    try {
-                        // Pass imageBuffer to generateResponse
-                        const response = await ai.generateResponse(aiText || "Describe this image", currentUser.history, persona.prompt, imageBuffer);
-                        currentUser.history.push({ role: 'model', parts: [{ text: response }] });
-                        saveState();
-                        await sock.sendMessage(from, { text: response });
-                    } catch (e) {
-                        await sock.sendMessage(from, { text: '⚠️ AI Error: ' + e.message });
-                    }
+                    );
+                } catch (e) {
+                    logger.error('Failed to download image: ' + e.message);
                 }
             }
-        });
 
-    // Start the socket
+            const aiText = text.replace(/^(or\s+|orion\s+)/i, '').trim();
+            const persona = settings.PERSONAS[currentUser.mode] || settings.PERSONAS.orion;
+
+            const historyEntry = { role: 'user', parts: [{ text: aiText }] };
+            if (imageBuffer) {
+                historyEntry.parts.push({
+                    inlineData: {
+                        data: imageBuffer.toString('base64'),
+                        mimeType: 'image/jpeg'
+                    }
+                });
+            }
+            currentUser.history.push(historyEntry);
+            if (currentUser.history.length > 20) currentUser.history = currentUser.history.slice(-20);
+
+            try {
+                const response = await ai.generateResponse(aiText || "Describe this image", currentUser.history, persona.prompt, imageBuffer);
+                currentUser.history.push({ role: 'model', parts: [{ text: response }] });
+                saveState();
+                await sock.sendMessage(from, { text: response });
+            } catch (e) {
+                await sock.sendMessage(from, { text: '⚠️ AI Error: ' + e.message });
+            }
+        }
+    });
+
     console.log('⚡ ORION CORE (vClean) - All Commands Loaded\n');
 }
+
+// 🚀 TELEGRAM BOT INIT - DISABLED (Now using Render Cloud)
+// El bot de Telegram ahora corre en https://orion-cloud.onrender.com
+// const telegramBot = require('./src/telegram/telegram-bot');
+// telegramBot.initTelegramBot();
 
 startOrion();
