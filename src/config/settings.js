@@ -1,22 +1,22 @@
 require('dotenv').config();
 
 module.exports = {
-    // 🤖 AI CONFIGURATION
-    GEMINI: {
-        MODEL: 'gemini-1.5-flash-latest',
-        API_KEY: process.env.GEMINI_KEY || process.env.GEMINI_API_KEY,
-        SYSTEM_PROMPT: `You are ORION. 
+  // 🤖 AI CONFIGURATION
+  GEMINI: {
+    MODEL: 'gemini-1.5-flash-latest',
+    API_KEY: process.env.GEMINI_KEY || process.env.GEMINI_API_KEY,
+    SYSTEM_PROMPT: `You are ORION. 
         IDENTITY: You are an advanced, efficient, and professional AI assistant.
         FUNCTION: You provide direct, local assistance without managing external apps.
         TONE: Concise, precise, and helpful.
         MIRROR MODE: You can adapt your personality based on the user's selected mode.`
-    },
+  },
 
-    // 🎭 PERSONAS (MIRROR MODE)
-    // The user selects a mode, and we swap the system prompt.
-    'orion': {
-        name: 'ORION (AI ARCHITECT)',
-        prompt: `You are ORION, an advanced AI Architect and Engineer from Orion Tech.
+  // 🎭 PERSONAS (MIRROR MODE)
+  // The user selects a mode, and we swap the system prompt.
+  'orion': {
+    name: 'ORION (AI ARCHITECT)',
+    prompt: `You are ORION, an advanced AI Architect and Engineer from Orion Tech.
             
             🧠 KNOWLEDGE BASE (INTERNAL TRAINING DATA):
             
@@ -59,16 +59,17 @@ module.exports = {
             - Provide estimates using the Price Book logic.
             - Sell Orion Tech services explaining the value proposition.
             - Switch languages naturally.`
-    },
+  },
 
-    // 📱 WHATSAPP CONFIG
-    WHATSAPP: {
-        NAME: 'ORION_CLEAN',
-        AUTH_DIR: 'auth_info',
-        BROWSER: ['ORION', 'Chrome', '2.0']
-    },
+  // 📱 WHATSAPP CONFIG
+  WHATSAPP: {
+    NAME: 'ORION_CLEAN',
+    AUTH_DIR: 'auth_info',
+    BROWSER: ['ORION', 'Chrome', '2.0']
+  },
 
-    // 🛡️ SECURITY
-    AUTHORIZED_NUMBERS: process.env.AUTHORIZED_NUMBERS ? process.env.AUTHORIZED_NUMBERS.split(',') : ['16692342444'],
-    TELEGRAM_OWNER_ID: 8572298959 // 🔒 ID DE ALEX (WHITELIST)
+  // 🛡️ SECURITY
+  owner: '16692342444', // Alex's WhatsApp number (for self-chat command detection)
+  AUTHORIZED_NUMBERS: process.env.AUTHORIZED_NUMBERS ? process.env.AUTHORIZED_NUMBERS.split(',') : ['16692342444'],
+  TELEGRAM_OWNER_ID: 8572298959 // 🔒 ID DE ALEX (WHITELIST)
 };

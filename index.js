@@ -34,7 +34,7 @@ const MANUAL_URL = 'https://neon-agent-hub.web.app/jarvis_manual.html';
 const NEKON_URL = 'https://neon-agent-hub.web.app/nekon_ai.html';
 
 // 💰 PRICE BOOK URL
-const PRICEBOOK_URL = 'https://agem2024.github.io/SEGURITI-USC/pricebook.html';
+const PRICEBOOK_URL = 'https://agem2024.github.io/SEGURITI-USC/pricebook-index.html';
 
 // 🤖 ORION BOTS URL
 const ORIONBOTS_URL = 'https://agem2024.github.io/SEGURITI-USC/orion-bots.html';
@@ -164,7 +164,7 @@ async function startOrion() {
         const app = express();
 
         // Explicit routes
-        app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/manual.html')));
+        app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/landing.html')));
         app.get('/manual', (req, res) => res.sendFile(path.join(__dirname, 'public/manual.html')));
         app.get('/manual.html', (req, res) => res.sendFile(path.join(__dirname, 'public/manual.html')));
         app.get('/landing', (req, res) => res.sendFile(path.join(__dirname, 'public/landing.html')));
@@ -275,6 +275,7 @@ Personality: Futuristic, professional, friendly. Use: "optimize your business", 
     });
 
     sock.ev.on('messages.upsert', async ({ messages, type }) => {
+        logger.info(`📨 RAW MESSAGE RECEIVED - Type: ${type}, Count: ${messages.length}`);
         if (type !== 'notify') return;
 
         for (const msg of messages) {
@@ -346,10 +347,33 @@ Personality: Futuristic, professional, friendly. Use: "optimize your business", 
                 continue;
             }
 
-            // 🛑 ONLY PROCESS MESSAGES SENT BY USER (ignore incoming from others)
-            if (!isMe) continue;
+            // 🛑 COMMAND PROCESSING LOGIC:
+            // Only process as commands if:
+            // 1. Message is from ME (isMe = true) AND
+            // 2. Message is sent TO MYSELF (self-chat) - not to other contacts
+            // This prevents treating messages to friends/clients as commands
 
-            logger.info(`📩 Msg from ${from}: ${text}`);
+            const myNumber = settings.owner || settings.AUTHORIZED_NUMBERS?.[0] || '16692342444';
+            // Check both phone number format AND LID format (after QR reconnect)
+            const myLID = '181015809122484'; // Alex's LID
+            const isToMyself = from.includes(myNumber) || from.includes(myLID) || from === 'status@broadcast';
+
+            logger.info(`🔍 DEBUG: from=${from}, myNumber=${myNumber}, isMe=${isMe}, isToMyself=${isToMyself}, text="${text.substring(0, 30)}"`);
+
+            // If I'm sending to someone else, ignore (don't process as command)
+            if (isMe && !isToMyself) {
+                logger.info('⏭️ SKIP: Sending to someone else');
+                continue; // Skip - this is a normal message to another person
+            }
+
+            // If message is FROM someone else TO me, ignore for now (no auto-reply mode)
+            if (!isMe) {
+                logger.info('⏭️ SKIP: Message from someone else');
+                continue; // Skip incoming messages from others
+            }
+
+            // At this point: isMe=true AND isToMyself=true → Process as command
+            logger.info(`📩 [SELF-CMD] ${text}`);
 
             if (!userState.has(from)) {
                 userState.set(from, { mode: 'orion', history: [] });

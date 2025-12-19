@@ -1,1 +1,12 @@
-{"clientes":{}}
+{
+    "clientes": {},
+    "manager": {
+        "camilo_espinosa": {
+            "nombre": "Camilo Espinosa",
+            "telefono": "+573245143926",
+            "categoria": "Manager",
+            "capitulo": "Colombia",
+            "fecha_registro": "2025-12-18"
+        }
+    }
+}
