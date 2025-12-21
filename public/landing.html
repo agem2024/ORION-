@@ -1050,6 +1050,17 @@ DEFAULT REGION: Bay Area, California, USA
             currentCountry = key;
             localStorage.setItem('orion_country', key);
             document.getElementById('country-menu').classList.remove('active');
+
+            // Auto-set language based on country
+            const spanishCountries = ['colombia', 'mexico', 'peru', 'ecuador'];
+            if (spanishCountries.includes(key)) {
+                currentLang = 'es';
+            } else {
+                currentLang = 'en';
+            }
+            localStorage.setItem('orion_lang', currentLang);
+            document.getElementById('current-lang').innerText = currentLang.toUpperCase();
+
             renderPage();
         }
 
@@ -1165,6 +1176,10 @@ DEFAULT REGION: Bay Area, California, USA
 
             if (savedCountry && countries[savedCountry]) {
                 currentCountry = savedCountry;
+                // Si no hay idioma guardado, usar idioma por defecto del país
+                if (!savedLang) {
+                    setDefaultLangForCountry(currentCountry);
+                }
                 renderPage();
                 return;
             }
@@ -1185,12 +1200,28 @@ DEFAULT REGION: Bay Area, California, USA
                 else currentCountry = 'usa'; // Default to USA for unknown
 
                 console.log(`Geo-detected: ${code} -> ${currentCountry}`);
+
+                // Auto-set language based on country (only if no saved preference)
+                if (!savedLang) {
+                    setDefaultLangForCountry(currentCountry);
+                }
             } catch (err) {
                 console.warn('Geo-detection failed. Defaulting to USA (Bay Area).', err);
                 currentCountry = 'usa';
             }
 
             renderPage();
+        }
+
+        // Set default language based on country (Spanish for LATAM, English for US/CA)
+        function setDefaultLangForCountry(country) {
+            const spanishCountries = ['colombia', 'mexico', 'peru', 'ecuador'];
+            if (spanishCountries.includes(country)) {
+                currentLang = 'es';
+            } else {
+                currentLang = 'en';
+            }
+            document.getElementById('current-lang').innerText = currentLang.toUpperCase();
         }
 
         // INIT
