@@ -67,6 +67,7 @@
             letter-spacing: 8px;
             background: linear-gradient(to right, var(--neon-blue), #ffffff, var(--neon-purple));
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
             z-index: 2;
@@ -223,21 +224,21 @@
             <div class="card">
                 <h3>Starter Bot</h3>
                 <p>24/7 Auto-Reply for Restaurants & Shops. Never miss a customer message again.</p>
-                <span class="price-tag">$997 / setup</span>
+                <span class="price-tag" data-price="salons">$997 / setup</span>
             </div>
 
             <!-- BUSINESS -->
             <div class="card">
                 <h3>Business Pro</h3>
                 <p>Full Booking System + Calendar Sync. Integrated Google Scheduling for Service Pros.</p>
-                <span class="price-tag">$1,997 / setup</span>
+                <span class="price-tag" data-price="restaurants">$1,997 / setup</span>
             </div>
 
             <!-- ENTERPRISE -->
             <div class="card">
                 <h3>Enterprise AI</h3>
                 <p>Custom LLM Training, CRM Integration, and Multi-Agent Systems.</p>
-                <span class="price-tag">$4,997+</span>
+                <span class="price-tag" data-price="enterprise">$4,997+</span>
             </div>
         </div>
     </div>
@@ -264,6 +265,7 @@
         }
     </style>
 
+    <script src="../../SEGURITI-USC/docs/js/orion-pricing.js"></script>
 </body>
 
 </html>

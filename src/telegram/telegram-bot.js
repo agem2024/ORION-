@@ -28,6 +28,12 @@ try { memoria = require('../apps/memoria'); console.log('✅ Mem Loaded'); } cat
 try { searchApp = require('../apps/search'); console.log('✅ Search Loaded'); } catch (e) { console.log('⚠️ Search Missing'); }
 try { extras = require('../apps/extras'); console.log('✅ Extras Loaded'); } catch (e) { console.log('⚠️ Extras Missing'); }
 
+// 🆕 NEW AI TOOLS
+let serper, scraper, freeai;
+try { serper = require('../apps/serper'); console.log('✅ Serper Loaded'); } catch (e) { console.log('⚠️ Serper Missing'); }
+try { scraper = require('../apps/scraper'); console.log('✅ Scraper Loaded'); } catch (e) { console.log('⚠️ Scraper Missing'); }
+try { freeai = require('../apps/freeai'); console.log('✅ FreeAI Loaded'); } catch (e) { console.log('⚠️ FreeAI Missing'); }
+
 // 📂 DATA FILES
 const TAREAS_FILE = path.join(__dirname, '../../tareas_antigravity.json');
 const CONTACTOS_FILE = path.join(__dirname, '../../contactos.json');
@@ -48,7 +54,9 @@ const ORION_APPS = [
     'https://ai.studio/apps/drive/1BF2Sl5I48Zh843mnJQAo_mrQLLDUd48J?fullscreenApplet=true',
     'https://ai.studio/apps/drive/1u71t_S_8Cp27aEuUcT0Sffws8tEVQ2pw?fullscreenApplet=true',
     'https://ai.studio/apps/drive/1k_9YBvyIRIWIrSEZuIzoHRSH5Qauhpd_?fullscreenApplet=true',
-    'https://ai.studio/apps/drive/1NNlIz45X8Pr8waX5P5p90CHzJ5uJv2WN?fullscreenApplet=true'
+    'https://ai.studio/apps/drive/1NNlIz45X8Pr8waX5P5p90CHzJ5uJv2WN?fullscreenApplet=true',
+    'https://ai.studio/apps/drive/1qqUcvHx_KD94VplUFjDxAiAl84Ji1jt7?fullscreenApplet=true',
+    'https://ai.studio/apps/drive/1tFuWAILHDMavaoM033YMbnjlS8Ww6FVK?fullscreenApplet=true'
 ];
 
 let bot = null;
@@ -103,6 +111,11 @@ function initTelegramBot() {
 /orvoz <texto> - IA responde + voz
 /tr <texto> a <idioma> - Traducir
 
+*🆕 AI Tools:*
+/buscar <q> - Google Search
+/scrape <url> - Leer página web
+/groq <q> - AI gratis (Groq)
+
 *💼 Profesional:*
 /cv, /tj, /skills, /landing, /apps
 
@@ -110,17 +123,10 @@ function initTelegramBot() {
 /ag <tarea> - Nueva tarea
 /tareas - Ver pendientes
 /cal - Calendario
-/contactos - Agenda
 
 *📹 Multimedia:*
 /yt <url> - Descargar video
 /qr <texto> - Generar QR
-/noticias - TechCrunch
-
-*🔍 Memoria:*
-/search <q> - Buscar
-/recuerda <k> es <v>
-/memoria <k>
 
 *🔗 Accesos:*
 /pb - Price Book
@@ -128,7 +134,6 @@ function initTelegramBot() {
 /links - Orion Apps
 
 *🎭 Modos:*
-/menu - Ver personas
 /mode <nombre> - Cambiar
 /reset - Reiniciar`, { parse_mode: 'Markdown' });
         });
@@ -306,6 +311,66 @@ function initTelegramBot() {
                 if (!checkAuth(msg)) return;
                 const res = memoria.buscar(match[1]);
                 bot.sendMessage(msg.chat.id, res.length ? JSON.stringify(res, null, 2) : '🧠 Nada encontrado.');
+            });
+        }
+
+        // ==========================================
+        // 🆕 AI TOOLS (Serper, Scraper, FreeAI)
+        // ==========================================
+
+        // /buscar - Google Search (Serper)
+        if (serper) {
+            bot.onText(/\/(buscar|google) (.+)/, async (msg, match) => {
+                if (!checkAuth(msg)) return;
+                bot.sendMessage(msg.chat.id, '🔍 Buscando en Google...');
+                try {
+                    const results = await serper.searchGoogle(match[2], 5);
+                    if (results.length === 0) {
+                        bot.sendMessage(msg.chat.id, '❌ Sin resultados.');
+                    } else {
+                        let txt = `🔍 *Resultados:*\n\n`;
+                        results.forEach((r, i) => txt += `*${i + 1}. ${r.title}*\n${r.snippet}\n🔗 ${r.link}\n\n`);
+                        bot.sendMessage(msg.chat.id, txt.substring(0, 4000), { parse_mode: 'Markdown' });
+                    }
+                } catch (e) {
+                    bot.sendMessage(msg.chat.id, `❌ Error: ${e.message}\n💡 Configura SERPER_API_KEY`);
+                }
+            });
+        }
+
+        // /scrape - Web Scraping
+        if (scraper) {
+            bot.onText(/\/(scrape|leer) (.+)/, async (msg, match) => {
+                if (!checkAuth(msg)) return;
+                const url = match[2];
+                if (!url.startsWith('http')) {
+                    bot.sendMessage(msg.chat.id, '⚠️ Usa: /scrape https://...');
+                    return;
+                }
+                bot.sendMessage(msg.chat.id, '🕷️ Extrayendo contenido...');
+                try {
+                    const result = await scraper.scrapeUrl(url);
+                    if (result.success) {
+                        const txt = `🕷️ *${result.title}*\n\n${result.content.substring(0, 3000)}...`;
+                        bot.sendMessage(msg.chat.id, txt, { parse_mode: 'Markdown' });
+                    } else {
+                        bot.sendMessage(msg.chat.id, `❌ Error: ${result.error}`);
+                    }
+                } catch (e) { bot.sendMessage(msg.chat.id, '❌ Error scraping'); }
+            });
+        }
+
+        // /groq - Free AI (Groq/OpenRouter)
+        if (freeai) {
+            bot.onText(/\/(groq|free) (.+)/, async (msg, match) => {
+                if (!checkAuth(msg)) return;
+                bot.sendChatAction(msg.chat.id, 'typing');
+                try {
+                    const result = await freeai.queryFreeAI(match[2]);
+                    bot.sendMessage(msg.chat.id, `🤖 *${result.provider}:*\n\n${result.response}`, { parse_mode: 'Markdown' });
+                } catch (e) {
+                    bot.sendMessage(msg.chat.id, `❌ Error: ${e.message}\n💡 Configura GROQ_API_KEY`);
+                }
             });
         }
 

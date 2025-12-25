@@ -8,5 +8,65 @@
             "capitulo": "Colombia",
             "fecha_registro": "2025-12-18"
         }
+    },
+    "familia": {
+        "mama": {
+            "nombre": "Mamá",
+            "telefono": "+14089123436",
+            "categoria": "Madre",
+            "fecha_registro": "2025-12-24"
+        },
+        "viejo": {
+            "nombre": "Viejo",
+            "telefono": "+14089123006",
+            "categoria": "Padre",
+            "fecha_registro": "2025-12-24"
+        },
+        "juan_camilo": {
+            "nombre": "Juan Camilo",
+            "telefono": "+573245143926",
+            "categoria": "Sobrino",
+            "capitulo": "Colombia",
+            "fecha_registro": "2025-12-24"
+        },
+        "jhon": {
+            "nombre": "Jhon",
+            "telefono": "+573128910062",
+            "categoria": "Hermano",
+            "capitulo": "Colombia",
+            "fecha_registro": "2025-12-24"
+        },
+        "susana": {
+            "nombre": "Susana",
+            "telefono": "+19254577810",
+            "categoria": "Hermana",
+            "fecha_registro": "2025-12-24"
+        }
+    },
+    "amigos": {
+        "diana_apolo": {
+            "nombre": "Diana y Apolo",
+            "telefono": "+16692755930",
+            "categoria": "Amiga",
+            "fecha_registro": "2025-12-24"
+        },
+        "linda": {
+            "nombre": "Linda",
+            "telefono": "+14087866036",
+            "categoria": "Amiga",
+            "fecha_registro": "2025-12-24"
+        },
+        "mary": {
+            "nombre": "Mary",
+            "telefono": "+14086007262",
+            "categoria": "Amiga FD",
+            "fecha_registro": "2025-12-24"
+        },
+        "martha": {
+            "nombre": "Martha",
+            "telefono": "+16697321605",
+            "categoria": "Amiga",
+            "fecha_registro": "2025-12-24"
+        }
     }
 }

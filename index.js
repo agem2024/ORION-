@@ -9,6 +9,12 @@ const { Boom } = require('@hapi/boom');
 const qrcode = require('qrcode-terminal');
 const settings = require('./src/config/settings');
 const logger = require('./src/utils/logger');
+let freeai;
+try { freeai = require('./src/apps/freeai'); console.log('✅ FreeAI Loaded'); } catch (e) { console.log('⚠️ FreeAI Missing'); }
+
+// 🔌 MCP CLIENT
+let mcp;
+try { mcp = require('./src/apps/mcp'); console.log('✅ MCP Client Loaded'); } catch (e) { console.log('⚠️ MCP Missing'); }
 const ai = require('./src/core/ai');
 const fs = require('fs');
 const path = require('path');
@@ -24,6 +30,14 @@ const extras = require('./src/apps/extras');
 const memoria = require('./src/apps/memoria');
 // const i601a = require('./src/apps/i601a-commands'); // DISABLED
 const professional = require('./src/apps/professional');
+
+// 🆕 NEW AI TOOLS
+const serper = require('./src/apps/serper');
+const scraper = require('./src/apps/scraper');
+
+// 🔌 MCP CLIENT
+let mcpClient;
+try { mcpClient = require('./src/apps/mcp'); console.log('✅ MCP Client Loaded'); } catch (e) { console.log('⚠️ MCP Missing'); }
 
 // ⚠️🔴 WARNING: ESTE ES ORION CLEAN - NO JARVIS 🔴⚠️
 // ⚠️🔴 El watcher, auto-encendido y control son para ORION CLEAN 🔴⚠️
@@ -186,42 +200,92 @@ async function startOrion() {
                 }
 
                 const systemPrompt = lang === 'es'
-                    ? `Eres XONA, asistente de ventas AI de ORION Tech (Bay Area, CA).
+                    ? `Eres XONA (pronunciado "CHO-na"), asistente de ventas AI de ORION Tech.
 
-SERVICIOS ORION TECH - Automatización con IA:
-INDIVIDUAL ($297-$497): Asistente WhatsApp personal para freelancers, coaches, influencers
-STARTER ($997): Bot de servicio + menú + 500 convos/mes para pequeños negocios  
-BUSINESS ($1,997): Sistema de reservas + analytics + 2000 convos + soporte 24/7
-ENTERPRISE ($4,997+): IA conversacional, múltiples números, integraciones CRM
+🏢 ORION TECH - Automatización con IA para PYMEs
+Sede: San José, California | También en Colombia: +57 324 514 3926
 
-INDUSTRIAS: Restaurantes, salones de belleza, tiendas de licores, contratistas, retail
+💰 PRECIOS USA (USD/mes):
+- INDIVIDUAL: $297-$497 (freelancers, coaches, influencers)
+- SALONES DE BELLEZA: $997 (citas, recordatorios, catálogo)
+- RETAIL/TIENDAS: $1,197 (catálogo, inventario, ofertas)
+- TIENDAS DE LICORES: $1,297 (inventario, pedidos, horarios)
+- RESTAURANTES: $1,497 (menú, pedidos, reservas, delivery)
+- CONTRATISTAS: $1,497 (cotizaciones, citas, seguimiento)
+- ENTERPRISE: $4,997+ (multi-ubicación, CRM, API custom)
 
-REGLAS:
+💰 PRECIOS COLOMBIA (COP/mes):
+- Individual: $890,000 | Salones: $2,990,000 | Restaurantes: $4,490,000 | Enterprise: $14,990,000+
+
+📦 TODOS LOS PAQUETES INCLUYEN:
+✅ Bot WhatsApp personalizado 24/7
+✅ Respuestas automáticas a FAQs
+✅ Menú de productos/servicios
+✅ Setup en 3-10 días
+✅ Soporte técnico continuo
+
+🎯 PROTOCOLO DE VENTAS:
+1. Pregunta: "¿Qué tipo de negocio tienes?"
+2. Da precio RANGO: "Para [industria], el precio es desde $X/mes"
+3. Ofrece: "¿Te gustaría que un especialista te contacte para una demo personalizada?"
+4. Si acepta, pide: nombre, teléfono, mejor horario
+
+📞 Contacto: WhatsApp (669) 234-2444 | Colombia: +57 324 514 3926
+
+⚠️ REGLAS:
 - Máximo 3 oraciones por respuesta
-- Si preguntan precio: "desde $X dependiendo de tus necesidades"
-- Ofrece demo o llamada con el equipo
+- Siempre da RANGOS, no precios exactos
+- Ofrece demo/llamada después de 2-3 mensajes
 - NUNCA compartas datos de clientes
-- WhatsApp: (669) 234-2444
 
-Personalidad: Futurista, profesional, amigable. Usa: "optimizar tu negocio", "desplegar soluciones", "potenciado por IA".`
-                    : `You are XONA, AI sales assistant for ORION Tech (Bay Area, CA).
+📅 AGENDADO: Cuando acepten demo, recoge: Nombre, Negocio, WhatsApp, Horario, Ciudad.
+Confirma: "¡Listo [NOMBRE]! Te contactaremos para tu demo en 24 horas."
 
-ORION TECH SERVICES - AI Automation:
-INDIVIDUAL ($297-$497): Personal WhatsApp assistant for freelancers, coaches, influencers
-STARTER ($997): Service bot + menu + 500 convos/month for small businesses
-BUSINESS ($1,997): Booking system + analytics + 2000 convos + 24/7 support  
-ENTERPRISE ($4,997+): Conversational AI, multiple numbers, CRM integrations
+🎭 Personalidad: Futurista, profesional, amigable. Usa emojis moderadamente.`
+                    : `You are XONA (pronounced "ZOH-nah"), AI sales assistant for ORION Tech.
 
-INDUSTRIES: Restaurants, beauty salons, liquor stores, contractors, retail
+🏢 ORION TECH - AI Automation for SMBs
+HQ: San José, California | Also in Colombia: +57 324 514 3926
 
-RULES:
+💰 USA PRICING (USD/month):
+- INDIVIDUAL: $297-$497 (freelancers, coaches, influencers)
+- BEAUTY SALONS: $997 (appointments, reminders, catalog)
+- RETAIL STORES: $1,197 (catalog, inventory, offers)
+- LIQUOR STORES: $1,297 (inventory, orders, hours)
+- RESTAURANTS: $1,497 (menu, orders, reservations, delivery)
+- CONTRACTORS: $1,497 (quotes, appointments, follow-up)
+- ENTERPRISE: $4,997+ (multi-location, CRM, custom API)
+
+💰 OTHER COUNTRIES:
+- Colombia (COP): Individual $890K | Salons $2.99M | Restaurants $4.49M
+- Mexico (MXN): Individual $5,297 | Salons $17,997 | Restaurants $26,997
+- Peru, Ecuador, Canada: Ask for local pricing
+
+📦 ALL PACKAGES INCLUDE:
+✅ Custom WhatsApp bot 24/7
+✅ Automatic FAQ responses
+✅ Product/service menu
+✅ Setup in 3-10 days
+✅ Ongoing tech support
+
+🎯 SALES PROTOCOL:
+1. Ask: "What type of business do you have?"
+2. Give price RANGE: "For [industry], pricing starts from $X/month"
+3. Offer: "Would you like a specialist to contact you for a personalized demo?"
+4. If yes, collect: name, phone, best time to call
+
+📞 Contact: WhatsApp (669) 234-2444 | Colombia: +57 324 514 3926
+
+⚠️ RULES:
 - Maximum 3 sentences per response
-- If asked price: "starting from $X depending on your needs"
-- Offer demo or call with the team
+- Always give RANGES, not exact prices
+- Offer demo/call after 2-3 messages
 - NEVER share customer data
-- WhatsApp: (669) 234-2444
 
-Personality: Futuristic, professional, friendly. Use: "optimize your business", "deploy solutions", "AI-powered".`;
+📅 LEAD CAPTURE: When they accept demo, collect: Name, Business, WhatsApp, Time, City.
+Confirm: "Great [NAME]! We'll contact you for your demo within 24 hours!"
+
+🎭 Personality: Futuristic, professional, friendly. Use emojis moderately.`;
 
                 const response = await ai.generateResponse(message, [], systemPrompt);
                 res.json({ response, timestamp: new Date().toISOString() });
@@ -229,6 +293,96 @@ Personality: Futuristic, professional, friendly. Use: "optimize your business", 
                 logger.error('Chat API error: ' + e.message);
                 res.status(500).json({ error: 'AI temporarily unavailable' });
             }
+        });
+
+        // 🔊 TTS API ENDPOINT (OpenAI High Quality Voice)
+        app.post('/api/tts', async (req, res) => {
+            // CORS
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+            try {
+                const { text, lang } = req.body;
+                if (!text) return res.status(400).json({ error: 'Text required' });
+
+                // Generate Audio File
+                const audioPath = await tts.generateSpeechAuto(text, lang || 'es');
+
+                // Stream file to client
+                if (fs.existsSync(audioPath)) {
+                    res.setHeader('Content-Type', 'audio/mpeg');
+                    const readStream = fs.createReadStream(audioPath);
+                    readStream.pipe(res);
+
+                    // Cleanup after sending (using 'finish' event implies successfully sent)
+                    readStream.on('close', () => {
+                        try { fs.unlinkSync(audioPath); } catch (e) { }
+                    });
+                } else {
+                    res.status(500).json({ error: 'Failed to generate audio' });
+                }
+            } catch (e) {
+                logger.error('TTS API Error: ' + e.message);
+                res.status(500).json({ error: e.message });
+            }
+        });
+
+        // CORS preflight for TTS
+        app.options('/api/tts', (req, res) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Methods', 'POST');
+            res.header('Access-Control-Allow-Headers', 'Content-Type');
+            res.sendStatus(200);
+        });
+
+        // 🎬 SORA VIDEO GENERATION API ENDPOINT
+        app.post('/api/video', async (req, res) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+            try {
+                const { prompt, duration, aspectRatio } = req.body;
+                if (!prompt) return res.status(400).json({ error: 'Prompt required' });
+
+                logger.info(`🎬 Sora Video Request: ${prompt.substring(0, 50)}...`);
+
+                // Dynamic import for OpenAI (ESM compatibility)
+                const OpenAI = require('openai').default;
+                const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+                // Generate video with Sora
+                const video = await client.videos.createAndPoll({
+                    model: 'sora-2',
+                    prompt: prompt,
+                    duration: duration || 5,
+                    aspect_ratio: aspectRatio || '16:9'
+                });
+
+                logger.info(`🎬 Sora Video Generated: ${video.id}`);
+
+                res.json({
+                    success: true,
+                    videoId: video.id,
+                    url: video.url || video.output_url,
+                    status: video.status,
+                    timestamp: new Date().toISOString()
+                });
+
+            } catch (e) {
+                logger.error('Sora Video API Error: ' + e.message);
+                res.status(500).json({
+                    error: e.message,
+                    hint: 'Sora API may require special access. Check your OpenAI account.'
+                });
+            }
+        });
+
+        // CORS preflight for Video
+        app.options('/api/video', (req, res) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Methods', 'POST');
+            res.header('Access-Control-Allow-Headers', 'Content-Type');
+            res.sendStatus(200);
         });
 
         // CORS preflight
@@ -239,7 +393,57 @@ Personality: Futuristic, professional, friendly. Use: "optimize your business", 
             res.sendStatus(200);
         });
 
-        app.listen(3030, () => logger.info('🌐 Web Server running at http://localhost:3030'));
+        // 🎤 REALTIME API TOKEN ENDPOINT (For WebRTC clients)
+        app.post('/api/realtime-token', async (req, res) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+            try {
+                const fetch = (await import('node-fetch')).default;
+                const config = req.body?.config || {};
+
+                const response = await fetch('https://api.openai.com/v1/realtime/sessions', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        model: config.model || 'gpt-4o-realtime-preview',
+                        voice: config.voice || 'shimmer',
+                        instructions: config.instructions || `Eres XONA (pronunciado "CHO-nah"), asistente de ventas AI de ORION Tech.
+Hablas español paisa colombiano - cálido, amigable, profesional.
+Respuestas CORTAS (máximo 2 oraciones).
+Servicios: Bots WhatsApp con IA, automatización para negocios.
+Precios: Individual $297-$497, Salones $997, Restaurantes $1,497, Enterprise $4,997+
+Contacto: WhatsApp (669) 234-2444`
+                    })
+                });
+
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    logger.error('Realtime token error: ' + errorText);
+                    return res.status(500).json({ error: 'Failed to generate token' });
+                }
+
+                const tokenData = await response.json();
+                res.json(tokenData);
+                logger.info('🎤 Realtime token generated');
+            } catch (e) {
+                logger.error('Realtime token error: ' + e.message);
+                res.status(500).json({ error: 'Failed to generate token' });
+            }
+        });
+
+        // CORS preflight for realtime
+        app.options('/api/realtime-token', (req, res) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Methods', 'POST');
+            res.header('Access-Control-Allow-Headers', 'Content-Type');
+            res.sendStatus(200);
+        });
+
+        app.listen(3030, () => logger.info('🌐 Web Server running at http://localhost:3030 (Realtime API enabled)'));
     } catch (e) { logger.error('Server error: ' + e.message); }
 
     const sock = makeWASocket({
@@ -413,6 +617,157 @@ Personality: Futuristic, professional, friendly. Use: "optimize your business", 
             // 🤖 ORION BOTS - Landing Page
             if (cleanText === 'otp' || cleanText === '!otp' || cleanText === 'orion bots') {
                 await sock.sendMessage(from, { text: `🤖 *ORION BOTS - Landing Page*\n\n🔗 ${ORIONBOTS_URL}\n\n✨ Servicios de Automatización WhatsApp\n🚀 Bots Personalizados\n💼 Soluciones Empresariales` });
+                continue;
+            }
+
+            // 🎄 TJNAV - Asistente de Tarjetas Navideñas (Nelson AI)
+            if (cleanText === '/tjnav' || cleanText === '!tjnav' || cleanText === 'tjnav') {
+                const response = `🚀 *¡Hola! Soy Nelson.* \n\nIniciando asistente de creación de tarjetas navideñas. \n\n_Dime:_ *¿Para quién es la tarjeta?* \n(Ej: Mi madre, Un amigo, Mi jefe, etc.)`;
+                await sock.sendMessage(from, { text: response });
+                continue;
+            }
+
+            // 🎬 GENERAR VIDEO CON SORA AI
+            if (cleanText.startsWith('/video ') || cleanText.startsWith('!video ')) {
+                const prompt = text.replace(/^(\/video|!video)\s+/i, '').trim();
+                if (!prompt) {
+                    await sock.sendMessage(from, { text: '🎬 *Uso:* /video [descripción del video]\n\nEjemplo: /video Futuristic city with flying cars and neon lights' });
+                    continue;
+                }
+
+                try {
+                    await sock.sendMessage(from, { text: '🎬 *Generando video con Sora AI...*\n\n⏳ Esto puede tomar 1-3 minutos.\n\n📝 Prompt: ' + prompt.substring(0, 100) + '...' });
+
+                    // Call Sora API
+                    const OpenAI = require('openai').default;
+                    const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+
+                    const video = await client.videos.createAndPoll({
+                        model: 'sora-2',
+                        prompt: prompt,
+                        duration: 5,
+                        aspect_ratio: '16:9'
+                    });
+
+                    logger.info(`🎬 Sora Video Generated: ${video.id}`);
+
+                    const videoUrl = video.url || video.output_url || 'URL no disponible';
+                    await sock.sendMessage(from, {
+                        text: `🎬 *¡Video Generado!*\n\n🆔 ID: ${video.id}\n🔗 URL: ${videoUrl}\n⏱️ Duración: 5s\n📐 Ratio: 16:9\n\n_Generado con Sora AI_`
+                    });
+
+                } catch (e) {
+                    logger.error('Sora Video Error: ' + e.message);
+                    await sock.sendMessage(from, {
+                        text: `❌ *Error generando video:*\n\n${e.message}\n\n💡 Nota: Sora API requiere acceso especial de OpenAI.`
+                    });
+                }
+                continue;
+            }
+
+            // 🔍 BÚSQUEDA GOOGLE CON SERPER
+            if (cleanText.startsWith('/buscar ') || cleanText.startsWith('/search ')) {
+                const query = text.replace(/^(\/buscar|\/search)\s+/i, '').trim();
+                if (!query) {
+                    await sock.sendMessage(from, { text: '🔍 *Uso:* /buscar [consulta]\n\nEjemplo: /buscar mejores restaurantes en Bogotá' });
+                    continue;
+                }
+
+                try {
+                    await sock.sendMessage(from, { text: '🔍 Buscando en Google...' });
+                    const results = await serper.searchGoogle(query, 5);
+
+                    if (results.length === 0) {
+                        await sock.sendMessage(from, { text: '❌ No se encontraron resultados.' });
+                    } else {
+                        let response = `🔍 *Resultados para:* "${query}"\n\n`;
+                        results.forEach((r, i) => {
+                            response += `*${i + 1}. ${r.title}*\n${r.snippet}\n🔗 ${r.link}\n\n`;
+                        });
+                        await sock.sendMessage(from, { text: response });
+                    }
+                } catch (e) {
+                    await sock.sendMessage(from, { text: `❌ Error buscando: ${e.message}\n\n💡 Configura SERPER_API_KEY (gratis en serper.dev)` });
+                }
+                continue;
+            }
+
+            // 🕷️ WEB SCRAPING
+            if (cleanText.startsWith('/scrape ') || cleanText.startsWith('/leer ')) {
+                const url = text.replace(/^(\/scrape|\/leer)\s+/i, '').trim();
+                if (!url || !url.startsWith('http')) {
+                    await sock.sendMessage(from, { text: '🕷️ *Uso:* /scrape [URL]\n\nEjemplo: /scrape https://ejemplo.com' });
+                    continue;
+                }
+
+                try {
+                    await sock.sendMessage(from, { text: '🕷️ Extrayendo contenido...' });
+                    const result = await scraper.scrapeUrl(url);
+
+                    if (result.success) {
+                        const response = `🕷️ *Contenido extraído:*\n\n📰 *${result.title}*\n\n${result.content.substring(0, 2000)}...`;
+                        await sock.sendMessage(from, { text: response });
+                    } else {
+                        await sock.sendMessage(from, { text: `❌ Error: ${result.error}` });
+                    }
+                } catch (e) {
+                    await sock.sendMessage(from, { text: `❌ Error scraping: ${e.message}` });
+                }
+                continue;
+            }
+
+            // 🆓 GROQ FREE AI (Backup)
+            if (cleanText.startsWith('/groq ') || cleanText.startsWith('/free ')) {
+                const prompt = text.replace(/^(\/groq|\/free)\s+/i, '').trim();
+                if (!prompt) {
+                    await sock.sendMessage(from, { text: '🆓 *Uso:* /groq [pregunta]\n\nEjemplo: /groq Explica la relatividad en términos simples' });
+                    continue;
+                }
+
+                try {
+                    await sock.sendMessage(from, { text: '🆓 Consultando AI gratuita (Groq)...' });
+                    const result = await freeai.queryFreeAI(prompt);
+                    await sock.sendMessage(from, { text: `🤖 *${result.provider}:*\n\n${result.response}` });
+                } catch (e) {
+                    await sock.sendMessage(from, { text: `❌ Error: ${e.message}\n\n💡 Configura GROQ_API_KEY (gratis en console.groq.com)` });
+                }
+                continue;
+            }
+
+            // 🔌 MCP - ORION KNOWLEDGE BASE SEARCH
+            if (cleanText.startsWith('/mcp ') || cleanText.startsWith('/orion ')) {
+                const query = text.replace(/^(\/mcp|\/orion)\s+/i, '').trim();
+                if (!query) {
+                    await sock.sendMessage(from, { text: '🔌 *ORION MCP*\n\nUso: /mcp [consulta]\n\nEjemplo: /mcp precios de restaurantes' });
+                    continue;
+                }
+
+                try {
+                    await sock.sendMessage(from, { text: '🔌 Buscando en base de conocimientos ORION...' });
+
+                    if (mcpClient) {
+                        const searchResult = await mcpClient.searchWithFallback(query);
+
+                        if (searchResult.results && searchResult.results.length > 0) {
+                            let response = `🔌 *Resultados ORION MCP:*\n\n`;
+
+                            for (const result of searchResult.results.slice(0, 3)) {
+                                const doc = await mcpClient.fetchWithFallback(result.id);
+                                if (doc) {
+                                    response += `📄 *${doc.title}*\n${doc.text?.substring(0, 500) || 'Sin contenido'}...\n🔗 ${doc.url}\n\n`;
+                                }
+                            }
+
+                            await sock.sendMessage(from, { text: response });
+                        } else {
+                            await sock.sendMessage(from, { text: '❌ No se encontraron resultados para: ' + query });
+                        }
+                    } else {
+                        await sock.sendMessage(from, { text: '⚠️ MCP Client no disponible. Usa /buscar para Google Search.' });
+                    }
+                } catch (e) {
+                    await sock.sendMessage(from, { text: `❌ Error MCP: ${e.message}` });
+                }
                 continue;
             }
 
