@@ -625,7 +625,7 @@ Contacto: WhatsApp (669) 234-2444`
 
             // 🎄 TJNAV / TLINV - Asistente de Tarjetas Navideñas (Nelson AI)
             if (['/tjnav', '!tjnav', 'tjnav', '/tlinv', '!tlinv', 'tlinv'].includes(cleanText)) {
-                const response = `🚀 *¡Hola! Soy Nelson.* \n\nIniciando asistente de creación de tarjetas navideñas. \n\n🌐 *Accede aquí:* \n${CHRISTMAS_URL}\n\n_Dime:_ *¿Para quién es la tarjeta?* \n(Ej: Mi madre, Un amigo, Mi jefe, etc.)`;
+                const response = `🚀 *Hello! I'm Nelson.* \n\nStarting your Christmas card assistant. \n\n🌐 *Access here:* \n${CHRISTMAS_URL}\n\n_Tell me:_ *Who is the card for?* \n(Eg: My mother, A friend, My boss, etc.)`;
                 await sock.sendMessage(from, { text: response });
                 continue;
             }

@@ -1,16 +1,33 @@
 [
   {
     "to": "16692342444",
-    "mensaje": "✅ *EMAIL ENVIADO CON ÉXITO*\n\n*Para:* desiree.marquez@arcadiamsc.com\n*Asunto:* Notice - Apt 423 Edemwood\n\n*Contenido:* Incluye tarjeta de Navidad correcta.\n*Estado:* Enviado via Gmail SMTP.\n\n— ORION System",
+    "mensaje": "✅ *CORRECCIÓN 404 REALIZADA*\n\nHe renombrado los archivos en el repositorio para eliminar espacios y paréntesis. Ya verifiqué que los links funcionan al 100%:\n\n👵 *Mamá:* https://agem2024.github.io/tarjetas-y-mesj/Tarjeta-MAMA.html\n👴 *Viejo:* https://agem2024.github.io/tarjetas-y-mesj/Tarjeta-VIEJO.html\n\n_Los links que envié antes a Mamá y Viejo ahora ya cargan correctamente._",
     "enviado": true,
-    "fecha_creacion": "2025-12-24T23:32:00.000Z",
-    "fecha_envio": "2025-12-24T23:31:26.354Z"
+    "fecha_envio": "2025-12-25T02:36:31.249Z"
   },
   {
     "to": "16692342444",
-    "mensaje": "✅ *NUEVO COMANDO INTEGRADO EN WHATSAPP: /tjnav*\n\nHe añadido la lógica del comando `/tjnav` (Nelson AI) al bot de WhatsApp en *Orion Clean*.\n\n🚀 *Cambios subidos:* Push realizado a ambos repositorios.\n🎄 *Función:* Al escribir `/tjnav`, Nelson iniciará el asistente navideño.\n\n_Hecho con ❤️ por Nelson AI_",
+    "mensaje": "🎄 *LINKS DE TARJETAS NAVIDEÑAS*\n\nAquí tienes el link de la tarjeta de Carlos Murias (\"Viejo\"):\nhttps://agem2024.github.io/tarjetas-y-mesj/Tarjeta-VIEJO.html\n\n_He procesado también el envío a Mamá y el correo a Carlos._",
     "enviado": true,
-    "fecha_creacion": "2025-12-24T23:54:00.000Z",
-    "fecha_envio": "2025-12-25T00:59:53.823Z"
+    "fecha_envio": "2025-12-25T02:33:51.022Z"
+  },
+  {
+    "to": "14089123436",
+    "mensaje": "🎄✨ ¡Feliz Navidad, Mamá! ✨🎄\n\n💝 Para la madre más hermosa del mundo...\n\n🌟 ORION Tech te desea una Navidad llena de amor, paz y prosperidad.\n\n🎁 Abre tu tarjeta navideña personalizada:\nhttps://agem2024.github.io/tarjetas-y-mesj/Tarjeta-MAMA.html",
+    "enviado": true,
+    "fecha_envio": "2025-12-25T02:33:41.450Z"
+  },
+  {
+    "to": "14089123006",
+    "mensaje": "🎄✨ ¡Feliz Navidad, Viejo! ✨🎄\n\n💪 Para el mejor papá del mundo...\n\n🌟 ORION Tech te desea una Navidad llena de amor, paz y prosperidad.\n\n🎁 Abre tu tarjeta navideña personalizada:\nhttps://agem2024.github.io/tarjetas-y-mesj/Tarjeta-VIEJO.html",
+    "enviado": true,
+    "fecha_envio": "2025-12-25T02:33:41.547Z"
+  },
+  {
+    "to": "16692342444",
+    "mensaje": "✅ *CORRECCIÓN DE COMANDOS COMPLETA*\n\nHe revisado y actualizado la lógica en *Orion Clean*:\n\n1. 🎄 *Comandos Soportados:* Ahora funcionan tanto `/tjnav` como `/tlinv` (y sus variantes sin barra).\n2. 🔗 *Link Integrado:* Nelson ahora te dará directamente la URL de las tarjetas para que puedas acceder de una vez.\n\n🚀 *Push Realizado:* Los cambios ya están en GitHub.\n\n_Nelson AI está atento a tus comandos_ 🧔✨",
+    "enviado": true,
+    "fecha_creacion": "2025-12-25T02:05:00.000Z",
+    "fecha_envio": "2025-12-25T02:03:38.792Z"
   }
 ]
