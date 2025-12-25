@@ -53,6 +53,9 @@ const PRICEBOOK_URL = 'https://agem2024.github.io/SEGURITI-USC/pricebook-index.h
 // 🤖 ORION BOTS URL
 const ORIONBOTS_URL = 'https://agem2024.github.io/SEGURITI-USC/orion-bots.html';
 
+// 🎄 CHRISTMAS CARDS URL
+const CHRISTMAS_URL = 'https://agem2024.github.io/tarjetas-y-mesj/';
+
 // 🔗 ORION APPS (App Mode Links)
 const ORION_APPS = [
     'https://ai.studio/apps/drive/1vikKncwaJRxWOANGeEcnchTAM96CqmnZ?fullscreenApplet=true',
@@ -620,9 +623,9 @@ Contacto: WhatsApp (669) 234-2444`
                 continue;
             }
 
-            // 🎄 TJNAV - Asistente de Tarjetas Navideñas (Nelson AI)
-            if (cleanText === '/tjnav' || cleanText === '!tjnav' || cleanText === 'tjnav') {
-                const response = `🚀 *¡Hola! Soy Nelson.* \n\nIniciando asistente de creación de tarjetas navideñas. \n\n_Dime:_ *¿Para quién es la tarjeta?* \n(Ej: Mi madre, Un amigo, Mi jefe, etc.)`;
+            // 🎄 TJNAV / TLINV - Asistente de Tarjetas Navideñas (Nelson AI)
+            if (['/tjnav', '!tjnav', 'tjnav', '/tlinv', '!tlinv', 'tlinv'].includes(cleanText)) {
+                const response = `🚀 *¡Hola! Soy Nelson.* \n\nIniciando asistente de creación de tarjetas navideñas. \n\n🌐 *Accede aquí:* \n${CHRISTMAS_URL}\n\n_Dime:_ *¿Para quién es la tarjeta?* \n(Ej: Mi madre, Un amigo, Mi jefe, etc.)`;
                 await sock.sendMessage(from, { text: response });
                 continue;
             }
