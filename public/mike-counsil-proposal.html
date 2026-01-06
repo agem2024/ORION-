@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORION Tech Proposal | Mike Counsil Plumbing</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #050508;
+            --bg-card: #0a0a12;
+            --accent-blue: #00a8ff;
+            --accent-teal: #00d4aa;
+            --accent-gold: #ffd700;
+            --accent-purple: #a855f7;
+            --accent-red: #ff4444;
+            --accent-orange: #ff6b35;
+            --text-white: #ffffff;
+            --text-gray: #888;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.8;
+        }
+
+        h1,
+        h2,
+        h3,
+        .btn,
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        /* LANGUAGE SWITCHER */
+        .lang-switcher {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            gap: 5px;
+            background: rgba(10, 10, 18, 0.95);
+            padding: 8px;
+            border-radius: 30px;
+            border: 1px solid #333;
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: none;
+            background: transparent;
+            color: var(--text-gray);
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-teal));
+            color: #000;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            background:
+                radial-gradient(ellipse at top, rgba(0, 168, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom, rgba(0, 212, 170, 0.1) 0%, transparent 50%),
+                url('mike_counsil_hero.png') center/cover no-repeat,
+                var(--bg-dark);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(5, 5, 8, 0.8);
+        }
+
+        .hero>* {
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge {
+            background: rgba(255, 215, 0, 0.15);
+            border: 1px solid var(--accent-gold);
+            padding: 8px 25px;
+            font-size: 0.8rem;
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-teal));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 span {
+            display: block;
+            font-size: 1.4rem;
+            color: var(--text-gray);
+            -webkit-text-fill-color: var(--text-gray);
+            margin-top: 10px;
+        }
+
+        .hero p {
+            max-width: 800px;
+            color: var(--text-gray);
+            font-size: 1.15rem;
+            margin-bottom: 40px;
+        }
+
+        .logo-orion {
+            width: 150px;
+            margin-bottom: 30px;
+            filter: drop-shadow(0 0 20px rgba(0, 168, 255, 0.3));
+        }
+
+        /* CAPACITY BANNER */
+        .capacity-banner {
+            background: linear-gradient(135deg, rgba(0, 168, 255, 0.1), rgba(168, 85, 247, 0.1));
+            border-top: 1px solid rgba(0, 168, 255, 0.3);
+            border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+            padding: 60px 20px;
+        }
+
+        .capacity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .capacity-item {
+            text-align: center;
+            padding: 30px;
+            background: rgba(10, 10, 18, 0.6);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .capacity-item .number {
+            font-size: 3.5rem;
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .capacity-item .label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        .capacity-item .highlight {
+            color: var(--accent-teal);
+            font-size: 0.8rem;
+            margin-top: 5px;
+            font-weight: 600;
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 80px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 1.8rem;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: var(--text-gray);
+        }
+
+        /* COMPARISON */
+        .comparison {
+            background: linear-gradient(180deg, rgba(255, 68, 68, 0.05) 0%, rgba(0, 212, 170, 0.05) 100%);
+            padding: 80px 5%;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 100px 1fr;
+            gap: 30px;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .comparison-box {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .comparison-box.old {
+            border: 2px solid var(--accent-red);
+        }
+
+        .comparison-box.new {
+            border: 2px solid var(--accent-teal);
+            box-shadow: 0 0 40px rgba(0, 212, 170, 0.2);
+        }
+
+        .comparison-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .comparison-box.old h3 {
+            color: var(--accent-red);
+        }
+
+        .comparison-box.new h3 {
+            color: var(--accent-teal);
+        }
+
+        .comparison-box .price {
+            font-size: 3rem;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 15px;
+        }
+
+        .comparison-box.old .price {
+            color: var(--accent-red);
+            text-decoration: line-through;
+        }
+
+        .comparison-box.new .price {
+            color: var(--accent-teal);
+        }
+
+        .comparison-box ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .comparison-box.old ul li::before {
+            content: "✗ ";
+            color: var(--accent-red);
+        }
+
+        .comparison-box.new ul li::before {
+            content: "✓ ";
+            color: var(--accent-teal);
+        }
+
+        .comparison-box ul li {
+            padding: 8px 0;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .vs-badge {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-teal));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: #000;
+        }
+
+        /* FEATURE GRID */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid #222;
+            padding: 30px;
+            border-radius: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-teal));
+        }
+
+        .feature-card.gold::before {
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-orange));
+        }
+
+        .feature-card.purple::before {
+            background: linear-gradient(90deg, var(--accent-purple), #c084fc);
+        }
+
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .feature-card.gold h3 {
+            color: var(--accent-gold);
+        }
+
+        .feature-card.purple h3 {
+            color: var(--accent-purple);
+        }
+
+        .feature-card p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        .feature-card ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .feature-card ul li {
+            padding: 6px 0;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+        }
+
+        .feature-card ul li::before {
+            content: "→ ";
+            color: var(--accent-teal);
+        }
+
+        .feature-card.gold ul li::before {
+            color: var(--accent-gold);
+        }
+
+        .feature-card.purple ul li::before {
+            color: var(--accent-purple);
+        }
+
+        .feature-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-teal);
+            color: #000;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            border-radius: 20px;
+        }
+
+        .feature-card.gold .feature-badge {
+            background: var(--accent-gold);
+        }
+
+        .feature-card.purple .feature-badge {
+            background: var(--accent-purple);
+            color: #fff;
+        }
+
+        /* STATS */
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+            padding: 60px 20px;
+            background: linear-gradient(90deg, rgba(0, 168, 255, 0.05), rgba(0, 212, 170, 0.05));
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            color: var(--accent-gold);
+            display: block;
+        }
+
+        .stat-label {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* ROI SECTION */
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .roi-item {
+            background: var(--bg-card);
+            border: 1px solid #222;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .roi-item .number {
+            font-size: 2rem;
+            color: var(--accent-gold);
+            font-family: 'Orbitron', sans-serif;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .roi-item .label {
+            color: var(--text-gray);
+            font-size: 0.8rem;
+        }
+
+        /* PAPERLESS BANNER */
+        .paperless-banner {
+            background: linear-gradient(135deg, rgba(0, 212, 170, 0.15), rgba(0, 168, 255, 0.1));
+            padding: 80px 5%;
+            text-align: center;
+        }
+
+        .paperless-banner h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .paperless-banner p {
+            color: var(--text-gray);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .paperless-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .paperless-item {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .paperless-item .icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .paperless-item .text {
+            color: var(--accent-teal);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* PRICING */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--bg-card);
+            border: 2px solid #333;
+            border-radius: 20px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent-teal);
+            box-shadow: 0 0 40px rgba(0, 212, 170, 0.15);
+            transform: scale(1.02);
+        }
+
+        .pricing-card.elite {
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 40px rgba(168, 85, 247, 0.15);
+        }
+
+        .pricing-card.luxury {
+            border-color: var(--accent-gold);
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.2);
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.05) 0%, var(--bg-card) 100%);
+        }
+
+        .pricing-badge {
+            background: var(--accent-teal);
+            color: #000;
+            padding: 5px 15px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .pricing-card.elite .pricing-badge {
+            background: var(--accent-purple);
+            color: #fff;
+        }
+
+        .pricing-card.luxury .pricing-badge {
+            background: linear-gradient(135deg, var(--accent-gold), #ffed4a);
+            color: #000;
+        }
+
+        .pricing-name {
+            font-size: 1rem;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+        }
+
+        .pricing-card.featured .pricing-name {
+            color: var(--accent-teal);
+        }
+
+        .pricing-card.elite .pricing-name {
+            color: var(--accent-purple);
+        }
+
+        .pricing-card.luxury .pricing-name {
+            color: var(--accent-gold);
+        }
+
+        .pricing-price {
+            font-size: 2.2rem;
+            color: var(--text-white);
+            margin-bottom: 5px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .pricing-price span {
+            font-size: 0.85rem;
+            color: var(--text-gray);
+        }
+
+        .pricing-setup {
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+        }
+
+        .pricing-capacity {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid rgba(0, 212, 170, 0.3);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .pricing-capacity .num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: var(--accent-gold);
+        }
+
+        .pricing-capacity .cap-label {
+            font-size: 0.75rem;
+            color: var(--text-gray);
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 0.8rem;
+        }
+
+        .pricing-features li {
+            padding: 6px 0;
+            border-bottom: 1px solid #222;
+            color: var(--text-gray);
+        }
+
+        .pricing-features li::before {
+            content: "✓ ";
+            color: var(--accent-teal);
+            font-weight: bold;
+        }
+
+        .pricing-card.elite .pricing-features li::before {
+            color: var(--accent-purple);
+        }
+
+        .pricing-card.luxury .pricing-features li::before {
+            color: var(--accent-gold);
+        }
+
+        .pricing-features li strong {
+            color: var(--text-white);
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            font-size: 0.85rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: 0.3s;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-teal));
+            color: #000;
+            font-weight: 700;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px rgba(0, 168, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        .btn-elite {
+            background: linear-gradient(135deg, var(--accent-purple), #c084fc);
+            color: #fff;
+            font-weight: 700;
+        }
+
+        .btn-luxury {
+            background: linear-gradient(135deg, var(--accent-gold), #ffed4a);
+            color: #000;
+            font-weight: 700;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 80px 20px;
+            background: radial-gradient(ellipse at center, rgba(0, 168, 255, 0.1) 0%, transparent 60%),
+                var(--bg-dark);
+        }
+
+        .cta-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-buttons .btn {
+            width: auto;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid #222;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .pricing-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 900px) {
+            .comparison-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .vs-badge {
+                margin: 0 auto;
+            }
+
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .capacity-item .number {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* LANGUAGE SYSTEM - English by default */
+        /* Hide all Spanish by default */
+        .lang-es {
+            display: none !important;
+        }
+
+        /* Spanish mode: hide English, show Spanish */
+        body.es .lang-en {
+            display: none !important;
+        }
+
+        /* Block elements in Spanish */
+        body.es h1.lang-es,
+        body.es h2.lang-es,
+        body.es h3.lang-es,
+        body.es h4.lang-es,
+        body.es p.lang-es,
+        body.es div.lang-es,
+        body.es ul.lang-es,
+        body.es li.lang-es,
+        body.es section.lang-es {
+            display: block !important;
+        }
+
+        /* Hero h1 spans should be block (they're subtitles) */
+        body.es .hero h1 span.lang-es {
+            display: block !important;
+        }
+
+        /* General inline elements in Spanish (not in hero) */
+        body.es span.lang-es {
+            display: inline !important;
+        }
+
+        /* Override: hero spans must be block */
+        .hero h1 span.lang-es {
+            display: none;
+        }
+
+        body.es .hero h1 span.lang-es {
+            display: block !important;
+        }
+
+        body.es .hero h1 span.lang-en {
+            display: none !important;
+        }
+
+        /* Fix for flex/grid containers */
+        body.es .lang-es.feature-grid,
+        body.es .lang-es.pricing-grid,
+        body.es .lang-es.capacity-grid {
+            display: grid !important;
+        }
+
+        body.es .lang-es.floating-buttons,
+        body.es .lang-es.cta-buttons,
+        body.es .lang-es.partners-logos {
+            display: flex !important;
+        }
+
+        /* FLOATING ACTION BUTTONS */
+        .floating-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .float-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s, box-shadow 0.3s;
+            animation: pulse 2s infinite;
+        }
+
+        .float-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .float-btn.whatsapp {
+            background: #25d366;
+            color: white;
+        }
+
+        .float-btn.whatsapp:hover {
+            box-shadow: 0 0 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .float-btn.website {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-teal));
+            color: #000;
+        }
+
+        .float-btn.website:hover {
+            box-shadow: 0 0 30px rgba(0, 168, 255, 0.6);
+        }
+
+        .float-btn.phone {
+            background: var(--accent-gold);
+            color: #000;
+        }
+
+        .float-btn video,
+        .float-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 4px 30px rgba(0, 168, 255, 0.5);
+            }
+
+            100% {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            }
+        }
+
+        /* IMAGE SHOWCASE */
+        .image-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .image-card {
+            background: var(--bg-card);
+            border: 1px solid #333;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .image-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0, 168, 255, 0.2);
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .image-card .caption {
+            padding: 20px;
+        }
+
+        .image-card .caption h4 {
+            color: var(--accent-blue);
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .image-card .caption p {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+        }
+
+        /* PARTNERS SECTION */
+        .partners-section {
+            background: url('partnership.png') center/cover no-repeat;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .partners-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(5, 5, 8, 0.85), rgba(5, 5, 8, 0.9));
+        }
+
+        .partners-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 40px;
+        }
+
+        .partners-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--accent-teal), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .partners-content p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+        }
+
+        .partners-logos {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .partner-badge {
+            background: rgba(0, 212, 170, 0.15);
+            border: 1px solid rgba(0, 212, 170, 0.4);
+            padding: 15px 30px;
+            border-radius: 12px;
+            color: var(--text-white);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .partner-badge:hover {
+            transform: scale(1.05);
+            background: rgba(0, 212, 170, 0.25);
+        }
+
+        /* ANIMATED GRADIENT TEXT */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-teal), var(--accent-purple), var(--accent-gold));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientFlow 5s ease infinite;
+        }
+
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* GLOW EFFECT */
+        .glow-box {
+            box-shadow: 0 0 30px rgba(0, 168, 255, 0.2);
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 30px rgba(0, 168, 255, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 50px rgba(0, 212, 170, 0.4);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- FLOATING ACTION BUTTONS -->
+    <div class="floating-buttons">
+        <a href="https://wa.me/16692342444?text=Mike%20Counsil%20Plumbing%20-%20Interested%20in%20ORION%20Platform"
+            class="float-btn whatsapp" title="WhatsApp">
+            <video autoplay muted loop playsinline>
+                <source src="https://agem2024.github.io/SEGURITI-USC/images/capability_whatsapp_bot_1765573180451.mp4"
+                    type="video/mp4">
+            </video>
+        </a>
+        <a href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html" target="_blank" class="float-btn website"
+            title="ORION Website">
+            <video autoplay muted loop playsinline>
+                <source src="https://agem2024.github.io/SEGURITI-USC/images/orion_logo_2090.mp4" type="video/mp4">
+            </video>
+        </a>
+        <a href="tel:+16692342444" class="float-btn phone" title="Call Now">
+            <video autoplay muted loop playsinline>
+                <source src="https://agem2024.github.io/SEGURITI-USC/images/phone_icon.mp4" type="video/mp4">
+            </video>
+        </a>
+    </div>
+
+
+    <!-- LANGUAGE SWITCHER -->
+    <div class="lang-switcher">
+        <button class="lang-btn active" onclick="setLang('en')">🇺🇸 EN</button>
+        <button class="lang-btn" onclick="setLang('es')">🇪🇸 ES</button>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <img src="https://agem2024.github.io/SEGURITI-USC/images/orion-logo.png" alt="ORION Tech" class="logo-orion"
+            onerror="this.style.display='none'">
+
+        <div class="badge lang-en">⚡ COMPLETE OPERATIONS PLATFORM 2026</div>
+        <div class="badge lang-es">⚡ PLATAFORMA OPERATIVA COMPLETA 2026</div>
+
+        <h1>MIKE COUNSIL PLUMBING
+            <span class="lang-en">Total Business Automation • Fleet • Payroll • Dispatch • AI</span>
+            <span class="lang-es">Automatización Total • Flota • Nómina • Dispatch • IA</span>
+        </h1>
+
+        <p class="lang-en">After 30+ years leading the South Bay, it's time for COMPLETE transformation.
+            Not just a bot — a full operational platform that handles calls, dispatches technicians,
+            tracks your fleet, manages payroll, eliminates paper, and puts AI to work 24/7.</p>
+        <p class="lang-es">Después de 30+ años liderando el South Bay, es hora de una transformación COMPLETA.
+            No solo un bot — una plataforma operativa que maneja llamadas, despacha técnicos,
+            rastrea su flota, gestiona nómina, elimina papel, y pone la IA a trabajar 24/7.</p>
+
+        <a href="https://wa.me/16692342444?text=Mike%20Counsil%20-%20Full%20Platform%20Demo" class="btn btn-primary">
+            🚀 <span class="lang-en">REQUEST FULL DEMO</span><span class="lang-es">SOLICITAR DEMO COMPLETO</span>
+        </a>
+    </section>
+
+    <!-- CAPACITY BANNER - THE NUMBERS THAT SELL -->
+    <section class="capacity-banner">
+        <div class="section-title">
+            <h2 class="lang-en">// SIMULTANEOUS CAPACITY</h2>
+            <h2 class="lang-es">// CAPACIDAD SIMULTÁNEA</h2>
+            <p class="lang-en">What your ORION Platform can handle at the SAME time</p>
+            <p class="lang-es">Lo que su Plataforma ORION puede manejar AL MISMO TIEMPO</p>
+        </div>
+        <div class="capacity-grid">
+            <div class="capacity-item">
+                <span class="number">50</span>
+                <span class="label lang-en">Simultaneous Calls</span>
+                <span class="label lang-es">Llamadas Simultáneas</span>
+                <span class="highlight lang-en">Voice AI Answering</span>
+                <span class="highlight lang-es">Contestadas por IA de Voz</span>
+            </div>
+            <div class="capacity-item">
+                <span class="number">∞</span>
+                <span class="label lang-en">WhatsApp Chats</span>
+                <span class="label lang-es">Chats WhatsApp</span>
+                <span class="highlight lang-en">Unlimited Concurrent</span>
+                <span class="highlight lang-es">Concurrentes Ilimitados</span>
+            </div>
+            <div class="capacity-item">
+                <span class="number">10</span>
+                <span class="label lang-en">AI Dispatchers</span>
+                <span class="label lang-es">Dispatchers IA</span>
+                <span class="highlight lang-en">Virtual Dispatch Team</span>
+                <span class="highlight lang-es">Equipo Virtual</span>
+            </div>
+            <div class="capacity-item">
+                <span class="number">100+</span>
+                <span class="label lang-en">Fleet Vehicles</span>
+                <span class="label lang-es">Vehículos de Flota</span>
+                <span class="highlight lang-en">GPS + Inventory Tracked</span>
+                <span class="highlight lang-es">GPS + Inventario Rastreado</span>
+            </div>
+            <div class="capacity-item">
+                <span class="number">500+</span>
+                <span class="label lang-en">Employees</span>
+                <span class="label lang-es">Empleados</span>
+                <span class="highlight lang-en">Time Cards + Payroll</span>
+                <span class="highlight lang-es">Tarjetas + Nómina</span>
+            </div>
+            <div class="capacity-item">
+                <span class="number">0</span>
+                <span class="label lang-en">Paper Required</span>
+                <span class="label lang-es">Papel Requerido</span>
+                <span class="highlight lang-en">100% Digital</span>
+                <span class="highlight lang-es">100% Digital</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- $89 COMPARISON -->
+    <section class="comparison">
+        <div class="section-title" style="max-width: 1100px; margin: 0 auto;">
+            <h2 class="lang-en">// $89 VISIT vs FREE AI DIAGNOSIS</h2>
+            <h2 class="lang-es">// VISITA DE $89 vs DIAGNÓSTICO IA GRATIS</h2>
+        </div>
+        <div class="comparison-grid">
+            <div class="comparison-box old">
+                <h3 class="lang-en">CURRENT SYSTEM</h3>
+                <h3 class="lang-es">SISTEMA ACTUAL</h3>
+                <div class="price">$89</div>
+                <p style="color: var(--accent-red); margin-bottom: 20px; font-weight: 600;" class="lang-en">Per estimate
+                    visit</p>
+                <p style="color: var(--accent-red); margin-bottom: 20px; font-weight: 600;" class="lang-es">Por visita
+                    de estimado</p>
+                <ul class="lang-en">
+                    <li>Wait 24-48 hours for technician</li>
+                    <li>Pay before knowing the problem</li>
+                    <li>Competitors offer FREE estimates</li>
+                    <li>Losing leads to price barrier</li>
+                </ul>
+                <ul class="lang-es">
+                    <li>Esperar 24-48 horas por técnico</li>
+                    <li>Pagar antes de saber el problema</li>
+                    <li>Competencia ofrece estimados GRATIS</li>
+                    <li>Perdiendo leads por barrera de precio</li>
+                </ul>
+            </div>
+            <div class="vs-badge">VS</div>
+            <div class="comparison-box new">
+                <h3>MP PRO AI</h3>
+                <div class="price">$0</div>
+                <p style="color: var(--accent-teal); margin-bottom: 20px; font-weight: 600;" class="lang-en">Instant AI
+                    diagnosis</p>
+                <p style="color: var(--accent-teal); margin-bottom: 20px; font-weight: 600;" class="lang-es">Diagnóstico
+                    IA instantáneo</p>
+                <ul class="lang-en">
+                    <li>Send photo → Get diagnosis in SECONDS</li>
+                    <li>Automatic price range</li>
+                    <li>Book technician in ONE click</li>
+                    <li>100% leads captured, zero friction</li>
+                </ul>
+                <ul class="lang-es">
+                    <li>Envía foto → Diagnóstico en SEGUNDOS</li>
+                    <li>Rango de precio automático</li>
+                    <li>Agenda técnico en UN click</li>
+                    <li>100% leads capturados, cero fricción</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- BUSINESS MODEL ANALYSIS -->
+    <section class="section">
+        <div class="section-title">
+            <h2 class="lang-en gradient-text">// CURRENT BUSINESS MODEL ANALYSIS</h2>
+            <h2 class="lang-es gradient-text">// ANÁLISIS DEL MODELO DE NEGOCIO ACTUAL</h2>
+            <p class="lang-en">Understanding where you are to project where AI can take you</p>
+            <p class="lang-es">Entendiendo dónde están para proyectar a dónde la IA puede llevarlos</p>
+        </div>
+
+        <!-- STRENGTHS -->
+        <div style="margin-bottom: 50px;">
+            <h3 style="color: var(--accent-teal); text-align: center; margin-bottom: 30px; font-size: 1.3rem;">
+                <span class="lang-en">✅ CURRENT STRENGTHS</span>
+                <span class="lang-es">✅ FORTALEZAS ACTUALES</span>
+            </h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="icon">🏆</div>
+                    <h3 class="lang-en">30+ YEARS REPUTATION</h3>
+                    <h3 class="lang-es">30+ AÑOS DE REPUTACIÓN</h3>
+                    <p class="lang-en">Established trust in South Bay since 1994. Recognition as official plumber for
+                        Sharks, Earthquakes, Giants.</p>
+                    <p class="lang-es">Confianza establecida en South Bay desde 1994. Reconocimiento como plomero
+                        oficial de Sharks, Earthquakes, Giants.</p>
+                    <div
+                        style="margin-top: 15px; padding: 10px; background: rgba(0, 212, 170, 0.1); border-radius: 8px;">
+                        <span style="color: var(--accent-teal); font-weight: 600;" class="lang-en">AI
+                            Enhancement:</span>
+                        <span style="color: var(--accent-teal); font-weight: 600;" class="lang-es">Mejora con IA:</span>
+                        <span style="color: var(--text-gray); font-size: 0.85rem;" class="lang-en">Leverage reputation
+                            with AI-powered review management. Auto-request 5-star reviews after each job.</span>
+                        <span style="color: var(--text-gray); font-size: 0.85rem;" class="lang-es">Aprovechar reputación
+                            con gestión de reseñas IA. Auto-solicitar reseñas 5 estrellas después de cada
+                            trabajo.</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">🚨</div>
+                    <h3 class="lang-en">24/7 EMERGENCY SERVICE</h3>
+                    <h3 class="lang-es">SERVICIO DE EMERGENCIA 24/7</h3>
+                    <p class="lang-en">Around-the-clock availability differentiates from competitors. Immediate response
+                        capability.</p>
+                    <p class="lang-es">Disponibilidad las 24 horas diferencia de competidores. Capacidad de respuesta
+                        inmediata.</p>
+                    <div
+                        style="margin-top: 15px; padding: 10px; background: rgba(0, 212, 170, 0.1); border-radius: 8px;">
+                        <span style="color: var(--accent-teal); font-weight: 600;" class="lang-en">AI
+                            Enhancement:</span>
+                        <span style="color: var(--accent-teal); font-weight: 600;" class="lang-es">Mejora con IA:</span>
+                        <span style="color: var(--text-gray); font-size: 0.85rem;" class="lang-en">AI Voice Bot answers
+                            50 calls simultaneously at 3AM. Human dispatchers can sleep.</span>
+                        <span style="color: var(--text-gray); font-size: 0.85rem;" class="lang-es">Bot de Voz IA
+                            contesta 50 llamadas simultáneas a las 3AM. Dispatchers humanos pueden dormir.</span>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">⭐</div>
+                    <h3 class="lang-en">4.6★ AVERAGE RATING</h3>
+                    <h3 class="lang-es">RATING PROMEDIO 4.6★</h3>
+                    <p class="lang-en">1,656 verified reviews. BBB Superior Rating. Angi Hall of Fame member.</p>
+                    <p class="lang-es">1,656 reseñas verificadas. Rating Superior BBB. Miembro Hall of Fame Angi.</p>
+                    <div
+                        style="margin-top: 15px; padding: 10px; background: rgba(0, 212, 170, 0.1); border-radius: 8px;">
+                        <span style="color: var(--accent-teal); font-weight: 600;" class="lang-en">AI
+                            Enhancement:</span>
+                        <span style="color: var(--accent-teal); font-weight: 600;" class="lang-es">Mejora con IA:</span>
+                        <span style="color: var(--text-gray); font-size: 0.85rem;" class="lang-en">Sentiment analysis
+                            identifies at-risk reviews BEFORE they're posted. Proactive intervention.</span>
+                        <span style="color: var(--text-gray); font-size: 0.85rem;" class="lang-es">Análisis de
+                            sentimiento identifica reseñas en riesgo ANTES de ser publicadas. Intervención
+                            proactiva.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WEAKNESSES -->
+        <div style="margin-bottom: 50px;">
+            <h3 style="color: var(--accent-red); text-align: center; margin-bottom: 30px; font-size: 1.3rem;">
+                <span class="lang-en">⚠️ CURRENT CHALLENGES</span>
+                <span class="lang-es">⚠️ DESAFÍOS ACTUALES</span>
+            </h3>
+            <div class="feature-grid">
+                <div class="feature-card" style="border-color: rgba(255, 68, 68, 0.3);">
+                    <div class="icon">💸</div>
+                    <h3 style="color: var(--accent-red);" class="lang-en">$89 ESTIMATE VISIT FEE</h3>
+                    <h3 style="color: var(--accent-red);" class="lang-es">VISITA DE ESTIMADO $89</h3>
+                    <p class="lang-en">Barrier to entry loses leads to competitors offering free estimates. Price
+                        friction before trust is established.</p>
+                    <p class="lang-es">Barrera de entrada pierde leads ante competidores que ofrecen estimados gratis.
+                        Fricción de precio antes de establecer confianza.</p>
+                    <div
+                        style="margin-top: 15px; padding: 10px; background: rgba(0, 212, 170, 0.15); border: 1px solid var(--accent-teal); border-radius: 8px;">
+                        <span style="color: var(--accent-teal); font-weight: 700;" class="lang-en">🤖 AI
+                            SOLUTION:</span>
+                        <span style="color: var(--accent-teal); font-weight: 700;" class="lang-es">🤖 SOLUCIÓN
+                            IA:</span>
+                        <span style="color: var(--text-white); font-size: 0.85rem;" class="lang-en">MP PRO provides FREE
+                            instant AI diagnosis. Capture 100% of leads.</span>
+                        <span style="color: var(--text-white); font-size: 0.85rem;" class="lang-es">MP PRO proporciona
+                            diagnóstico IA GRATIS instantáneo. Capture 100% de leads.</span>
+                        <div style="margin-top: 8px; color: var(--accent-gold); font-weight: 600; font-size: 0.9rem;">
+                            <span class="lang-en">📈 Projected: +40% lead capture rate</span>
+                            <span class="lang-es">📈 Proyectado: +40% tasa de captura de leads</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card" style="border-color: rgba(255, 68, 68, 0.3);">
+                    <div class="icon">📋</div>
+                    <h3 style="color: var(--accent-red);" class="lang-en">"STICKER SHOCK" COMPLAINTS</h3>
+                    <h3 style="color: var(--accent-red);" class="lang-es">QUEJAS DE "STICKER SHOCK"</h3>
+                    <p class="lang-en">#1 negative review theme. Prices perceived 2x-3x higher than competitors. Lack of
+                        price transparency.</p>
+                    <p class="lang-es">Tema #1 en reseñas negativas. Precios percibidos 2x-3x más altos que
+                        competidores. Falta de transparencia de precios.</p>
+                    <div
+                        style="margin-top: 15px; padding: 10px; background: rgba(0, 212, 170, 0.15); border: 1px solid var(--accent-teal); border-radius: 8px;">
+                        <span style="color: var(--accent-teal); font-weight: 700;" class="lang-en">🤖 AI
+                            SOLUTION:</span>
+                        <span style="color: var(--accent-teal); font-weight: 700;" class="lang-es">🤖 SOLUCIÓN
+                            IA:</span>
+                        <span style="color: var(--text-white); font-size: 0.85rem;" class="lang-en">EP PRO interactive
+                            estimates with Good/Better/Best options. Price transparency builds trust.</span>
+                        <span style="color: var(--text-white); font-size: 0.85rem;" class="lang-es">Estimados
+                            interactivos EP PRO con opciones Good/Better/Best. Transparencia de precios genera
+                            confianza.</span>
+                        <div style="margin-top: 8px; color: var(--accent-gold); font-weight: 600; font-size: 0.9rem;">
+                            <span class="lang-en">📈 Projected: -30% price complaints</span>
+                            <span class="lang-es">📈 Proyectado: -30% quejas de precio</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card" style="border-color: rgba(255, 68, 68, 0.3);">
+                    <div class="icon">⏰</div>
+                    <h3 style="color: var(--accent-red);" class="lang-en">MANUAL DISPATCH BOTTLENECK</h3>
+                    <h3 style="color: var(--accent-red);" class="lang-es">CUELLO DE BOTELLA EN DISPATCH MANUAL</h3>
+                    <p class="lang-en">Human dispatchers can only handle 1 call at a time. Night shifts expensive.
+                        Scheduling conflicts common.</p>
+                    <p class="lang-es">Dispatchers humanos solo manejan 1 llamada a la vez. Turnos nocturnos costosos.
+                        Conflictos de horario comunes.</p>
+                    <div
+                        style="margin-top: 15px; padding: 10px; background: rgba(0, 212, 170, 0.15); border: 1px solid var(--accent-teal); border-radius: 8px;">
+                        <span style="color: var(--accent-teal); font-weight: 700;" class="lang-en">🤖 AI
+                            SOLUTION:</span>
+                        <span style="color: var(--accent-teal); font-weight: 700;" class="lang-es">🤖 SOLUCIÓN
+                            IA:</span>
+                        <span style="color: var(--text-white); font-size: 0.85rem;" class="lang-en">10 AI Dispatchers
+                            work 24/7. Handle unlimited concurrent scheduling. Zero conflicts.</span>
+                        <span style="color: var(--text-white); font-size: 0.85rem;" class="lang-es">10 Dispatchers IA
+                            trabajan 24/7. Manejan agendamiento concurrente ilimitado. Cero conflictos.</span>
+                        <div style="margin-top: 8px; color: var(--accent-gold); font-weight: 600; font-size: 0.9rem;">
+                            <span class="lang-en">📈 Projected: $15K+/month savings</span>
+                            <span class="lang-es">📈 Proyectado: Ahorro de $15K+/mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card" style="border-color: rgba(255, 68, 68, 0.3);">
+                    <div class="icon">📦</div>
+                    <h3 style="color: var(--accent-red);" class="lang-en">INVENTORY INEFFICIENCY</h3>
+                    <h3 style="color: var(--accent-red);" class="lang-es">INEFICIENCIA DE INVENTARIO</h3>
+                    <p class="lang-en">Technicians lose 1.5-2 hours/day searching for parts. No real-time visibility
+                        into truck inventory.</p>
+                    <p class="lang-es">Técnicos pierden 1.5-2 horas/día buscando piezas. Sin visibilidad en tiempo real
+                        del inventario de camiones.</p>
+                    <div
+                        style="margin-top: 15px; padding: 10px; background: rgba(0, 212, 170, 0.15); border: 1px solid var(--accent-teal); border-radius: 8px;">
+                        <span style="color: var(--accent-teal); font-weight: 700;" class="lang-en">🤖 AI
+                            SOLUTION:</span>
+                        <span style="color: var(--accent-teal); font-weight: 700;" class="lang-es">🤖 SOLUCIÓN
+                            IA:</span>
+                        <span style="color: var(--text-white); font-size: 0.85rem;" class="lang-en">InvAI tracks every
+                            part in every truck. Camera scanning. Auto-reorder when low.</span>
+                        <span style="color: var(--text-white); font-size: 0.85rem;" class="lang-es">InvAI rastrea cada
+                            pieza en cada camión. Escaneo con cámara. Auto-reorden cuando baja.</span>
+                        <div style="margin-top: 8px; color: var(--accent-gold); font-weight: 600; font-size: 0.9rem;">
+                            <span class="lang-en">📈 Projected: 2 hrs/day saved per tech</span>
+                            <span class="lang-es">📈 Proyectado: 2 hrs/día ahorradas por técnico</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card" style="border-color: rgba(255, 68, 68, 0.3);">
+                    <div class="icon">📄</div>
+                    <h3 style="color: var(--accent-red);" class="lang-en">PAPER-BASED OPERATIONS</h3>
+                    <h3 style="color: var(--accent-red);" class="lang-es">OPERACIONES BASADAS EN PAPEL</h3>
+                    <p class="lang-en">Work orders, invoices, time cards still on paper. Lost documents. Admin overhead.
+                        Slow reporting.</p>
+                    <p class="lang-es">Órdenes de trabajo, facturas, tarjetas de tiempo aún en papel. Documentos
+                        perdidos. Overhead administrativo.</p>
+                    <div
+                        style="margin-top: 15px; padding: 10px; background: rgba(0, 212, 170, 0.15); border: 1px solid var(--accent-teal); border-radius: 8px;">
+                        <span style="color: var(--accent-teal); font-weight: 700;" class="lang-en">🤖 AI
+                            SOLUTION:</span>
+                        <span style="color: var(--accent-teal); font-weight: 700;" class="lang-es">🤖 SOLUCIÓN
+                            IA:</span>
+                        <span style="color: var(--text-white); font-size: 0.85rem;" class="lang-en">100% digital
+                            operations. E-signatures. Instant reports. GPS-verified time cards.</span>
+                        <span style="color: var(--text-white); font-size: 0.85rem;" class="lang-es">Operaciones 100%
+                            digitales. E-firmas. Reportes instantáneos. Tarjetas de tiempo verificadas GPS.</span>
+                        <div style="margin-top: 8px; color: var(--accent-gold); font-weight: 600; font-size: 0.9rem;">
+                            <span class="lang-en">📈 Projected: $5K+/month admin savings</span>
+                            <span class="lang-es">📈 Proyectado: Ahorro admin de $5K+/mes</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card" style="border-color: rgba(255, 68, 68, 0.3);">
+                    <div class="icon">🚛</div>
+                    <h3 style="color: var(--accent-red);" class="lang-en">FLEET VISIBILITY GAPS</h3>
+                    <h3 style="color: var(--accent-red);" class="lang-es">BRECHAS DE VISIBILIDAD DE FLOTA</h3>
+                    <p class="lang-en">Limited real-time tracking. Fuel waste from inefficient routing. Reactive
+                        maintenance only.</p>
+                    <p class="lang-es">Rastreo en tiempo real limitado. Desperdicio de combustible por rutas
+                        ineficientes. Solo mantenimiento reactivo.</p>
+                    <div
+                        style="margin-top: 15px; padding: 10px; background: rgba(0, 212, 170, 0.15); border: 1px solid var(--accent-teal); border-radius: 8px;">
+                        <span style="color: var(--accent-teal); font-weight: 700;" class="lang-en">🤖 AI
+                            SOLUTION:</span>
+                        <span style="color: var(--accent-teal); font-weight: 700;" class="lang-es">🤖 SOLUCIÓN
+                            IA:</span>
+                        <span style="color: var(--text-white); font-size: 0.85rem;" class="lang-en">Full fleet GPS
+                            tracking. Route optimization. Predictive maintenance alerts.</span>
+                        <span style="color: var(--text-white); font-size: 0.85rem;" class="lang-es">Rastreo GPS completo
+                            de flota. Optimización de rutas. Alertas de mantenimiento predictivo.</span>
+                        <div style="margin-top: 8px; color: var(--accent-gold); font-weight: 600; font-size: 0.9rem;">
+                            <span class="lang-en">📈 Projected: -30% fuel costs</span>
+                            <span class="lang-es">📈 Proyectado: -30% costos de combustible</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRANSFORMATION SUMMARY -->
+        <div
+            style="background: linear-gradient(135deg, rgba(0, 168, 255, 0.1), rgba(0, 212, 170, 0.1)); border: 1px solid rgba(0, 212, 170, 0.3); border-radius: 16px; padding: 40px; text-align: center;">
+            <h3 style="color: var(--accent-teal); margin-bottom: 20px; font-size: 1.5rem;">
+                <span class="lang-en">🚀 THE AI TRANSFORMATION</span>
+                <span class="lang-es">🚀 LA TRANSFORMACIÓN IA</span>
+            </h3>
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-top: 30px;">
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--accent-gold); font-family: 'Orbitron', sans-serif;">+40%
+                    </div>
+                    <div style="color: var(--text-gray); font-size: 0.85rem;" class="lang-en">More Leads</div>
+                    <div style="color: var(--text-gray); font-size: 0.85rem;" class="lang-es">Más Leads</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--accent-gold); font-family: 'Orbitron', sans-serif;">-30%
+                    </div>
+                    <div style="color: var(--text-gray); font-size: 0.85rem;" class="lang-en">Price Complaints</div>
+                    <div style="color: var(--text-gray); font-size: 0.85rem;" class="lang-es">Quejas Precio</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--accent-gold); font-family: 'Orbitron', sans-serif;">
+                        $28K+</div>
+                    <div style="color: var(--text-gray); font-size: 0.85rem;" class="lang-en">Monthly Savings</div>
+                    <div style="color: var(--text-gray); font-size: 0.85rem;" class="lang-es">Ahorro Mensual</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--accent-gold); font-family: 'Orbitron', sans-serif;">50
+                    </div>
+                    <div style="color: var(--text-gray); font-size: 0.85rem;" class="lang-en">Simultaneous Calls</div>
+                    <div style="color: var(--text-gray); font-size: 0.85rem;" class="lang-es">Llamadas Simultáneas</div>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 2.5rem; color: var(--accent-gold); font-family: 'Orbitron', sans-serif;">0
+                    </div>
+                    <div style="color: var(--text-gray); font-size: 0.85rem;" class="lang-en">Paper Required</div>
+                    <div style="color: var(--text-gray); font-size: 0.85rem;" class="lang-es">Papel Requerido</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMPLETE PLATFORM FEATURES -->
+    <section class="section">
+        <div class="section-title">
+            <h2 class="lang-en">// COMPLETE OPERATIONS PLATFORM</h2>
+            <h2 class="lang-es">// PLATAFORMA OPERATIVA COMPLETA</h2>
+            <p class="lang-en">Everything you need to run a modern plumbing enterprise</p>
+            <p class="lang-es">Todo lo que necesita para operar una empresa de plomería moderna</p>
+        </div>
+        <div class="feature-grid">
+
+            <!-- AI CALL CENTER -->
+            <div class="feature-card gold">
+                <span class="feature-badge">50 CALLS</span>
+                <div class="icon">📞</div>
+                <h3 class="lang-en">AI VOICE CALL CENTER</h3>
+                <h3 class="lang-es">CALL CENTER VOZ IA</h3>
+                <p class="lang-en">AI answers up to 50 calls simultaneously. Never miss a lead again, 24/7/365.</p>
+                <p class="lang-es">IA contesta hasta 50 llamadas simultáneas. Nunca pierda un lead, 24/7/365.</p>
+                <ul class="lang-en">
+                    <li>Natural voice conversation</li>
+                    <li>Books appointments in real-time</li>
+                    <li>Escalates emergencies to humans</li>
+                    <li>Bilingual EN/ES automatic</li>
+                </ul>
+                <ul class="lang-es">
+                    <li>Conversación de voz natural</li>
+                    <li>Agenda citas en tiempo real</li>
+                    <li>Escala emergencias a humanos</li>
+                    <li>Bilingüe EN/ES automático</li>
+                </ul>
+            </div>
+
+            <!-- AI DISPATCHERS -->
+            <div class="feature-card purple">
+                <span class="feature-badge">10 DISPATCHERS</span>
+                <div class="icon">🚀</div>
+                <h3 class="lang-en">AI DISPATCH TEAM</h3>
+                <h3 class="lang-es">EQUIPO DISPATCH IA</h3>
+                <p class="lang-en">10 virtual AI dispatchers working 24/7. They never sleep, never make mistakes.</p>
+                <p class="lang-es">10 dispatchers virtuales IA 24/7. Nunca duermen, nunca cometen errores.</p>
+                <ul class="lang-en">
+                    <li>Assigns closest available tech</li>
+                    <li>Optimizes routes automatically</li>
+                    <li>Handles scheduling conflicts</li>
+                    <li>Real-time status updates</li>
+                </ul>
+                <ul class="lang-es">
+                    <li>Asigna técnico más cercano disponible</li>
+                    <li>Optimiza rutas automáticamente</li>
+                    <li>Maneja conflictos de horario</li>
+                    <li>Actualizaciones de estado en tiempo real</li>
+                </ul>
+            </div>
+
+            <!-- FLEET MANAGEMENT -->
+            <div class="feature-card">
+                <span class="feature-badge">100+ TRUCKS</span>
+                <div class="icon">🚛</div>
+                <h3 class="lang-en">FLEET MANAGEMENT</h3>
+                <h3 class="lang-es">GESTIÓN DE FLOTA</h3>
+                <p class="lang-en">Complete control of your entire fleet. GPS tracking, maintenance, fuel, everything.
+                </p>
+                <p class="lang-es">Control completo de toda su flota. GPS, mantenimiento, combustible, todo.</p>
+                <ul class="lang-en">
+                    <li>Real-time GPS tracking all vehicles</li>
+                    <li>Automated maintenance alerts</li>
+                    <li>Fuel consumption monitoring</li>
+                    <li>Driver behavior analytics</li>
+                    <li>Route optimization reports</li>
+                </ul>
+                <ul class="lang-es">
+                    <li>GPS en tiempo real todos los vehículos</li>
+                    <li>Alertas de mantenimiento automáticas</li>
+                    <li>Monitoreo consumo de combustible</li>
+                    <li>Analytics de comportamiento conductor</li>
+                    <li>Reportes de optimización de rutas</li>
+                </ul>
+            </div>
+
+            <!-- TIME CARDS & PAYROLL -->
+            <div class="feature-card gold">
+                <span class="feature-badge">500+ EMP</span>
+                <div class="icon">⏰</div>
+                <h3 class="lang-en">TIME CARDS & PAYROLL</h3>
+                <h3 class="lang-es">TARJETAS DE TIEMPO Y NÓMINA</h3>
+                <p class="lang-en">Complete workforce management. Clock in/out, overtime, payroll integration.</p>
+                <p class="lang-es">Gestión completa de fuerza laboral. Entrada/salida, overtime, integración nómina.</p>
+                <ul class="lang-en">
+                    <li>GPS-verified clock in/out</li>
+                    <li>Automatic overtime calculation</li>
+                    <li>Direct payroll export (ADP, Paychex, QuickBooks)</li>
+                    <li>PTO and sick leave tracking</li>
+                    <li>Labor cost per job reports</li>
+                </ul>
+                <ul class="lang-es">
+                    <li>Entrada/salida verificada por GPS</li>
+                    <li>Cálculo automático de overtime</li>
+                    <li>Exportación directa a nómina (ADP, Paychex, QuickBooks)</li>
+                    <li>Tracking de vacaciones y licencias</li>
+                    <li>Reportes de costo laboral por trabajo</li>
+                </ul>
+            </div>
+
+            <!-- INVENTORY AI -->
+            <div class="feature-card">
+                <span class="feature-badge">REAL-TIME</span>
+                <div class="icon">📦</div>
+                <h3>InvAI - SMART INVENTORY</h3>
+                <p class="lang-en">Every part in every truck, tracked in real-time. Auto-reorder when low.</p>
+                <p class="lang-es">Cada pieza en cada camión, rastreada en tiempo real. Auto-reorden cuando baja.</p>
+                <ul class="lang-en">
+                    <li>Camera scan for instant count</li>
+                    <li>Automatic reorder triggers</li>
+                    <li>Transfer parts between trucks</li>
+                    <li>Supplier price comparison</li>
+                    <li>Theft/loss detection alerts</li>
+                </ul>
+                <ul class="lang-es">
+                    <li>Escaneo con cámara para conteo instantáneo</li>
+                    <li>Triggers de reorden automático</li>
+                    <li>Transferir piezas entre camiones</li>
+                    <li>Comparación de precios proveedores</li>
+                    <li>Alertas de detección robo/pérdida</li>
+                </ul>
+            </div>
+
+            <!-- MP PRO AI DIAGNOSIS -->
+            <div class="feature-card purple">
+                <span class="feature-badge">$0 VISITS</span>
+                <div class="icon">🔧</div>
+                <h3>MP PRO - AI DIAGNOSIS</h3>
+                <p class="lang-en">Customer sends photo → AI diagnoses in seconds → Price range → Book tech. Eliminates
+                    $89 visit.</p>
+                <p class="lang-es">Cliente envía foto → IA diagnostica en segundos → Rango de precio → Agenda técnico.
+                    Elimina visita de $89.</p>
+                <ul class="lang-en">
+                    <li>Photo/video analysis</li>
+                    <li>Automatic problem identification</li>
+                    <li>Price range from YOUR Price Book</li>
+                    <li>One-click technician booking</li>
+                </ul>
+                <ul class="lang-es">
+                    <li>Análisis de foto/video</li>
+                    <li>Identificación automática del problema</li>
+                    <li>Rango de precio de SU Price Book</li>
+                    <li>Agenda técnico con un click</li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- IMAGE SHOWCASE -->
+        <div class="image-showcase">
+            <div class="image-card glow-box">
+                <img src="ai_diagnosis.png" alt="MP PRO AI Diagnosis App">
+                <div class="caption">
+                    <h4 class="lang-en">MP PRO AI Diagnosis</h4>
+                    <h4 class="lang-es">Diagnóstico IA MP PRO</h4>
+                    <p class="lang-en">Customer sends photo → AI analyzes → Instant diagnosis with price range</p>
+                    <p class="lang-es">Cliente envía foto → IA analiza → Diagnóstico instantáneo con rango de precio</p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="inventory_ai.png" alt="InvAI Smart Inventory">
+                <div class="caption">
+                    <h4 class="lang-en">InvAI Smart Inventory</h4>
+                    <h4 class="lang-es">Inventario Inteligente InvAI</h4>
+                    <p class="lang-en">Real-time scanning of every part in every truck. Auto-reorder when low.</p>
+                    <p class="lang-es">Escaneo en tiempo real de cada pieza en cada camión. Auto-reorden cuando baja.
+                    </p>
+                </div>
+            </div>
+            <div class="image-card">
+                <img src="comparison.png" alt="Before vs After">
+                <div class="caption">
+                    <h4 class="lang-en">The Transformation</h4>
+                    <h4 class="lang-es">La Transformación</h4>
+                    <p class="lang-en">From frustrated waiting to instant AI-powered service</p>
+                    <p class="lang-es">De espera frustrante a servicio instantáneo potenciado por IA</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PARTNERS SECTION -->
+    <section class="partners-section">
+        <div class="partners-content">
+            <h2 class="lang-en">🏒 CHAMPIONS TEAM PARTNERS</h2>
+            <h2 class="lang-es">🏒 PARTNERS DE EQUIPOS CAMPEONES</h2>
+            <p class="lang-en">Mike Counsil Plumbing already understands the value of strategic partnerships.
+                As the official plumber for San Jose's major teams, you know that cutting-edge
+                technology is key to staying on top. ORION Tech is your next championship partner.</p>
+            <p class="lang-es">Mike Counsil Plumbing ya entiende el valor de partnerships estratégicos.
+                Como plomero oficial de los principales equipos de San Jose, saben que la
+                tecnología de punta es clave para mantenerse arriba. ORION Tech es su próximo partner campeón.</p>
+            <div class="partners-logos">
+                <div class="partner-badge">🦈 San Jose Sharks</div>
+                <div class="partner-badge">⚽ San Jose Earthquakes</div>
+                <div class="partner-badge">⚾ San Jose Giants</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PAPERLESS BANNER -->
+    <section class="paperless-banner">
+        <h2 class="lang-en">📄 → 📱 ZERO PAPER OPERATIONS</h2>
+        <h2 class="lang-es">📄 → 📱 OPERACIÓN CERO PAPEL</h2>
+        <p class="lang-en">Every single document, form, and report — 100% digital. Save trees, save time, save money.
+        </p>
+        <p class="lang-es">Cada documento, formulario y reporte — 100% digital. Ahorre árboles, tiempo y dinero.</p>
+        <div class="paperless-grid">
+            <div class="paperless-item">
+                <div class="icon">📋</div>
+                <div class="text lang-en">Digital Work Orders</div>
+                <div class="text lang-es">Órdenes de Trabajo Digitales</div>
+            </div>
+            <div class="paperless-item">
+                <div class="icon">✍️</div>
+                <div class="text lang-en">E-Signatures</div>
+                <div class="text lang-es">Firmas Electrónicas</div>
+            </div>
+            <div class="paperless-item">
+                <div class="icon">🧾</div>
+                <div class="text lang-en">Digital Invoices</div>
+                <div class="text lang-es">Facturas Digitales</div>
+            </div>
+            <div class="paperless-item">
+                <div class="icon">📊</div>
+                <div class="text lang-en">Instant Reports</div>
+                <div class="text lang-es">Reportes Instantáneos</div>
+            </div>
+            <div class="paperless-item">
+                <div class="icon">📸</div>
+                <div class="text lang-en">Photo Documentation</div>
+                <div class="text lang-es">Documentación Fotográfica</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROI -->
+    <section class="section">
+        <div class="section-title">
+            <h2 class="lang-en">// PROJECTED MONTHLY SAVINGS</h2>
+            <h2 class="lang-es">// AHORROS MENSUALES PROYECTADOS</h2>
+        </div>
+        <div class="roi-grid">
+            <div class="roi-item">
+                <span class="number">$15K+</span>
+                <span class="label lang-en">Saved on Dispatch Staff</span>
+                <span class="label lang-es">Ahorro en Staff Dispatch</span>
+            </div>
+            <div class="roi-item">
+                <span class="number">$8K+</span>
+                <span class="label lang-en">Saved on Call Center</span>
+                <span class="label lang-es">Ahorro en Call Center</span>
+            </div>
+            <div class="roi-item">
+                <span class="number">$5K+</span>
+                <span class="label lang-en">Saved on Paper/Admin</span>
+                <span class="label lang-es">Ahorro en Papel/Admin</span>
+            </div>
+            <div class="roi-item">
+                <span class="number">+40%</span>
+                <span class="label lang-en">More Leads Captured</span>
+                <span class="label lang-es">Más Leads Capturados</span>
+            </div>
+            <div class="roi-item">
+                <span class="number">2 hrs</span>
+                <span class="label lang-en">Saved/Tech/Day</span>
+                <span class="label lang-es">Ahorro/Técnico/Día</span>
+            </div>
+            <div class="roi-item">
+                <span class="number">-30%</span>
+                <span class="label lang-en">Fuel Costs</span>
+                <span class="label lang-es">Costos Combustible</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="section">
+        <div class="section-title">
+            <h2 class="lang-en">// INVESTMENT</h2>
+            <h2 class="lang-es">// INVERSIÓN</h2>
+        </div>
+        <div class="pricing-grid">
+            <!-- PROFESSIONAL -->
+            <div class="pricing-card">
+                <div class="pricing-name">PROFESSIONAL</div>
+                <div class="pricing-price">$1,997<span>/mo</span></div>
+                <div class="pricing-setup">+ $4,997 Setup</div>
+                <div class="pricing-capacity">
+                    <div class="num">10</div>
+                    <div class="cap-label lang-en">Simultaneous Calls</div>
+                    <div class="cap-label lang-es">Llamadas Simultáneas</div>
+                </div>
+                <ul class="pricing-features">
+                    <li>MP PRO AI Diagnosis</li>
+                    <li>EP PRO Digital Estimator</li>
+                    <li>WhatsApp Bot 24/7</li>
+                    <li>Basic Fleet Tracking</li>
+                    <li>2 AI Dispatchers</li>
+                </ul>
+                <a href="https://wa.me/16692342444?text=Mike%20Counsil%20-%20PROFESSIONAL" class="btn btn-secondary">
+                    <span class="lang-en">INQUIRE</span><span class="lang-es">CONSULTAR</span>
+                </a>
+            </div>
+
+            <!-- ENTERPRISE -->
+            <div class="pricing-card featured">
+                <span class="pricing-badge">POPULAR</span>
+                <div class="pricing-name">ENTERPRISE</div>
+                <div class="pricing-price">$4,997<span>/mo</span></div>
+                <div class="pricing-setup">+ $9,997 Setup</div>
+                <div class="pricing-capacity">
+                    <div class="num">25</div>
+                    <div class="cap-label lang-en">Simultaneous Calls</div>
+                    <div class="cap-label lang-es">Llamadas Simultáneas</div>
+                </div>
+                <ul class="pricing-features">
+                    <li><strong>All Professional +</strong></li>
+                    <li>InvAI Smart Inventory</li>
+                    <li>Full Fleet Management</li>
+                    <li>Time Cards System</li>
+                    <li>5 AI Dispatchers</li>
+                    <li>Payroll Export</li>
+                </ul>
+                <a href="https://wa.me/16692342444?text=Mike%20Counsil%20-%20ENTERPRISE" class="btn btn-primary">
+                    <span class="lang-en">START NOW</span><span class="lang-es">COMENZAR</span>
+                </a>
+            </div>
+
+            <!-- ELITE -->
+            <div class="pricing-card elite">
+                <span class="pricing-badge">ELITE</span>
+                <div class="pricing-name">ELITE</div>
+                <div class="pricing-price">$7,997<span>/mo</span></div>
+                <div class="pricing-setup">+ $14,997 Setup</div>
+                <div class="pricing-capacity">
+                    <div class="num">50</div>
+                    <div class="cap-label lang-en">Simultaneous Calls</div>
+                    <div class="cap-label lang-es">Llamadas Simultáneas</div>
+                </div>
+                <ul class="pricing-features">
+                    <li><strong>All Enterprise +</strong></li>
+                    <li>10 AI Dispatchers</li>
+                    <li>Custom AI Training</li>
+                    <li>Multi-Location Dashboard</li>
+                    <li>Advanced Analytics</li>
+                    <li>CRM Integration</li>
+                    <li>Quarterly Strategy Calls</li>
+                </ul>
+                <a href="https://wa.me/16692342444?text=Mike%20Counsil%20-%20ELITE" class="btn btn-elite">
+                    <span class="lang-en">GO ELITE</span><span class="lang-es">IR ELITE</span>
+                </a>
+            </div>
+
+            <!-- LUXURY -->
+            <div class="pricing-card luxury">
+                <span class="pricing-badge">👑 LUXURY</span>
+                <div class="pricing-name">LUXURY</div>
+                <div class="pricing-price">$14,997<span>/mo</span></div>
+                <div class="pricing-setup">+ $29,997 Setup</div>
+                <div class="pricing-capacity">
+                    <div class="num">∞</div>
+                    <div class="cap-label lang-en">Unlimited Capacity</div>
+                    <div class="cap-label lang-es">Capacidad Ilimitada</div>
+                </div>
+                <ul class="pricing-features">
+                    <li><strong>All Elite +</strong></li>
+                    <li>White-Label Custom App</li>
+                    <li>Predictive Maintenance AI</li>
+                    <li>Customer Sentiment Analysis</li>
+                    <li>Weekly Exec Reports</li>
+                    <li>Dedicated Dev Team</li>
+                    <li>On-Site Training</li>
+                    <li>100+ Fleet Vehicles</li>
+                    <li>500+ Employees</li>
+                </ul>
+                <a href="https://wa.me/16692342444?text=Mike%20Counsil%20-%20LUXURY" class="btn btn-luxury">
+                    <span class="lang-en">GO LUXURY</span><span class="lang-es">IR LUXURY</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2 class="lang-en">Ready to Transform Mike Counsil Plumbing?</h2>
+        <h2 class="lang-es">¿Listos para Transformar Mike Counsil Plumbing?</h2>
+        <p class="lang-en">50 simultaneous AI calls. 10 virtual dispatchers. Complete fleet control. Zero paper.
+            This is the future of plumbing operations.</p>
+        <p class="lang-es">50 llamadas IA simultáneas. 10 dispatchers virtuales. Control completo de flota. Cero papel.
+            Este es el futuro de las operaciones de plomería.</p>
+        <div class="cta-buttons">
+            <a href="https://wa.me/16692342444?text=Mike%20Counsil%20-%20Full%20Demo" class="btn btn-primary">
+                💬 <span class="lang-en">SCHEDULE FULL DEMO</span><span class="lang-es">AGENDAR DEMO COMPLETO</span>
+            </a>
+            <a href="tel:+16692342444" class="btn btn-secondary">📞 (669) 234-2444</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p><strong>Mike Counsil Plumbing and Rooter</strong> • 🦈 Sharks • ⚽ Earthquakes • ⚾ Giants</p>
+        <p style="margin-top: 10px;">ORION Tech | <a
+                href="https://agem2024.github.io/SEGURITI-USC/orion-bots.html">orion-tech.com</a> | (669) 234-2444</p>
+        <p style="margin-top: 20px; font-size: 0.75rem;">© 2026 ORION Tech. <span class="lang-en">Proposal valid 30
+                days.</span><span class="lang-es">Propuesta válida 30 días.</span></p>
+    </footer>
+
+    <script>
+        function setLang(lang) {
+            document.body.classList.toggle('es', lang === 'es');
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.textContent.includes(lang.toUpperCase()));
+            });
+            localStorage.setItem('mcProposalLang', lang);
+        }
+        const savedLang = localStorage.getItem('mcProposalLang');
+        if (savedLang) setLang(savedLang);
+    </script>
+
+</body>
+
+</html>
