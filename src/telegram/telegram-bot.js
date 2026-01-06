@@ -102,12 +102,12 @@ function initTelegramBot() {
         // ==========================================
         bot.onText(/\/start/, (msg) => {
             if (!checkAuth(msg)) return;
-            bot.sendMessage(msg.chat.id, `🚀 *ORION TELEGRAM ONLINE*
+            bot.sendMessage(msg.chat.id, `🚀 *ORION TELEGRAM v2.1*
 
 📋 *COMANDOS DISPONIBLES:*
 
 *🧠 IA & Voz:*
-/say <texto> - Bot habla (TTS)
+/say <texto> - Texto a voz (TTS)
 /orvoz <texto> - IA responde + voz
 /tr <texto> a <idioma> - Traducir
 
@@ -115,6 +115,9 @@ function initTelegramBot() {
 /buscar <q> - Google Search
 /scrape <url> - Leer página web
 /groq <q> - AI gratis (Groq)
+
+*📱 Mensajes:*
+/enviar <num> <msg> - Enviar WhatsApp
 
 *💼 Profesional:*
 /cv, /tj, /skills, /landing, /apps
@@ -131,11 +134,12 @@ function initTelegramBot() {
 *🔗 Accesos:*
 /pb - Price Book
 /acutor - Manual
+/otp - Orion Bots
 /links - Orion Apps
 
 *🎭 Modos:*
-/mode <nombre> - Cambiar
-/reset - Reiniciar`, { parse_mode: 'Markdown' });
+/mode <nombre> - Cambiar persona
+/reset - Reiniciar sesión`, { parse_mode: 'Markdown' });
         });
 
         // ==========================================
@@ -373,6 +377,35 @@ function initTelegramBot() {
                 }
             });
         }
+
+        // ==========================================
+        // 📱 ENVIAR MENSAJE WHATSAPP (Via Inbox)
+        // ==========================================
+        bot.onText(/\/(enviar|msg|send) (\+?\d+) (.+)/s, async (msg, match) => {
+            if (!checkAuth(msg)) return;
+            const numero = match[2].replace(/^\+/, ''); // Remove + if present
+            const mensaje = match[3].trim();
+
+            // Add to antigravity inbox for ORION WhatsApp to send
+            const ANTIGRAVITY_INBOX = path.join(__dirname, '../../antigravity_inbox.json');
+            try {
+                let inbox = [];
+                if (fs.existsSync(ANTIGRAVITY_INBOX)) {
+                    inbox = JSON.parse(fs.readFileSync(ANTIGRAVITY_INBOX, 'utf8'));
+                }
+                inbox.unshift({
+                    to: numero,
+                    mensaje: mensaje,
+                    enviado: false,
+                    from: 'Telegram'
+                });
+                fs.writeFileSync(ANTIGRAVITY_INBOX, JSON.stringify(inbox, null, 2));
+                bot.sendMessage(msg.chat.id, `✅ *Mensaje en cola*\n\n📱 A: +${numero}\n💬 ${mensaje.substring(0, 100)}${mensaje.length > 100 ? '...' : ''}\n\n_ORION WhatsApp lo enviará en segundos._`, { parse_mode: 'Markdown' });
+                logger.info(`📤 [TG->WA] Message queued for ${numero}`);
+            } catch (e) {
+                bot.sendMessage(msg.chat.id, `❌ Error: ${e.message}`);
+            }
+        });
 
         // ==========================================
         // 🔗 ACCESOS DIRECTOS

@@ -35,6 +35,10 @@ const professional = require('./src/apps/professional');
 const serper = require('./src/apps/serper');
 const scraper = require('./src/apps/scraper');
 
+// 🎬 WAN 2.1 VIDEO AI (Alibaba)
+let wanVideo;
+try { wanVideo = require('./src/apps/wan-video'); console.log('✅ Wan 2.1 Video AI Loaded'); } catch (e) { console.log('⚠️ Wan Video Missing:', e.message); }
+
 // 🔌 MCP CLIENT
 let mcpClient;
 try { mcpClient = require('./src/apps/mcp'); console.log('✅ MCP Client Loaded'); } catch (e) { console.log('⚠️ MCP Missing'); }
@@ -56,16 +60,28 @@ const ORIONBOTS_URL = 'https://agem2024.github.io/SEGURITI-USC/orion-bots.html';
 // 🎄 CHRISTMAS CARDS URL
 const CHRISTMAS_URL = 'https://agem2024.github.io/tarjetas-y-mesj/';
 
-// 🔗 ORION APPS (App Mode Links)
+// 🔗 ORION APPS (App Mode Links) - Con nombres descriptivos
 const ORION_APPS = [
-    'https://ai.studio/apps/drive/1vikKncwaJRxWOANGeEcnchTAM96CqmnZ?fullscreenApplet=true',
-    'https://ai.studio/apps/drive/1bMGhzGDqLL_aDfnSC78Ie_HnsF7b691I?fullscreenApplet=true',
-    'https://ai.studio/apps/drive/1BKOJ2-29twcjdG1BooF6-Nh82VpXm6Hi?fullscreenApplet=true',
-    'https://ai.studio/apps/drive/1x_ibj0UepSYSNZyv6w83UQCk2GFTjJvG?fullscreenApplet=true',
-    'https://ai.studio/apps/drive/1BF2Sl5I48Zh843mnJQAo_mrQLLDUd48J?fullscreenApplet=true',
-    'https://ai.studio/apps/drive/1u71t_S_8Cp27aEuUcT0Sffws8tEVQ2pw?fullscreenApplet=true',
-    'https://ai.studio/apps/drive/1k_9YBvyIRIWIrSEZuIzoHRSH5Qauhpd_?fullscreenApplet=true',
-    'https://ai.studio/apps/drive/1NNlIz45X8Pr8waX5P5p90CHzJ5uJv2WN?fullscreenApplet=true'
+    { name: 'AdVortex Pro', desc: 'Generador de Videos Ads', url: 'https://ai.studio/apps/drive/1vikKncwaJRxWOANGeEcnchTAM96CqmnZ?fullscreenApplet=true' },
+    { name: 'EP Estimator', desc: 'Cotizador de Plomería', url: 'https://ai.studio/apps/drive/1bMGhzGDqLL_aDfnSC78Ie_HnsF7b691I?fullscreenApplet=true' },
+    { name: 'MP PRO', desc: 'Estimados Profesionales', url: 'https://ai.studio/apps/drive/1BKOJ2-29twcjdG1BooF6-Nh82VpXm6Hi?fullscreenApplet=true' },
+    { name: 'Business Suite', desc: 'Suite Empresarial', url: 'https://ai.studio/apps/drive/1x_ibj0UepSYSNZyv6w83UQCk2GFTjJvG?fullscreenApplet=true' },
+    { name: 'Neon Hub', desc: 'Hub de Agentes IA', url: 'https://ai.studio/apps/drive/1BF2Sl5I48Zh843mnJQAo_mrQLLDUd48J?fullscreenApplet=true' },
+    { name: 'neKon AI', desc: 'Asistente Avanzado', url: 'https://ai.studio/apps/drive/1u71t_S_8Cp27aEuUcT0Sffws8tEVQ2pw?fullscreenApplet=true' },
+    { name: 'Code Assistant', desc: 'Ayudante de Código', url: 'https://ai.studio/apps/drive/1k_9YBvyIRIWIrSEZuIzoHRSH5Qauhpd_?fullscreenApplet=true' },
+    { name: 'Content Creator', desc: 'Creador de Contenido', url: 'https://ai.studio/apps/drive/1NNlIz45X8Pr8waX5P5p90CHzJ5uJv2WN?fullscreenApplet=true' }
+];
+
+// 🔗 LINKS ESENCIALES (Para comando 'links')
+const ESSENTIAL_LINKS = [
+    { name: 'ORION Bots', desc: 'Página principal de venta', url: 'https://agem2024.github.io/SEGURITI-USC/docs/orion-bots.html' },
+    { name: 'Price Book PRO', desc: 'Catálogo de precios plomería', url: 'https://agem2024.github.io/SEGURITI-USC/docs/pricebook-index.html' },
+    { name: 'Manual ORION', desc: 'Manual de comandos', url: 'https://neon-agent-hub.web.app/jarvis_manual.html' },
+    { name: 'neKon Landing', desc: 'Landing page IA', url: 'https://neon-agent-hub.web.app/nekon_ai.html' },
+    { name: 'JHON Command Center', desc: 'Centro de control', url: 'file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/acwater/02_Projects/AI_Development/AI_Media/PROYECTOS/AI_Impact_Bay_Area/orion-clean/public/jhon-command-center.html' },
+    { name: 'Tarjetas Navidad', desc: 'Cards de navidad', url: 'https://agem2024.github.io/tarjetas-y-mesj/' },
+    { name: 'CV Alex', desc: 'CV profesional', url: 'https://agem2024.github.io/SEGURITI-USC/rosa/cv_pro.html' },
+    { name: 'Tarjeta Alex', desc: 'Digital card CEO', url: 'https://agem2024.github.io/SEGURITI-USC/rosa/card.html' }
 ];
 
 // 💾 PERSISTENT STATE
@@ -478,6 +494,41 @@ Contacto: WhatsApp (669) 234-2444`
 
             // Start Antigravity Inbox Watcher
             setInterval(() => enviarMensajeAntigravity(sock), 5000); // Check every 5s
+
+            // 📅 SYNC APPOINTMENTS FROM PHONE BOT (Every 30 seconds)
+            setInterval(async () => {
+                try {
+                    const fetch = (await import('node-fetch')).default;
+                    const response = await fetch('https://orion-cloud.onrender.com/api/appointments');
+                    const data = await response.json();
+
+                    if (data.appointments && data.appointments.length > 0) {
+                        for (const apt of data.appointments) {
+                            if (!apt.confirmed && apt.phone) {
+                                // Format phone number
+                                let phone = apt.phone.replace(/\D/g, '');
+                                if (phone.length === 10) phone = '1' + phone;
+                                const whatsappId = phone + '@s.whatsapp.net';
+
+                                // Send confirmation message
+                                const msg = `📅 *Cita Agendada - ORION Tech*\n\n` +
+                                    `👤 Nombre: ${apt.name}\n` +
+                                    `📞 Teléfono: ${apt.phone}\n` +
+                                    `🕐 Horario: ${apt.time_slot}\n` +
+                                    `📱 Fuente: ${apt.source}\n\n` +
+                                    `✅ Te contactaremos pronto para confirmar.\n\n` +
+                                    `_ORION Tech - WhatsApp: (669) 234-2444_`;
+
+                                await sock.sendMessage(whatsappId, { text: msg });
+                                logger.info(`📅 Appointment confirmation sent to ${apt.phone}`);
+
+                                // Mark as confirmed (by adding to local tracked list)
+                                apt.confirmed = true;
+                            }
+                        }
+                    }
+                } catch (e) { /* Silent fail - phone bot may be sleeping */ }
+            }, 30000); // Every 30 seconds
         }
     });
 
@@ -491,6 +542,55 @@ Contacto: WhatsApp (669) 234-2444`
             const from = msg.key.remoteJid;
             const isMe = msg.key.fromMe;
             const text = msg.message.conversation || msg.message.extendedTextMessage?.text || '';
+
+            // 🎤 AUDIO MESSAGE TRANSCRIPTION (OpenAI Whisper)
+            const isAudio = msg.message.audioMessage || msg.message.pttMessage;
+            if (isAudio && isMe) {
+                logger.info('🎤 Audio message detected, transcribing...');
+                try {
+                    // Download audio
+                    const buffer = await downloadMediaMessage(msg, 'buffer', {});
+
+                    // Save temp file
+                    const tempPath = path.join(__dirname, `temp_audio_${Date.now()}.ogg`);
+                    fs.writeFileSync(tempPath, buffer);
+
+                    // OpenAI Whisper API
+                    const FormData = require('form-data');
+                    const formData = new FormData();
+                    formData.append('file', fs.createReadStream(tempPath), 'audio.ogg');
+                    formData.append('model', 'whisper-1');
+                    formData.append('language', 'es'); // Spanish priority
+
+                    const whisperResponse = await fetch('https://api.openai.com/v1/audio/transcriptions', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+                            ...formData.getHeaders()
+                        },
+                        body: formData
+                    });
+
+                    const whisperData = await whisperResponse.json();
+
+                    // Cleanup temp file
+                    fs.unlinkSync(tempPath);
+
+                    if (whisperData.text) {
+                        logger.info(`🎤 Transcription: ${whisperData.text}`);
+                        await sock.sendMessage(from, {
+                            text: `🎤 *Transcripción:*\n\n"${whisperData.text}"\n\n_— OpenAI Whisper_`
+                        });
+                    } else {
+                        logger.error('Whisper error:', whisperData);
+                        await sock.sendMessage(from, { text: '🎤 Error transcribiendo audio' });
+                    }
+                } catch (e) {
+                    logger.error('Audio transcription error:', e.message);
+                    await sock.sendMessage(from, { text: `🎤 Error: ${e.message}` });
+                }
+                continue;
+            }
 
             // 🎯 LEAD CAPTURE HANDLER (Process leads from website modals)
             if (text.includes('🤖 LEAD_CAPTURE') || text.includes('LEAD_CAPTURE')) {
@@ -596,11 +696,19 @@ Contacto: WhatsApp (669) 234-2444`
             }
 
             // 🔗 ORION APPS LINKS
-            if (['!apps', 'apps', '!links', 'links', 'orion apps'].includes(cleanText)) {
-                let msg = '🔗 *ORION APP LINKS (Modo App)*\n\n';
-                ORION_APPS.forEach((link, i) => {
-                    msg += `*App ${i + 1}:*\n${link}\n\n`;
+            if (['!apps', 'apps', '!links', 'links', 'orion apps', 'dame los links', 'mis links'].includes(cleanText)) {
+                let msg = '🔗 *ORION LINKS*\n\n';
+
+                msg += '📱 *APPS IA:*\n';
+                ORION_APPS.forEach((app, i) => {
+                    msg += `${i + 1}. *${app.name}* - ${app.desc}\n   ${app.url}\n\n`;
                 });
+
+                msg += '🌐 *LINKS ESENCIALES:*\n';
+                ESSENTIAL_LINKS.forEach((link) => {
+                    msg += `• *${link.name}* - ${link.desc}\n  ${link.url}\n\n`;
+                });
+
                 await sock.sendMessage(from, { text: msg });
                 continue;
             }
@@ -630,8 +738,36 @@ Contacto: WhatsApp (669) 234-2444`
                 continue;
             }
 
+            // 📱 ENVIAR MENSAJE A CUALQUIER NÚMERO
+            if (cleanText.startsWith('/enviar ') || cleanText.startsWith('/msg ') || cleanText.startsWith('/send ') ||
+                cleanText.startsWith('envia mensaje a ') || cleanText.startsWith('manda mensaje a ')) {
+                const parts = text.replace(/^(\/enviar|\/msg|\/send)\s+/i, '').trim();
+                const match = parts.match(/^(\+?\d+)\s+(.+)$/s);
+
+                if (!match) {
+                    await sock.sendMessage(from, { text: '📱 *Uso:* /enviar [número] [mensaje]\n\nEjemplos:\n/enviar 14082063896 Hola, este es un mensaje de prueba\n/enviar +573245143926 Feliz Navidad!\n\n💡 El número debe incluir código de país sin espacios.' });
+                    continue;
+                }
+
+                const numero = match[1].replace(/^\+/, ''); // Remove + if present
+                const mensaje = match[2].trim();
+                const destino = `${numero}@s.whatsapp.net`;
+
+                try {
+                    await sock.sendMessage(destino, { text: mensaje + FIRMA });
+                    await sock.sendMessage(from, { text: `✅ *Mensaje enviado*\n\n📱 A: +${numero}\n💬 Mensaje: ${mensaje.substring(0, 100)}${mensaje.length > 100 ? '...' : ''}\n\n_Enviado vía ORION Clean_` });
+                    logger.info(`📤 [SEND CMD] Message sent to ${numero}`);
+                } catch (e) {
+                    await sock.sendMessage(from, { text: `❌ Error enviando mensaje: ${e.message}\n\n💡 Verifica que el número sea correcto y tenga WhatsApp.` });
+                    logger.error(`Error sending to ${numero}: ${e.message}`);
+                }
+                continue;
+            }
+
+
             // 🎬 GENERAR VIDEO CON SORA AI
-            if (cleanText.startsWith('/video ') || cleanText.startsWith('!video ')) {
+            if (cleanText.startsWith('/video ') || cleanText.startsWith('!video ') ||
+                cleanText.startsWith('genera video ') || cleanText.startsWith('crea video ')) {
                 const prompt = text.replace(/^(\/video|!video)\s+/i, '').trim();
                 if (!prompt) {
                     await sock.sendMessage(from, { text: '🎬 *Uso:* /video [descripción del video]\n\nEjemplo: /video Futuristic city with flying cars and neon lights' });
@@ -668,8 +804,115 @@ Contacto: WhatsApp (669) 234-2444`
                 continue;
             }
 
+            // 🎬 WAN 2.1 - VIDEO AI CHINA (Alibaba Open Source)
+            if (cleanText.startsWith('/wan ') || cleanText.startsWith('!wan ') ||
+                cleanText.startsWith('wan video ') || cleanText.startsWith('genera video wan ')) {
+                const prompt = text.replace(/^(\/wan|!wan|wan video|genera video wan)\s+/i, '').trim();
+                if (!prompt) {
+                    await sock.sendMessage(from, {
+                        text: `🎬 *WAN 2.1 - Video AI (Alibaba)*
+
+📝 *Uso:* /wan [descripción del video]
+
+🎯 *Ejemplos:*
+• /wan Un gato jugando con una pelota en el parque
+• /wan Astronauta caminando en Marte, cinematográfico
+• /wan Ciudad futurista con carros voladores, noche, neon
+
+📀 *Configuración:*
+Requiere configurar en .env:
+• REPLICATE_API_TOKEN (gratis en replicate.com)
+• FAL_KEY (económico en fal.ai)
+
+💡 El video se guarda automáticamente en downloads/videos/`
+                    });
+                    continue;
+                }
+
+                // Verificar si el módulo está cargado
+                if (!wanVideo) {
+                    await sock.sendMessage(from, { text: '❌ Módulo Wan 2.1 no cargado. Revisa la consola.' });
+                    continue;
+                }
+
+                try {
+                    await sock.sendMessage(from, {
+                        text: `🎬 *Generando video con Wan 2.1...*
+
+⏳ Esto puede tomar 2-5 minutos.
+📝 Prompt: ${prompt.substring(0, 100)}${prompt.length > 100 ? '...' : ''}
+
+_Powered by Alibaba Wan 2.1 AI_`
+                    });
+
+                    const result = await wanVideo.generateVideo(prompt, {
+                        frames: 16,
+                        fps: 8,
+                        resolution: '480p'
+                    });
+
+                    if (result.success) {
+                        // Enviar confirmación
+                        await sock.sendMessage(from, {
+                            text: wanVideo.formatResponse(result)
+                        });
+
+                        // Intentar enviar el video directamente
+                        if (result.localPath && fs.existsSync(result.localPath)) {
+                            const videoBuffer = fs.readFileSync(result.localPath);
+                            await sock.sendMessage(from, {
+                                video: videoBuffer,
+                                caption: `🎬 *${prompt.substring(0, 50)}*\n\n_Generado con Wan 2.1 AI_`,
+                                mimetype: 'video/mp4'
+                            });
+                            logger.info(`🎬 Wan video sent: ${result.localPath}`);
+                        }
+                    } else {
+                        throw new Error('No se pudo generar el video');
+                    }
+
+                } catch (e) {
+                    logger.error('Wan Video Error: ' + e.message);
+                    await sock.sendMessage(from, {
+                        text: `❌ *Error generando video:*
+
+${e.message}
+
+💡 *Soluciones:*
+1. Configura REPLICATE_API_TOKEN en .env (gratis en replicate.com)
+2. O configura FAL_KEY en .env (económico en fal.ai)
+
+📖 Ver: /wan (sin parámetros) para instrucciones`
+                    });
+                }
+                continue;
+            }
+
+            // 🎥 WAN I2V - Imagen a Video
+            if (cleanText === '/wan-i2v' || cleanText === '/wani2v' || cleanText === 'wan imagen a video') {
+                await sock.sendMessage(from, {
+                    text: `🎥 *WAN 2.1 - Imagen a Video*
+
+📝 *Instrucciones:*
+1. Envía una imagen
+2. Responde a la imagen con: /wan-animate [descripción del movimiento]
+
+🎯 *Ejemplo:*
+[Envía foto de un perro]
+Responde: /wan-animate El perro corre feliz por el parque
+
+💡 También puedes usar:
+• /wan-animate La imagen cobra vida con movimiento suave
+• /wan-animate Efecto cinematográfico con zoom lento
+
+_Powered by Wan 2.1 I2V_`
+                });
+                continue;
+            }
+
             // 🔍 BÚSQUEDA GOOGLE CON SERPER
-            if (cleanText.startsWith('/buscar ') || cleanText.startsWith('/search ')) {
+            if (cleanText.startsWith('/buscar ') || cleanText.startsWith('/search ') ||
+                cleanText.startsWith('buscar ') || cleanText.startsWith('busca en google ') || cleanText.startsWith('googlea ')) {
                 const query = text.replace(/^(\/buscar|\/search)\s+/i, '').trim();
                 if (!query) {
                     await sock.sendMessage(from, { text: '🔍 *Uso:* /buscar [consulta]\n\nEjemplo: /buscar mejores restaurantes en Bogotá' });
@@ -696,7 +939,8 @@ Contacto: WhatsApp (669) 234-2444`
             }
 
             // 🕷️ WEB SCRAPING
-            if (cleanText.startsWith('/scrape ') || cleanText.startsWith('/leer ')) {
+            if (cleanText.startsWith('/scrape ') || cleanText.startsWith('/leer ') ||
+                cleanText.startsWith('lee la web ') || cleanText.startsWith('extrae de ') || cleanText.startsWith('scrape ')) {
                 const url = text.replace(/^(\/scrape|\/leer)\s+/i, '').trim();
                 if (!url || !url.startsWith('http')) {
                     await sock.sendMessage(from, { text: '🕷️ *Uso:* /scrape [URL]\n\nEjemplo: /scrape https://ejemplo.com' });
@@ -720,7 +964,8 @@ Contacto: WhatsApp (669) 234-2444`
             }
 
             // 🆓 GROQ FREE AI (Backup)
-            if (cleanText.startsWith('/groq ') || cleanText.startsWith('/free ')) {
+            if (cleanText.startsWith('/groq ') || cleanText.startsWith('/free ') ||
+                cleanText.startsWith('pregunta gratis ') || cleanText.startsWith('ia gratis ') || cleanText.startsWith('groq ')) {
                 const prompt = text.replace(/^(\/groq|\/free)\s+/i, '').trim();
                 if (!prompt) {
                     await sock.sendMessage(from, { text: '🆓 *Uso:* /groq [pregunta]\n\nEjemplo: /groq Explica la relatividad en términos simples' });
@@ -737,8 +982,336 @@ Contacto: WhatsApp (669) 234-2444`
                 continue;
             }
 
+            // 🦙 OLLAMA - IA LOCAL (Gemma/Llama) - Lenguaje Natural
+            const ollamaPatterns = ['/ollama ', '/gemma ', '/local ', 'gemma ', 'ollama ', 'pregunta a gemma ', 'preguntale a gemma ', 'ask gemma ', 'ia local '];
+            const matchedOllama = ollamaPatterns.find(p => cleanText.startsWith(p));
+            if (matchedOllama) {
+                const prompt = text.substring(matchedOllama.length).trim();
+                if (!prompt) {
+                    await sock.sendMessage(from, { text: '🦙 *IA Local (Gemma2)*\n\nEscribe: gemma [tu pregunta]\n\nEjemplo: gemma Explica qué es machine learning' });
+                    continue;
+                }
+
+                try {
+                    await sock.sendMessage(from, { text: '🦙 Consultando IA local (Gemma2)...' });
+                    const { exec } = require('child_process');
+
+                    exec(`ollama run gemma2 "${prompt.replace(/"/g, '\\"')}"`, { timeout: 60000 }, async (error, stdout, stderr) => {
+                        if (error) {
+                            await sock.sendMessage(from, { text: `❌ Error: ${error.message}\n\n💡 Asegúrate de que Ollama esté corriendo.` });
+                        } else {
+                            const response = stdout.trim() || 'Sin respuesta';
+                            await sock.sendMessage(from, { text: `🦙 *Gemma2 (Local):*\n\n${response.substring(0, 3000)}` });
+                        }
+                    });
+                } catch (e) {
+                    await sock.sendMessage(from, { text: `❌ Error: ${e.message}` });
+                }
+                continue;
+            }
+
+            // 🎙️ VOZ - Clonación de Voz Local - Lenguaje Natural
+            if (['/voz', '/voice', '/tts-local', 'clonar voz', 'clona mi voz', 'voice clone', 'voz local'].includes(cleanText)) {
+                await sock.sendMessage(from, { text: `🎙️ *Clonación de Voz Local*\n\n📋 *Herramientas instaladas:*\n• Chatterbox TTS\n• F5-TTS\n\n🚀 *Para usar:*\n\`\`\`\nf5-tts_infer-gradio\n\`\`\`\n\n🌐 Abrirá interfaz en http://localhost:7860\n\n📝 *Pasos:*\n1. Sube audio de referencia (30 seg)\n2. Escribe el texto a generar\n3. Click en Generate\n\n_— ORION AI Tools_` });
+                continue;
+            }
+
+            // 🧑‍🎤 AVATAR - Crear Avatar Animado - Lenguaje Natural
+            if (['/avatar', '/sadtalker', '/talking', 'crear avatar', 'avatar animado', 'talking head', 'animar foto'].includes(cleanText)) {
+                await sock.sendMessage(from, { text: `🧑‍🎤 *Crear Avatar Animado*\n\n📋 *Herramientas instaladas:*\n• SadTalker\n• LivePortrait\n\n🚀 *Para usar:*\n\`\`\`\npython crear_avatar.py\n\`\`\`\n\n📝 *Necesitas:*\n1. Una foto (JPG/PNG)\n2. Un audio (WAV/MP3)\n\n🎯 *Resultado:* Video del avatar hablando\n\n💡 También disponible en Pinokio:\n• EchoMimic\n• MuseTalk\n• Linly-Talker\n\n_— ORION AI Tools_` });
+                continue;
+            }
+
+            // 🎬 PINOKIO - Generación de Video - Lenguaje Natural
+            if (['/pinokio', '/video-local', 'pinokio', 'video local', 'generar video', 'crear video'].includes(cleanText)) {
+                await sock.sendMessage(from, { text: `🎬 *Generación de Video Local*\n\n📋 *Pinokio instalado:* ✅\n\n🚀 *Modelos disponibles (1-click install):*\n• LTX Video (rápido)\n• HunyuanVideo (calidad)\n• ComfyUI (avanzado)\n• Stable Video Diffusion\n\n💻 *Compatibilidad:*\n• NVIDIA (CUDA) ✅\n• AMD (ROCm) ✅\n\n📍 Abrir desde menú inicio: *Pinokio*\n\n_— ORION AI Tools_` });
+                continue;
+            }
+
+            // 🤖 AI-TOOLS - Lista de todas las herramientas IA - Lenguaje Natural
+            if (['/ai', '/ia', '/tools', '/herramientas', 'ai', 'ia', 'herramientas', 'tools', 'que puedes hacer', 'ayuda ia', 'comandos'].includes(cleanText)) {
+                await sock.sendMessage(from, { text: `🤖 *ORION AI Suite Completa*\n\n🏠 *IA LOCAL (Offline):*\n• gemma [pregunta] - Chat IA\n• imagen [prompt] - Generar imagen\n• musica [descripción] - Crear música\n• transcribir - Audio→Texto\n• ocr - Imagen→Texto\n\n🎨 *CREATIVOS:*\n• clonar voz - Tu voz clonada\n• crear avatar - Foto animada\n• pinokio - Videos IA\n• fooocus - Imágenes pro\n\n📡 *ONLINE:*\n• buscar [query] - Google\n• groq [pregunta] - IA gratis\n\n📋 *UTILIDADES:*\n• enviar [num] [msg]\n• acutor - Manual\n\n_Todo offline y gratis_` });
+                continue;
+            }
+
+            // 🎨 IMAGEN - Generador de Imágenes Local
+            if (cleanText.startsWith('imagen ') || cleanText.startsWith('/imagen ') || cleanText.startsWith('genera imagen ')) {
+                await sock.sendMessage(from, { text: `🎨 *Generación de Imágenes*\n\n📋 *Herramientas instaladas:*\n• Fooocus (como Midjourney, gratis)\n• Stable Diffusion XL\n• Diffusers (Python)\n\n🚀 *Para usar Fooocus:*\n\`\`\`\ncd C:\\Users\\alexp\\Fooocus\npython run.py\n\`\`\`\n\n🌐 Abrirá http://localhost:7865\n\n💡 También disponible en Pinokio` });
+                continue;
+            }
+
+            // 🎵 MÚSICA - Generador de Música Local
+            if (cleanText.startsWith('musica ') || cleanText.startsWith('/musica ') || cleanText.startsWith('crear musica') || cleanText === 'musicgen') {
+                await sock.sendMessage(from, { text: `🎵 *Generación de Música*\n\n📋 *MusicGen (Meta) instalado* ✅\n\n🚀 *Uso en Python:*\n\`\`\`python\nfrom audiocraft.models import MusicGen\nmodel = MusicGen.get_pretrained('small')\nmodel.generate(['rock energético'])\n\`\`\`\n\n💡 Modelos: small (300MB), medium (1.5GB), large (3.3GB)` });
+                continue;
+            }
+
+            // 🎤 TRANSCRIBIR - Audio a Texto
+            if (cleanText === 'transcribir' || cleanText === '/transcribir' || cleanText === 'whisper' || cleanText === 'audio a texto') {
+                await sock.sendMessage(from, { text: `🎤 *Transcripción de Audio*\n\n📋 *Herramientas instaladas:*\n• Whisper (OpenAI) - El mejor\n• Vosk - Ligero y rápido\n\n🚀 *Uso Whisper:*\n\`\`\`\nwhisper audio.mp3 --language Spanish\n\`\`\`\n\n🚀 *Uso en Python:*\n\`\`\`python\nimport whisper\nmodel = whisper.load_model("base")\nresult = model.transcribe("audio.mp3")\nprint(result["text"])\n\`\`\`\n\n💡 Modelos: tiny, base, small, medium, large` });
+                continue;
+            }
+
+            // 📄 OCR - Imagen a Texto
+            if (cleanText === 'ocr' || cleanText === '/ocr' || cleanText === 'leer imagen' || cleanText === 'extraer texto') {
+                await sock.sendMessage(from, { text: `📄 *OCR - Texto de Imágenes*\n\n📋 *Herramientas instaladas:*\n• EasyOCR (80+ idiomas)\n• PyTesseract (100+ idiomas)\n\n🚀 *Uso EasyOCR:*\n\`\`\`python\nimport easyocr\nreader = easyocr.Reader(['es','en'])\nresult = reader.readtext('imagen.png')\nprint(result)\n\`\`\`\n\n💡 Soporta español, inglés, y muchos más` });
+                continue;
+            }
+
+            // 🖥️ PC CONTROL - Captura de pantalla
+            if (['!captura', '/captura', 'captura', 'screenshot', 'captura de pantalla'].includes(cleanText)) {
+                try {
+                    const screenshot = require('screenshot-desktop');
+                    const img = await screenshot();
+                    const imgPath = path.join(__dirname, 'temp_screenshot.png');
+                    fs.writeFileSync(imgPath, img);
+                    await sock.sendMessage(from, { image: fs.readFileSync(imgPath), caption: '📸 Captura de pantalla' });
+                    fs.unlinkSync(imgPath);
+                } catch (e) {
+                    await sock.sendMessage(from, { text: `📸 *Captura de Pantalla*\n\n⚠️ Requiere: npm install screenshot-desktop\n\nError: ${e.message}` });
+                }
+                continue;
+            }
+
+            // 🖥️ PC CONTROL - Portapapeles (leer)
+            if (['!portapapeles', '/portapapeles', 'portapapeles', 'clipboard', 'leer portapapeles'].includes(cleanText)) {
+                try {
+                    const { exec } = require('child_process');
+                    exec('powershell Get-Clipboard', (err, stdout) => {
+                        if (err) {
+                            sock.sendMessage(from, { text: '📋 Error leyendo portapapeles' });
+                        } else {
+                            sock.sendMessage(from, { text: `📋 *Portapapeles:*\n\n${stdout.trim() || '(vacío)'}` });
+                        }
+                    });
+                } catch (e) {
+                    await sock.sendMessage(from, { text: `📋 Error: ${e.message}` });
+                }
+                continue;
+            }
+
+            // 🖥️ PC CONTROL - Copiar al portapapeles
+            if (cleanText.startsWith('!copiar ') || cleanText.startsWith('/copiar ') || cleanText.startsWith('copiar ')) {
+                const textToCopy = text.replace(/^(!copiar|\/copiar|copiar)\s+/i, '').trim();
+                try {
+                    const { exec } = require('child_process');
+                    exec(`powershell Set-Clipboard -Value "${textToCopy.replace(/"/g, '\\"')}"`, (err) => {
+                        if (err) {
+                            sock.sendMessage(from, { text: '📋 Error copiando al portapapeles' });
+                        } else {
+                            sock.sendMessage(from, { text: `📋 ✅ Copiado al portapapeles:\n"${textToCopy}"` });
+                        }
+                    });
+                } catch (e) {
+                    await sock.sendMessage(from, { text: `📋 Error: ${e.message}` });
+                }
+                continue;
+            }
+
+            // 🖥️ PC CONTROL - Estado del sistema
+            if (['!estado', '/estado', 'estado', 'estado pc', 'system status', 'status'].includes(cleanText)) {
+                try {
+                    const os = require('os');
+                    const cpuUsage = os.loadavg()[0].toFixed(2);
+                    const totalMem = (os.totalmem() / 1024 / 1024 / 1024).toFixed(1);
+                    const freeMem = (os.freemem() / 1024 / 1024 / 1024).toFixed(1);
+                    const usedMem = (totalMem - freeMem).toFixed(1);
+                    const uptime = Math.floor(os.uptime() / 3600);
+
+                    await sock.sendMessage(from, { text: `🖥️ *Estado del Sistema*\n\n💻 CPU Load: ${cpuUsage}\n💾 RAM: ${usedMem}GB / ${totalMem}GB (${((usedMem / totalMem) * 100).toFixed(0)}%)\n⏱️ Uptime: ${uptime} horas\n🖥️ OS: ${os.platform()} ${os.release()}\n💿 Hostname: ${os.hostname()}` });
+                } catch (e) {
+                    await sock.sendMessage(from, { text: `🖥️ Error: ${e.message}` });
+                }
+                continue;
+            }
+
+            // 🖥️ PC CONTROL - Apagar PC
+            if (['!apagar pc', '/apagar pc', 'apagar pc', 'apagar computadora', 'shutdown'].includes(cleanText)) {
+                await sock.sendMessage(from, { text: '⚠️ *APAGANDO PC EN 10 SEGUNDOS*\n\nEscribe "cancelar" para abortar' });
+                const { exec } = require('child_process');
+                exec('shutdown /s /t 10');
+                continue;
+            }
+
+            // 🖥️ PC CONTROL - Reiniciar PC
+            if (['!reiniciar pc', '/reiniciar pc', 'reiniciar pc', 'reiniciar computadora', 'restart'].includes(cleanText)) {
+                await sock.sendMessage(from, { text: '⚠️ *REINICIANDO PC EN 10 SEGUNDOS*\n\nEscribe "cancelar" para abortar' });
+                const { exec } = require('child_process');
+                exec('shutdown /r /t 10');
+                continue;
+            }
+
+            // 🖥️ PC CONTROL - Cancelar shutdown
+            if (['cancelar', 'cancel', 'abortar', 'abort'].includes(cleanText)) {
+                const { exec } = require('child_process');
+                exec('shutdown /a', (err) => {
+                    if (!err) {
+                        sock.sendMessage(from, { text: '✅ Apagado/reinicio cancelado' });
+                    }
+                });
+                continue;
+            }
+
+            // 🧠 MEMORIA - Guardar
+            if (cleanText.startsWith('!recuerda ') || cleanText.startsWith('recuerda ') || cleanText.startsWith('/recuerda ')) {
+                const memText = text.replace(/^(!recuerda|recuerda|\/recuerda)\s+/i, '').trim();
+                const MEMORIA_FILE = path.join(__dirname, 'memoria.json');
+                let memoria = {};
+                if (fs.existsSync(MEMORIA_FILE)) {
+                    memoria = JSON.parse(fs.readFileSync(MEMORIA_FILE, 'utf8'));
+                }
+                const match = memText.match(/(.+?)\s+(es|son|significa|=)\s+(.+)/i);
+                if (match) {
+                    const key = match[1].toLowerCase().trim();
+                    const value = match[3].trim();
+                    memoria[key] = value;
+                    fs.writeFileSync(MEMORIA_FILE, JSON.stringify(memoria, null, 2));
+                    await sock.sendMessage(from, { text: `🧠 *Guardado en memoria:*\n\n"${key}" = "${value}"` });
+                } else {
+                    await sock.sendMessage(from, { text: '🧠 *Formato:* recuerda [X] es [Y]\n\nEjemplo: recuerda mi cumpleaños es 15 de marzo' });
+                }
+                continue;
+            }
+
+            // 🧠 MEMORIA - Buscar
+            if (cleanText.startsWith('!memoria ') || cleanText.startsWith('memoria ') || cleanText.startsWith('/memoria ')) {
+                const query = text.replace(/^(!memoria|memoria|\/memoria)\s+/i, '').trim().toLowerCase();
+                const MEMORIA_FILE = path.join(__dirname, 'memoria.json');
+                if (fs.existsSync(MEMORIA_FILE)) {
+                    const memoria = JSON.parse(fs.readFileSync(MEMORIA_FILE, 'utf8'));
+                    const results = Object.entries(memoria).filter(([k]) => k.includes(query));
+                    if (results.length > 0) {
+                        let response = '🧠 *Memoria encontrada:*\n\n';
+                        results.forEach(([k, v]) => { response += `• "${k}" = "${v}"\n`; });
+                        await sock.sendMessage(from, { text: response });
+                    } else {
+                        await sock.sendMessage(from, { text: `🧠 No encontré "${query}" en la memoria` });
+                    }
+                } else {
+                    await sock.sendMessage(from, { text: '🧠 La memoria está vacía' });
+                }
+                continue;
+            }
+
+            // 🎭 PERSONAS - Cambiar modo/personalidad
+            const personas = ['orion', 'estimator', 'mppro', 'nekon', 'advortex', 'neonhub', 'business suite'];
+            if (personas.includes(cleanText)) {
+                const currentUser = userState.get(from) || { mode: 'orion', history: [] };
+                currentUser.mode = cleanText;
+                currentUser.history = [];
+                userState.set(from, currentUser);
+                saveState();
+                await sock.sendMessage(from, { text: `🎭 *Modo activado:* ${cleanText.toUpperCase()}\n\nLa personalidad ha cambiado. Historial limpiado.` });
+                continue;
+            }
+
+            // 📰 NOTICIAS - Tech news
+            if (['!noticias', '/noticias', 'noticias', 'news', 'noticias tech'].includes(cleanText)) {
+                await sock.sendMessage(from, { text: '📰 *Noticias Tech*\n\nUsa /buscar [tema] para buscar noticias específicas\n\nO visita:\n• TechCrunch: techcrunch.com\n• The Verge: theverge.com\n• Xataka: xataka.com' });
+                continue;
+            }
+
+            // 📧 EMAIL - Enviar correo (natural language)
+            if (cleanText.startsWith('enviar email a ') || cleanText.startsWith('enviar correo a ') ||
+                cleanText.startsWith('manda email a ') || cleanText.startsWith('email a ')) {
+                // Format: enviar email a email@ejemplo.com asunto Hola mensaje Contenido del email
+                const emailMatch = text.match(/(?:enviar email a|enviar correo a|manda email a|email a)\s+(\S+@\S+)\s+(?:asunto|subject)\s+(.+?)\s+(?:mensaje|message|body)\s+(.+)/i);
+                if (emailMatch) {
+                    const [, toEmail, subject, body] = emailMatch;
+                    try {
+                        const emailModule = require('./src/apps/email');
+                        const result = await emailModule.sendEmail(toEmail, subject, body);
+                        if (result.success) {
+                            await sock.sendMessage(from, { text: `📧 ✅ Email enviado a ${toEmail}\n\nAsunto: ${subject}` });
+                        } else {
+                            await sock.sendMessage(from, { text: `📧 ❌ Error: ${result.error}` });
+                        }
+                    } catch (e) {
+                        await sock.sendMessage(from, { text: `📧 Error: ${e.message}` });
+                    }
+                } else {
+                    await sock.sendMessage(from, { text: '📧 *Formato de email:*\n\nenviar email a email@ejemplo.com asunto Mi Asunto mensaje Contenido del email' });
+                }
+                continue;
+            }
+
+            // 📹 YOUTUBE - Descargar video/audio (natural language)
+            if (cleanText.startsWith('descarga de youtube ') || cleanText.startsWith('descarga youtube ') ||
+                cleanText.startsWith('bajar de youtube ') || cleanText.startsWith('youtube ')) {
+                const ytUrl = text.match(/(https?:\/\/(?:www\.)?(?:youtube\.com|youtu\.be)\/[^\s]+)/i);
+                if (ytUrl) {
+                    const isAudio = cleanText.includes('audio') || cleanText.includes('mp3') || cleanText.includes('musica');
+                    await sock.sendMessage(from, { text: `📹 Descargando ${isAudio ? 'audio' : 'video'}...` });
+                    try {
+                        const filePath = await youtubeApp.descargarVideo(ytUrl[1], isAudio ? 'audio' : 'video');
+                        const buffer = fs.readFileSync(filePath);
+                        if (isAudio) {
+                            await sock.sendMessage(from, { audio: buffer, mimetype: 'audio/mp4' });
+                        } else {
+                            await sock.sendMessage(from, { video: buffer, caption: '📹 Descargado de YouTube' });
+                        }
+                    } catch (e) {
+                        await sock.sendMessage(from, { text: `📹 Error: ${e.message}` });
+                    }
+                } else {
+                    await sock.sendMessage(from, { text: '📹 *Formato:*\n\ndescarga youtube [URL]\n\nPara audio: descarga youtube audio [URL]' });
+                }
+                continue;
+            }
+
+            // 🧠 MEMORIA AVANZADA - Por contacto
+            const MEMORIA_CONTACTOS_FILE = path.join(__dirname, 'memoria_contactos.json');
+
+            // Guardar sobre un contacto
+            if (cleanText.match(/^(recuerda que|recuerda sobre|guarda sobre|anota sobre)\s+(.+?)\s+(que|es|son|tiene|esta)\s+(.+)/i)) {
+                const match = cleanText.match(/^(?:recuerda que|recuerda sobre|guarda sobre|anota sobre)\s+(.+?)\s+(?:que|es|son|tiene|esta)\s+(.+)/i);
+                if (match) {
+                    let memoriaContactos = {};
+                    if (fs.existsSync(MEMORIA_CONTACTOS_FILE)) {
+                        memoriaContactos = JSON.parse(fs.readFileSync(MEMORIA_CONTACTOS_FILE, 'utf8'));
+                    }
+                    const contacto = match[1].toLowerCase().trim();
+                    const info = match[2].trim();
+                    if (!memoriaContactos[contacto]) memoriaContactos[contacto] = [];
+                    memoriaContactos[contacto].push({ info, fecha: new Date().toISOString() });
+                    fs.writeFileSync(MEMORIA_CONTACTOS_FILE, JSON.stringify(memoriaContactos, null, 2));
+                    await sock.sendMessage(from, { text: `🧠 Guardado sobre "${contacto}":\n"${info}"` });
+                    continue;
+                }
+            }
+
+            // Buscar sobre un contacto
+            if (cleanText.startsWith('que sabes de ') || cleanText.startsWith('que sabes sobre ') ||
+                cleanText.startsWith('info de ') || cleanText.startsWith('información de ')) {
+                const query = cleanText.replace(/^(que sabes de|que sabes sobre|info de|información de)\s+/i, '').trim().toLowerCase();
+                if (fs.existsSync(MEMORIA_CONTACTOS_FILE)) {
+                    const memoriaContactos = JSON.parse(fs.readFileSync(MEMORIA_CONTACTOS_FILE, 'utf8'));
+                    const results = Object.entries(memoriaContactos).filter(([k]) => k.includes(query));
+                    if (results.length > 0) {
+                        let response = `🧠 *Información sobre "${query}":*\n\n`;
+                        results.forEach(([contacto, datos]) => {
+                            response += `📌 *${contacto}:*\n`;
+                            datos.forEach(d => { response += `  • ${d.info}\n`; });
+                        });
+                        await sock.sendMessage(from, { text: response });
+                    } else {
+                        await sock.sendMessage(from, { text: `🧠 No tengo información sobre "${query}"` });
+                    }
+                } else {
+                    await sock.sendMessage(from, { text: '🧠 La memoria está vacía' });
+                }
+                continue;
+            }
+
+            // 🎨 FOOOCUS - Interfaz de imágenes
+            if (cleanText === 'fooocus' || cleanText === '/fooocus' || cleanText === 'abrir fooocus') {
+                await sock.sendMessage(from, { text: `🎨 *Fooocus - Generador de Imágenes*\n\n📍 Ubicación: C:\\Users\\alexp\\Fooocus\n\n🚀 *Para iniciar:*\n\`\`\`\ncd C:\\Users\\alexp\\Fooocus\npython run.py\n\`\`\`\n\n🌐 Abre http://localhost:7865\n\n✨ Es como Midjourney pero GRATIS y LOCAL\n\n💡 Primera vez descargará modelos (~7GB)` });
+                continue;
+            }
+
             // 🔌 MCP - ORION KNOWLEDGE BASE SEARCH
-            if (cleanText.startsWith('/mcp ') || cleanText.startsWith('/orion ')) {
+            if (cleanText.startsWith('/mcp ') || cleanText.startsWith('/orion ') ||
+                cleanText.startsWith('consulta orion ') || cleanText.startsWith('pregunta a orion ') || cleanText.startsWith('orion busca ')) {
                 const query = text.replace(/^(\/mcp|\/orion)\s+/i, '').trim();
                 if (!query) {
                     await sock.sendMessage(from, { text: '🔌 *ORION MCP*\n\nUso: /mcp [consulta]\n\nEjemplo: /mcp precios de restaurantes' });
@@ -1077,14 +1650,14 @@ Contacto: WhatsApp (669) 234-2444`
 
             // ❓ AYUDA
             if (cleanText === 'ayuda' || cleanText === 'help' || cleanText === '?') {
-                await sock.sendMessage(from, { text: `❓ *AYUDA ORION*\n\n📖 *Comandos principales:*\n• acutor - Manual completo\n• pb - Price Book v6.0 PRO 💰\n• menu - Ver todos los comandos\n• di [texto] - Texto a voz\n• busca [tema] - Google\n• descargar video [url] - YouTube\n• descargar audio [url] - MP3\n• enviar a [num] diciendo [msg]\n• or [mensaje] - Chat con IA\n\n📱 WhatsApp: +1(669) 234-2444` });
+                await sock.sendMessage(from, { text: `❓ *AYUDA ORION CLEAN v2.1*\n\n🧠 *IA & Voz:*\n• /say [texto] - Texto a voz\n• /orvoz [texto] - IA + voz\n• /tr [texto] a [idioma] - Traducir\n\n🔍 *AI Tools:*\n• /buscar [query] - Google Search\n• /scrape [url] - Leer web\n• /groq [query] - AI gratis\n\n📱 *Mensajes:*\n• /enviar [num] [msg] - Enviar WhatsApp\n\n💼 *Profesional:*\n• /cv /tj /skills /landing\n\n🚀 *Productividad:*\n• /ag [tarea] - Nueva tarea\n• /tareas - Ver pendientes\n• /cal - Calendario\n\n📹 *Multimedia:*\n• /yt [url] - YouTube video\n• /qr [texto] - Generar QR\n\n🔗 *Accesos:*\n• pb - Price Book\n• acutor - Manual\n• otp - Orion Bots\n• links - Apps\n\n📱 WhatsApp: +1(669) 234-2444` });
                 continue;
             }
 
             // MENU
             if (cleanText === 'menu' || cleanText === '!menu') {
                 const list = Object.keys(settings.PERSONAS).map(k => `• *${k.toUpperCase()}*: ${settings.PERSONAS[k].name}`).join('\n');
-                await sock.sendMessage(from, { text: `🌌 *ORION SYSTEMS*\n\nCurrent Mode: *${currentUser.mode.toUpperCase()}*\n\nPersonas:\n${list}\n\n🔧 *COMANDOS:*\n• !acutor - Manual\n• !pb - Price Book 💰\n• !links - Orion Apps 🔗\n• !say <texto> - Voz\n• !yt <url> - YouTube\n• !search <query> - Buscar\n• !cal - Calendario\n• !captura - Screenshot\n• !qr <texto> - QR\n• !noticias - News\n• !portapapeles - Clipboard\n• !memoria <query> - Buscar memoria\n• !recuerda <x> es <y> - Guardar\n• !contactos - Agenda\n• !ag <tarea> - Antigravity\n• !tareas - Ver tareas\n• !estado - Sistema\n\n_Escribe un nombre de persona para cambiar modo._` });
+                await sock.sendMessage(from, { text: `🌌 *ORION CLEAN v2.1*\n\nMode: *${currentUser.mode.toUpperCase()}*\n\nPersonas:\n${list}\n\n📋 *COMANDOS:*\n\n🧠 *IA & Voz:*\n• /say [texto] - TTS\n• /orvoz [texto] - IA + voz\n• /tr [texto] a [idioma]\n\n🔍 *AI Tools:*\n• /buscar [q] - Google\n• /scrape [url] - Web\n• /groq [q] - AI Free\n\n📱 *Mensajes:*\n• /enviar [num] [msg]\n\n🚀 *Productividad:*\n• /ag [tarea] /tareas /cal\n\n📹 *Media:*\n• /yt [url] /qr [texto]\n\n🔗 *Links:*\n• pb / acutor / otp / links` });
                 continue;
             }
 

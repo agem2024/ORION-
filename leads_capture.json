@@ -1,5 +1,17 @@
 [
   {
+    "id": 1767627919000,
+    "timestamp": "2026-01-05T16:05:19.000Z",
+    "from": "Antigravity",
+    "package": "SALON",
+    "name": "Sr. Indi",
+    "contact": "Palo Alto",
+    "action": "DEMO SCHEDULED",
+    "status": "CONFIRMED",
+    "notes": "Cita hoy 12:00 PM - Salón de Belleza",
+    "calendar_event_id": "94bf2uuf4noumf0pfhqo5efjk4"
+  },
+  {
     "id": 1766047726773,
     "timestamp": "2025-12-18T08:48:46.773Z",
     "from": "16692342444",

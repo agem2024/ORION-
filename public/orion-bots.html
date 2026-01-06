@@ -2,270 +2,3246 @@
 <html lang="en">
 
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PNTF4GM9');</script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORION TECH | AI Automation for Business</title>
+
+    <!-- Google Analytics 4 (GA4) - ORION Tech -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GY61W7K2B6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-GY61W7K2B6', {
+            'page_title': 'ORION Tech - AI Automation & Custom Apps',
+            'send_page_view': true
+        });
+    </script>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Firebase Configuration - ORION Tech
+        const firebaseConfig = {
+            apiKey: "AIzaSyBJducUOcsPnNEtYOFI3sF60AfHUXMkXBo",
+            authDomain: "orion-tech-6d893.firebaseapp.com",
+            projectId: "orion-tech-6d893",
+            storageBucket: "orion-tech-6d893.firebasestorage.app",
+            messagingSenderId: "360237212144",
+            appId: "1:360237212144:web:956c881d0231f2a3ecfd35",
+            measurementId: "G-W87J0KK9SK"
+        };
+
+        // Initialize Firebase
+        const firebaseApp = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(firebaseApp);
+        const db = getFirestore(firebaseApp);
+
+        // Log page visit
+        logEvent(analytics, 'page_view', {
+            page_title: document.title,
+            page_location: window.location.href,
+            page_path: window.location.pathname
+        });
+
+        // Track visit in Firestore
+        async function trackVisit() {
+            try {
+                await addDoc(collection(db, "visits"), {
+                    timestamp: serverTimestamp(),
+                    page: window.location.pathname,
+                    referrer: document.referrer || 'direct',
+                    userAgent: navigator.userAgent,
+                    language: navigator.language,
+                    country: localStorage.getItem('orion_country') || 'usa',
+                    screenWidth: window.screen.width,
+                    screenHeight: window.screen.height
+                });
+            } catch (e) { console.log('Visit tracking:', e); }
+        }
+        trackVisit();
+
+        // Make saveLead available globally
+        window.saveLead = async function (leadData) {
+            try {
+                const docRef = await addDoc(collection(db, "leads"), {
+                    ...leadData,
+                    timestamp: serverTimestamp(),
+                    source: window.location.pathname,
+                    country: localStorage.getItem('orion_country') || 'usa',
+                    language: localStorage.getItem('orion_lang') || 'en'
+                });
+                logEvent(analytics, 'lead_captured', { lead_id: docRef.id });
+                return docRef.id;
+            } catch (e) {
+                console.error('Lead save error:', e);
+                return null;
+            }
+        };
+    </script>
+
+    <title>ORION Tech | AI Automation & Custom Apps | Bay Area</title>
+    <meta name="description"
+        content="Futuristic AI automation: WhatsApp bots, custom apps, enterprise solutions. Bay Area's top AI agency.">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&family=Rajdhani:wght@600;700&family=Exo+2:wght@700;800;900&family=Audiowide&display=swap"
+        rel="stylesheet">
     <style>
         :root {
-            --bg-color: #050510;
-            --card-bg: rgba(255, 255, 255, 0.05);
+            --neon-green: #25D366;
             --neon-blue: #00f3ff;
             --neon-purple: #bc13fe;
-            --neon-green: #0aff0a;
-            --text-color: #ffffff;
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --dark: #000;
+            --darker: #050505;
+            --light: #fff;
+            --gray: #888;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* HERO SECTION */
-        .hero {
-            height: 100vh;
+        /* GLOW EFFECTS */
+        .glow-text {
+            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 40px var(--neon-blue);
+        }
+
+        .glow-green {
+            text-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+        }
+
+        .glow-box {
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3), inset 0 0 30px rgba(0, 243, 255, 0.05);
+        }
+
+        /* ANIMATED BACKGROUND */
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background:
+                linear-gradient(90deg, rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(rgba(0, 243, 255, 0.03) 1px, transparent 1px),
+                radial-gradient(ellipse at 50% 50%, rgba(0, 243, 255, 0.05) 0%, transparent 70%);
+            background-size: 80px 80px, 80px 80px, 100% 100%;
+            animation: gridMove 20s linear infinite;
+        }
+
+        @keyframes gridMove {
+            from {
+                transform: translateY(0);
+            }
+
+            to {
+                transform: translateY(80px);
+            }
+        }
+
+        /* LANGUAGE & COUNTRY SELECTORS */
+        .global-controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .lang-selector {
+            display: flex;
+            gap: 5px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 8px 12px;
+            border-radius: 30px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+        }
+
+        .country-selector {
+            position: relative;
+        }
+
+        .country-btn {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 8px 15px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            background: radial-gradient(circle at center, #0a0a20 0%, #000000 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent 45%, var(--neon-purple) 50%, transparent 55%);
-            animation: light-sweep 8s infinite linear;
-            opacity: 0.15;
-        }
-
-        @keyframes light-sweep {
-            0% {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-
-            100% {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
-        }
-
-        .hero h1 {
-            font-size: 6rem;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            background: linear-gradient(to right, var(--neon-blue), #ffffff, var(--neon-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(0, 243, 255, 0.6);
-            z-index: 2;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-top: 20px;
-            color: #ccc;
-            z-index: 2;
-            letter-spacing: 2px;
-        }
-
-        .btn-glow {
-            margin-top: 50px;
-            padding: 18px 50px;
-            background: rgba(0, 243, 255, 0.1);
-            border: 2px solid var(--neon-blue);
-            color: var(--neon-blue);
-            font-size: 1.2rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            gap: 8px;
             transition: 0.3s;
-            box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
-            z-index: 2;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
         }
 
-        .btn-glow:hover {
-            background: var(--neon-blue);
+        .country-btn:hover {
+            background: var(--neon-green);
             color: #000;
-            box-shadow: 0 0 50px var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .country-dropdown {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: rgba(5, 5, 5, 0.98);
+            border: 1px solid var(--neon-green);
+            min-width: 180px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+        }
+
+        .country-dropdown.active {
+            display: block;
+        }
+
+        .country-option {
+            padding: 12px 18px;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.2s;
+        }
+
+        .country-option:last-child {
+            border-bottom: none;
+        }
+
+        .country-option:hover {
+            background: rgba(37, 211, 102, 0.2);
+            color: var(--neon-green);
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #666;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .lang-btn.active {
+            background: var(--neon-blue);
+            color: black;
+            box-shadow: 0 0 15px var(--neon-blue);
+        }
+
+        .lang-btn:hover {
+            color: var(--neon-blue);
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 243, 255, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            filter: drop-shadow(0 0 10px var(--neon-blue));
+            transition: 0.3s;
+        }
+
+        .logo:hover .logo-img {
+            filter: drop-shadow(0 0 20px var(--neon-blue));
             transform: scale(1.05);
         }
 
-        /* SERVICES SECTION */
-        .container {
-            max-width: 1200px;
-            margin: 100px auto;
-            padding: 0 20px;
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
-        h2.section-title {
-            font-size: 3rem;
-            text-align: center;
-            margin-bottom: 80px;
-            color: var(--neon-purple);
-            text-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+        /* TIPOGRAFÍA OPCIÓN 1: ORBITRON (Actual - Futurista Geométrico) */
+        .logo-name-orbitron {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--neon-blue);
+            letter-spacing: 3px;
             text-transform: uppercase;
+        }
+
+        /* TIPOGRAFÍA OPCIÓN 2: RAJDHANI (Futurista Angular) */
+        .logo-name-rajdhani {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--neon-blue);
             letter-spacing: 4px;
+            text-transform: uppercase;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 50px;
+        /* TIPOGRAFÍA OPCIÓN 3: EXO 2 (Futurista Tech) */
+        .logo-name-exo {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--neon-blue);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        .card {
-            background: rgba(10, 10, 30, 0.6);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 40px 30px;
-            backdrop-filter: blur(15px);
-            transition: 0.4s;
+        /* TIPOGRAFÍA OPCIÓN 4: AUDIOWIDE (Retro-Futurista) */
+        .logo-name-audiowide {
+            font-family: 'Audiowide', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--neon-blue);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* Estilo actual del nombre (usando Orbitron por default) */
+        .logo-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #39ff14;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #39ff14, 0 0 20px #39ff14, 0 0 40px #39ff14;
+            animation: purpleFlash 2s infinite;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        @keyframes purpleFlash {
+
+            0%,
+            100% {
+                background: transparent;
+            }
+
+            50% {
+                background: rgba(188, 19, 254, 0.4);
+                box-shadow: 0 0 30px rgba(188, 19, 254, 0.6);
+            }
+        }
+
+        .logo-name span {
+            color: var(--neon-green);
+        }
+
+        .logo-slogan {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: var(--gray);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .nav-contact {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 8px 16px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-contact:hover {
+            background: var(--neon-green);
+            color: black;
+            box-shadow: 0 0 20px var(--neon-green);
+            transform: translateY(-2px);
+        }
+
+        .nav-contact::before {
+            content: '📱';
+            font-size: 1rem;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            padding: 120px 5% 80px;
             position: relative;
             overflow: hidden;
         }
 
-        .card::after {
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            filter: brightness(1.15) contrast(1.15);
+            z-index: -1;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%);
+        }
+
+        .hero-content {
+            max-width: 1000px;
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid var(--neon-blue);
+            padding: 10px 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            color: var(--neon-blue);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 5px var(--neon-blue);
+            }
+
+            50% {
+                box-shadow: 0 0 25px var(--neon-blue);
+            }
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-green), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-green), #128C7E);
+            color: black;
+            padding: 18px 45px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            clip-path: polygon(15px 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px var(--neon-green);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--neon-blue);
+            padding: 18px 45px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 2px solid var(--neon-blue);
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: var(--neon-blue);
+            color: black;
+            box-shadow: 0 0 30px var(--neon-blue);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--neon-blue);
+        }
+
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* SECTIONS */
+        .section {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* SERVICES - VIDEO FIRST LAYOUT */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: rgba(0, 243, 255, 0.02);
+            border: 1px solid rgba(0, 243, 255, 0.2);
+            border-radius: 16px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+            animation: scanLine 3s infinite;
+        }
+
+        @keyframes scanLine {
+            to {
+                left: 100%;
+            }
+        }
+
+        .service-card:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* VIDEO AREA - 75% of card */
+        .service-video-area {
+            width: 100%;
+            height: 220px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .service-video-area video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .service-video-area:hover video {
+            transform: scale(1.05);
+        }
+
+        .service-video-area::after {
+            content: '▶ CLICK';
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: #00f3ff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            padding: 5px 10px;
+            border-radius: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* CONTENT AREA - 25% of card */
+        .service-content {
+            padding: 15px 20px 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            color: var(--neon-blue);
+        }
+
+        .service-card p {
+            color: var(--gray);
+            font-size: 0.85rem;
+            line-height: 1.4;
+            flex: 1;
+        }
+
+        /* MORE BUTTON - Neon Colors */
+        .more-btn {
+            margin-top: 12px;
+            padding: 8px 20px;
+            background: transparent;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 20px;
+            letter-spacing: 1px;
+            align-self: flex-start;
+        }
+
+        /* Neon color variants for MORE buttons */
+        .more-btn.neon-cyan {
+            border: 1px solid #00f3ff;
+            color: #00f3ff;
+        }
+
+        .more-btn.neon-cyan:hover {
+            background: #00f3ff;
+            color: #000;
+            box-shadow: 0 0 20px #00f3ff;
+        }
+
+        .more-btn.neon-purple {
+            border: 1px solid #bc13fe;
+            color: #bc13fe;
+        }
+
+        .more-btn.neon-purple:hover {
+            background: #bc13fe;
+            color: #fff;
+            box-shadow: 0 0 20px #bc13fe;
+        }
+
+        .more-btn.neon-green {
+            border: 1px solid #39ff14;
+            color: #39ff14;
+        }
+
+        .more-btn.neon-green:hover {
+            background: #39ff14;
+            color: #000;
+            box-shadow: 0 0 20px #39ff14;
+        }
+
+        .more-btn.neon-pink {
+            border: 1px solid #ff006e;
+            color: #ff006e;
+        }
+
+        .more-btn.neon-pink:hover {
+            background: #ff006e;
+            color: #fff;
+            box-shadow: 0 0 20px #ff006e;
+        }
+
+        .more-btn.neon-orange {
+            border: 1px solid #ff9500;
+            color: #ff9500;
+        }
+
+        .more-btn.neon-orange:hover {
+            background: #ff9500;
+            color: #000;
+            box-shadow: 0 0 20px #ff9500;
+        }
+
+        .more-btn.neon-yellow {
+            border: 1px solid #ffd700;
+            color: #ffd700;
+        }
+
+        .more-btn.neon-yellow:hover {
+            background: #ffd700;
+            color: #000;
+            box-shadow: 0 0 20px #ffd700;
+        }
+
+        .service-details {
+            display: none;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid rgba(0, 243, 255, 0.2);
+            text-align: left;
+        }
+
+        .service-details.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .service-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .service-details li {
+            color: var(--gray);
+            font-size: 0.85rem;
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .service-details li:last-child {
+            border-bottom: none;
+        }
+
+        .service-card.expanded {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.3);
+        }
+
+        /* DEMOS */
+        .demos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .demo-card {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(188, 19, 254, 0.3);
+            border-radius: 0;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .demo-card:hover {
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 50px rgba(188, 19, 254, 0.3);
+        }
+
+        .demo-video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .demo-content {
+            padding: 25px;
+        }
+
+        .demo-badge {
+            display: inline-block;
+            background: var(--neon-purple);
+            color: white;
+            padding: 3px 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .demo-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .demo-card p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .demo-link {
+            color: var(--neon-blue);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .demo-link:hover {
+            text-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        /* INDUSTRIES */
+        .ind-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ind-card {
+            position: relative;
+            height: 320px;
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            overflow: hidden;
+            transition: 0.4s;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .ind-card-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.75;
+            filter: brightness(1.15) contrast(1.15);
+            transition: 0.4s;
+        }
+
+        /* VIDEO AREA for Industry Cards */
+        .ind-video-area {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .ind-video-area video,
+        .ind-video-area img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.75;
+            filter: brightness(1.15) contrast(1.15);
+            transition: 0.4s;
+        }
+
+        .ind-card:hover .ind-video-area video,
+        .ind-card:hover .ind-video-area img {
+            opacity: 1;
+            filter: brightness(1.25) contrast(1.2);
+            transform: scale(1.1);
+        }
+
+        .ind-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            opacity: 0;
-            transition: 0.3s;
+            height: 100%;
+            background: linear-gradient(180deg, transparent 30%, rgba(0, 0, 0, 0.85) 100%);
+            z-index: 1;
         }
 
-        .card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            border-color: rgba(255, 255, 255, 0.2);
+        .ind-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--neon-green);
+            box-shadow: 0 20px 40px rgba(37, 211, 102, 0.3);
         }
 
-        .card:hover::after {
+        .ind-card:hover .ind-card-img {
             opacity: 1;
+            filter: brightness(1.25) contrast(1.2);
+            transform: scale(1.1);
         }
 
-        .card h3 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .ind-content {
+            position: relative;
+            z-index: 2;
+            padding: 25px;
+            text-align: center;
         }
 
-        .card p {
-            color: #aaa;
-            font-size: 1.1rem;
-            line-height: 1.7;
+        .ind-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
         }
 
-        .price-tag {
-            display: block;
-            margin-top: 25px;
+        .ind-price {
+            font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
             color: var(--neon-green);
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(10, 255, 10, 0.3);
+            font-weight: 700;
+            text-shadow: 0 0 15px var(--neon-green);
+        }
+
+        .ind-more {
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* CTA */
+        .cta-section {
+            padding: 100px 5%;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(0, 243, 255, 0.1));
+            border-top: 1px solid var(--neon-blue);
+            border-bottom: 1px solid var(--neon-blue);
+        }
+
+        .cta-section h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: 3px;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto 30px;
         }
 
         /* FOOTER */
         footer {
-            margin-top: 150px;
-            padding: 80px 20px;
+            padding: 40px 5%;
+            background: var(--darker);
             text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-            background: #020205;
+            border-top: 1px solid rgba(0, 243, 255, 0.1);
         }
 
-        .footer-logo {
-            width: 100px;
-            margin-bottom: 20px;
-            opacity: 0.7;
+        footer p {
+            color: var(--gray);
+            font-size: 0.85rem;
         }
-    </style>
-</head>
 
-<body>
+        footer a {
+            color: var(--neon-blue);
+            text-decoration: none;
+        }
 
-    <section class="hero">
-        <img src="images/orion_logo.png" alt="Orion Tech Logo"
-            style="width: 280px; margin-bottom: 30px; filter: drop-shadow(0 0 30px rgba(0, 243, 255, 0.3)); animation: float 6s ease-in-out infinite;">
-        <h1>ORION TECH</h1>
-        <p>AI AUTOMATION FOR THE BAY AREA</p>
-        <a href="https://wa.me/16692342444?text=Hola,%20me%20interesa%20automatizar%20mi%20negocio"
-            class="btn-glow">Start Automation</a>
-    </section>
+        /* FLOAT */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: var(--neon-green);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            z-index: 999;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: floatPulse 2s infinite;
+        }
 
-    <div class="container">
-        <h2 class="section-title">Business Solutions</h2>
+        @keyframes floatPulse {
 
-        <div class="grid">
-            <!-- STARTER -->
-            <div class="card">
-                <h3>Starter Bot</h3>
-                <p>24/7 Auto-Reply for Restaurants & Shops. Never miss a customer message again.</p>
-                <span class="price-tag" data-price="salons">$997 / setup</span>
-            </div>
-
-            <!-- BUSINESS -->
-            <div class="card">
-                <h3>Business Pro</h3>
-                <p>Full Booking System + Calendar Sync. Integrated Google Scheduling for Service Pros.</p>
-                <span class="price-tag" data-price="restaurants">$1,997 / setup</span>
-            </div>
-
-            <!-- ENTERPRISE -->
-            <div class="card">
-                <h3>Enterprise AI</h3>
-                <p>Custom LLM Training, CRM Integration, and Multi-Agent Systems.</p>
-                <span class="price-tag" data-price="enterprise">$4,997+</span>
-            </div>
-        </div>
-    </div>
-
-    <footer>
-        <img src="images/orion_logo.png" alt="Orion" class="footer-logo">
-        <p style="color: #666; font-size: 0.9rem;">&copy; 2025 ORION TECH. Silicon Valley, CA.</p>
-        <p style="color: #444; font-size: 0.8rem; margin-top: 10px;">Powered by Alex G. Espinosa</p>
-    </footer>
-
-    <style>
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
+            0%,
+            100% {
+                box-shadow: 0 0 20px var(--neon-green);
             }
 
             50% {
-                transform: translateY(-15px);
+                box-shadow: 0 0 40px var(--neon-green);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .lang-selector {
+                top: auto;
+                bottom: 100px;
+                right: 15px;
+                flex-direction: column;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .stats {
+                gap: 30px;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="orion-responsive.css">
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PNTF4GM9" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="cyber-grid"></div>
+
+    <!-- GLOBAL CONTROLS: Language + Country -->
+    <div class="global-controls">
+        <!-- Country Selector -->
+        <div class="country-selector">
+            <button class="country-btn" onclick="toggleCountryMenu()">
+                <span id="current-flag">🇺🇸</span>
+                <span id="current-country">USA</span>
+                <span>▼</span>
+            </button>
+            <div class="country-dropdown" id="country-dropdown">
+                <div class="country-option" onclick="setCountry('usa')">🇺🇸 USA (Bay Area)</div>
+                <div class="country-option" onclick="setCountry('colombia')">🇨🇴 Colombia</div>
+                <div class="country-option" onclick="setCountry('mexico')">🇲🇽 México</div>
+                <div class="country-option" onclick="setCountry('peru')">🇵🇪 Perú</div>
+                <div class="country-option" onclick="setCountry('ecuador')">🇪🇨 Ecuador</div>
+                <div class="country-option" onclick="setCountry('canada')">🇨🇦 Canada</div>
+            </div>
+        </div>
+        <!-- Language Selector -->
+        <div class="lang-selector">
+            <button class="lang-btn active"
+                onclick="setLang('en'); gtag('event', 'language_change', {'event_category': 'Language', 'event_label': 'English'});">EN</button>
+            <button class="lang-btn"
+                onclick="setLang('es'); gtag('event', 'language_change', {'event_category': 'Language', 'event_label': 'Spanish'});">ES</button>
+            <button class="lang-btn"
+                onclick="setLang('zh'); gtag('event', 'language_change', {'event_category': 'Language', 'event_label': 'Chinese'});">中文</button>
+            <button class="lang-btn"
+                onclick="setLang('tl'); gtag('event', 'language_change', {'event_category': 'Language', 'event_label': 'Tagalog'});">TL</button>
+            <button class="lang-btn"
+                onclick="setLang('vi'); gtag('event', 'language_change', {'event_category': 'Language', 'event_label': 'Vietnamese'});">VI</button>
+        </div>
+    </div>
+
+    <!-- NAV -->
+    <nav>
+        <a href="#" class="logo">
+            <video src="images/orion_logo_2090.mp4" autoplay muted loop playsinline class="logo-img"></video>
+            <div class="logo-text">
+                <div class="logo-name">ORION<span>_</span>TECH</div>
+                <div class="logo-slogan">Un Agente en tu Bolsillo</div>
+            </div>
+        </a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="images/cv_intro_eye_1765352245536.mp4" type="video/mp4">
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="badge" data-i18n="badge">⚡ NEXT-GEN AI AUTOMATION</span>
+            <h1 data-i18n="hero_title">DEPLOY INTELLIGENT SYSTEMS FOR YOUR BUSINESS</h1>
+            <p data-i18n="hero_desc">AI Agents, custom apps, AI integration. We build autonomous systems that work
+                24/7 so you don't have to.</p>
+            <div class="hero-buttons">
+                <a href="https://wa.me/16692342444?text=Deploy%20AI%20for%20my%20business" class="btn-primary"
+                    onclick="gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Hero Deploy Now - WhatsApp', 'value': 1});">
+                    💬 <span data-i18n="hero_cta1">DEPLOY NOW</span>
+                </a>
+                <button
+                    onclick="openLeadModal(); gtag('event', 'click', {'event_category': 'CTA', 'event_label': 'Hero Get Quote'});"
+                    class="btn-secondary" style="cursor:pointer;">
+                    📩 GET QUOTE
+                </button>
+                <a href="#demos" class="btn-secondary" data-i18n="hero_cta2"
+                    onclick="gtag('event', 'click', {'event_category': 'Navigation', 'event_label': 'Hero View Demos'});">VIEW
+                    DEMOS</a>
+            </div>
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label" data-i18n="stat1">ONLINE</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label" data-i18n="stat2">LANGUAGES</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">∞</div>
+                    <div class="stat-label" data-i18n="stat3">SCALABILITY</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section" id="services">
+        <div class="section-title">
+            <h2 class="glow-text" data-i18n="services_title">// CAPABILITIES</h2>
+            <p data-i18n="services_desc">What we deploy for individuals, businesses, and enterprises</p>
+        </div>
+        <div class="services-grid">
+            <!-- CARD 1: CUSTOM AI AGENTS - Cyan -->
+            <div class="service-card" onclick="toggleDetails(this)">
+                <div class="service-video-area">
+                    <video src="images/capability_whatsapp_bot_1765573180451.mp4" autoplay loop muted
+                        playsinline></video>
+                </div>
+                <div class="service-content">
+                    <h3 data-i18n="svc1_title">CUSTOM AI AGENTS</h3>
+                    <p data-i18n="svc1_desc">Autonomous bots for WhatsApp, Telegram, Instagram. 24/7 customer service.
+                    </p>
+                    <button class="more-btn neon-cyan">+ MORE</button>
+                    <div class="service-details">
+                        <ul>
+                            <li>🤖 Multi-platform (WhatsApp, Telegram, IG, Messenger)</li>
+                            <li>🧠 GPT-4 / Gemini / Claude powered</li>
+                            <li>🌐 5 languages (EN/ES/ZH/TL/VI)</li>
+                            <li>📊 Analytics dashboard</li>
+                            <li>🔄 CRM integrations</li>
+                            <li>💬 Unlimited conversations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- CARD 2: MOBILE SYSTEMS - Pink -->
+            <div class="service-card" onclick="toggleDetails(this)">
+                <div class="service-video-area">
+                    <video src="images/capability_mobile_systems_1765573258112.mp4" autoplay loop muted
+                        playsinline></video>
+                </div>
+                <div class="service-content">
+                    <h3 data-i18n="svc2_title">MOBILE SYSTEMS</h3>
+                    <p data-i18n="svc2_desc">Native iOS & Android apps. Push notifications, offline mode.</p>
+                    <button class="more-btn neon-pink">+ MORE</button>
+                    <div class="service-details">
+                        <ul>
+                            <li>📱 Native iOS & Android development</li>
+                            <li>🔔 Push notifications & alerts</li>
+                            <li>📶 Offline mode functionality</li>
+                            <li>🔐 Biometric authentication</li>
+                            <li>📍 GPS & location services</li>
+                            <li>🏪 App Store & Play Store publishing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- CARD 3: WEB PLATFORMS - Orange -->
+            <div class="service-card" onclick="toggleDetails(this)">
+                <div class="service-video-area">
+                    <video src="images/capability_web_platform_1765573194485.mp4" autoplay loop muted
+                        playsinline></video>
+                </div>
+                <div class="service-content">
+                    <h3 data-i18n="svc3_title">WEB PLATFORMS</h3>
+                    <p data-i18n="svc3_desc">E-commerce, dashboards, admin panels, booking engines.</p>
+                    <button class="more-btn neon-orange">+ MORE</button>
+                    <div class="service-details">
+                        <ul>
+                            <li>🛒 E-commerce with payments (Stripe/PayPal)</li>
+                            <li>📊 Real-time analytics dashboards</li>
+                            <li>📅 Booking & reservation systems</li>
+                            <li>👤 Customer portals</li>
+                            <li>🔒 SSL & security hardened</li>
+                            <li>📱 Mobile-responsive design</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- CARD 4: AI INTEGRATION - Purple -->
+            <div class="service-card" onclick="toggleDetails(this)">
+                <div class="service-video-area">
+                    <video src="images/capability_ai_brain_1765573234371.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <div class="service-content">
+                    <h3 data-i18n="svc4_title">AI INTEGRATION</h3>
+                    <p data-i18n="svc4_desc">GPT-4, Gemini, Claude. Vision, voice, text processing.</p>
+                    <button class="more-btn neon-purple">+ MORE</button>
+                    <div class="service-details">
+                        <ul>
+                            <li>🧠 GPT-4, Gemini Pro, Claude 3</li>
+                            <li>👁️ Vision AI (image analysis)</li>
+                            <li>🎤 Voice recognition & synthesis</li>
+                            <li>📝 Document processing (OCR)</li>
+                            <li>🔮 Predictive analytics</li>
+                            <li>🤖 Custom model training</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- CARD 5: WORKFLOW AUTOMATION - Yellow -->
+            <div class="service-card" onclick="toggleDetails(this)">
+                <div class="service-video-area">
+                    <video src="images/capability_automation_1765573271380.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <div class="service-content">
+                    <h3 data-i18n="svc5_title">WORKFLOW AUTOMATION</h3>
+                    <p data-i18n="svc5_desc">Invoicing, inventory, CRM sync, email flows.</p>
+                    <button class="more-btn neon-yellow">+ MORE</button>
+                    <div class="service-details">
+                        <ul>
+                            <li>📧 Email automation & sequences</li>
+                            <li>📦 Inventory management</li>
+                            <li>💰 Automatic invoicing</li>
+                            <li>🔗 Zapier/Make integrations</li>
+                            <li>📋 Task & project automation</li>
+                            <li>📊 Report generation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- CARD 6: 24/7 OPERATIONS - Green -->
+            <div class="service-card" onclick="toggleDetails(this)">
+                <div class="service-video-area">
+                    <video src="images/capability_247_ops_1765573285705.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <div class="service-content">
+                    <h3 data-i18n="svc6_title">24/7 OPERATIONS</h3>
+                    <p data-i18n="svc6_desc">Monitoring, updates, security, backups.</p>
+                    <button class="more-btn neon-green">+ MORE</button>
+                    <div class="service-details">
+                        <ul>
+                            <li>🖥️ 24/7 system monitoring</li>
+                            <li>🔄 Automatic updates & patches</li>
+                            <li>🛡️ Security audits & protection</li>
+                            <li>💾 Daily backups (cloud)</li>
+                            <li>📞 Priority support</li>
+                            <li>📈 Uptime guarantee 99.9%</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEMOS -->
+    <section class="section" id="demos" style="background: rgba(0,0,0,0.5);">
+        <div class="section-title">
+            <h2 class="glow-text" data-i18n="demos_title">// LIVE EXAMPLES</h2>
+            <p data-i18n="demos_desc">See our technology in action</p>
+        </div>
+        <div class="demos-grid">
+            <!-- NEW: MP PRO - AI Studio App (MOVED TO TOP) -->
+            <div class="demo-card">
+                <video class="demo-video" src="images/mp_pro.mp4" autoplay loop muted playsinline
+                    style="object-fit: cover;"></video>
+                <div class="demo-content">
+                    <span class="demo-badge" style="background: #39ff14;">AI App Mode</span>
+                    <h3 data-i18n="mp_title">MP PRO</h3>
+                    <p data-i18n="mp_subtitle" style="font-size: 0.75rem; color: #00f3ff; margin-bottom: 5px;">
+                        Professional AI Diagnosis & Estimation</p>
+                    <p data-i18n="mp_desc">🔧 Un Plomero en tu Bolsillo. Get instant plumbing estimates, DIY solutions,
+                        and professional guidance.</p>
+                    <button class="more-btn neon-green" onclick="toggleDemoDetails(this); event.stopPropagation();">+
+                        MORE</button>
+                    <div class="demo-details"
+                        style="display:none; margin-top:12px; padding-top:12px; border-top:1px solid rgba(57,255,20,0.3);">
+                        <ul style="list-style:none; padding:0; margin:0 0 15px 0;">
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">👥 <strong data-i18n="mp_for">For:
+                                    Homeowners, Renters, Property Managers, Anyone!</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">📸 <strong
+                                    data-i18n="mp_feature">Feature: Send a photo → AI diagnoses the issue</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">💰 <strong
+                                    data-i18n="mp_output">Output: Instant cost estimate + repair options</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">🛠️ <strong data-i18n="mp_diy">DIY
+                                    Tips: Basic fixes you can do yourself</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">🤖 <strong
+                                    data-i18n="mp_powered">Powered by: Gemini 2.0 Vision AI</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">📊 <strong
+                                    data-i18n="mp_pricebook">Price Book: 200+ plumbing services</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">🌎 <strong
+                                    data-i18n="mp_lang">Languages: English, Spanish</strong></li>
+                        </ul>
+                    </div>
+                    <a href="https://ai.studio/apps/drive/1bMGhzGDqLL_aDfnSC78Ie_HnsF7b691I?fullscreenApplet=true"
+                        class="demo-link" target="_blank"
+                        onclick="gtag('event', 'demo_request', {'event_category': 'Demos', 'event_label': 'MP PRO - AI Studio'});">→
+                        TRY LIVE APP</a>
+                </div>
+            </div>
+
+            <!-- NEW: InvAI - AI Studio App (2nd Position) -->
+            <div class="demo-card">
+                <video class="demo-video" src="images/invai_thumbnail.mp4" autoplay loop muted playsinline
+                    style="object-fit: cover;"></video>
+                <div class="demo-content">
+                    <span class="demo-badge" style="background: #39ff14;">AI App Mode</span>
+                    <h3 data-i18n="invai_title">InvAI Inventory</h3>
+                    <p data-i18n="invai_subtitle" style="font-size: 0.75rem; color: #00f3ff; margin-bottom: 5px;">
+                        Intelligent Stock Management</p>
+                    <p data-i18n="invai_desc">AI-powered inventory tracking, predictive analytics, and automated
+                        reordering.</p>
+                    <button class="more-btn neon-green" onclick="toggleDemoDetails(this); event.stopPropagation();">+
+                        MORE</button>
+                    <div class="demo-details"
+                        style="display:none; margin-top:12px; padding-top:12px; border-top:1px solid rgba(57,255,20,0.3);">
+                        <ul style="list-style:none; padding:0; margin:0 0 15px 0;">
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">👥 <strong
+                                    data-i18n="invai_for">For:
+                                    Warehouses, Retailers, Manufacturers, Anyone!</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">📊 <strong
+                                    data-i18n="invai_feature">Feature: Real-time dashboard & alerts</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">📈 <strong
+                                    data-i18n="invai_output">Output: Optimization reports & forecasts</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">🔄 <strong
+                                    data-i18n="invai_auto">Auto
+                                    Reorder: AI predicts when to restock</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">🤖 <strong
+                                    data-i18n="invai_powered">Powered by: Gemini 2.0 AI</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">📦 <strong
+                                    data-i18n="invai_tracking">SKU Tracking: Unlimited products</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">🌎 <strong
+                                    data-i18n="invai_lang">Languages: English, Spanish</strong></li>
+                        </ul>
+                    </div>
+                    <a href="https://ai.studio/apps/drive/1qqUcvHx_KD94VplUFjDxAiAl84Ji1jt7?fullscreenApplet=true"
+                        class="demo-link" target="_blank"
+                        onclick="gtag('event', 'demo_request', {'event_category': 'Demos', 'event_label': 'InvAI - AI Studio'});">→
+                        TRY LIVE APP</a>
+                </div>
+            </div>
+
+            <!-- NEW: EP PRO - Plumbing Estimator App (3rd Position) -->
+            <div class="demo-card">
+                <video class="demo-video" src="images/plumbing_estimator_thumbnail.mp4" autoplay loop muted playsinline
+                    style="object-fit: cover;"></video>
+                <div class="demo-content">
+                    <span class="demo-badge" style="background: #39ff14;">AI App Mode</span>
+                    <h3 data-i18n="eppro_title">EP PRO Estimator</h3>
+                    <p data-i18n="eppro_subtitle" style="font-size: 0.75rem; color: #00f3ff; margin-bottom: 5px;">
+                        Plumbing Cost Calculator</p>
+                    <p data-i18n="eppro_desc">Instant plumbing estimates, parts selection, and labor calculation.</p>
+                    <button class="more-btn neon-green" onclick="toggleDemoDetails(this); event.stopPropagation();">+
+                        MORE</button>
+                    <div class="demo-details"
+                        style="display:none; margin-top:12px; padding-top:12px; border-top:1px solid rgba(57,255,20,0.3);">
+                        <ul style="list-style:none; padding:0; margin:0 0 15px 0;">
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">👥 <strong
+                                    data-i18n="eppro_for">For:
+                                    Plumbers, Contractors, Service Companies!</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">⚙️ <strong
+                                    data-i18n="eppro_feature">Feature: Difficulty sliders & AI cost logic</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">📄 <strong
+                                    data-i18n="eppro_output">Output: Professional quote PDF</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">💰 <strong
+                                    data-i18n="eppro_pricing">Pricing:
+                                    Labor + parts + markup calculation</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">🤖 <strong
+                                    data-i18n="eppro_powered">Powered by: Gemini 2.0 AI</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">📊 <strong
+                                    data-i18n="eppro_pricebook">Price Book: 200+ services included</strong></li>
+                            <li style="color:#888; font-size:0.85rem; padding:5px 0;">🌎 <strong
+                                    data-i18n="eppro_lang">Languages: English, Spanish</strong></li>
+                        </ul>
+                    </div>
+                    <a href="https://ai.studio/apps/drive/1vikKncwaJRxWOANGeEcnchTAM96CqmnZ?fullscreenApplet=true"
+                        class="demo-link" target="_blank"
+                        onclick="gtag('event', 'demo_request', {'event_category': 'Demos', 'event_label': 'EP PRO - AI Studio'});">→
+                        TRY LIVE APP</a>
+                </div>
+            </div>
+
+            <div class="demo-card">
+                <video class="demo-video" autoplay muted loop playsinline>
+                    <source src="images/cv_digital_ops_1765352273224.mp4" type="video/mp4">
+                </video>
+                <div class="demo-content">
+                    <span class="demo-badge">WhatsApp Bot</span>
+                    <h3 data-i18n="demo1_title">Restaurant Order Bot</h3>
+                    <p data-i18n="demo1_desc">Automated menu, order taking, payment links, delivery tracking. 40% more
+                        orders.</p>
+                    <a href="https://wa.me/16692342444?text=Demo%20restaurant%20bot" class="demo-link"
+                        onclick="gtag('event', 'demo_request', {'event_category': 'Demos', 'event_label': 'Restaurant Bot'});">→
+                        Request Demo</a>
+                </div>
+            </div>
+            <div class="demo-card">
+                <video class="demo-video" autoplay muted loop playsinline>
+                    <source src="images/cv_architect_holo_1765352204492.mp4" type="video/mp4">
+                </video>
+                <div class="demo-content">
+                    <span class="demo-badge">Custom App</span>
+                    <h3 data-i18n="demo2_title">Service Booking App</h3>
+                    <p data-i18n="demo2_desc">Appointment scheduling, reminders, loyalty points, payment processing. For
+                        salons, clinics, contractors.</p>
+                    <a href="https://wa.me/16692342444?text=Demo%20booking%20app" class="demo-link"
+                        onclick="gtag('event', 'demo_request', {'event_category': 'Demos', 'event_label': 'Booking App'});">→
+                        Request Demo</a>
+                </div>
+            </div>
+            <div class="demo-card">
+                <video class="demo-video" autoplay muted loop playsinline>
+                    <source src="images/cv_eco_tech_1765352222464.mp4" type="video/mp4">
+                </video>
+                <div class="demo-content">
+                    <span class="demo-badge">AI System</span>
+                    <h3 data-i18n="demo3_title">Quote Estimator Bot</h3>
+                    <p data-i18n="demo3_desc">Customer sends photo → AI analyzes → Instant quote generated. For
+                        plumbers, contractors, repair services.</p>
+                    <a href="https://wa.me/16692342444?text=Demo%20quote%20bot" class="demo-link"
+                        onclick="gtag('event', 'demo_request', {'event_category': 'Demos', 'event_label': 'Quote Bot'});">→
+                        Request Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INDUSTRIES -->
+    <section class="section" id="industries">
+        <div class="section-title">
+            <h2 class="glow-text" data-i18n="ind_title">// INDUSTRY PACKAGES</h2>
+            <p data-i18n="ind_desc">Specialized solutions starting from</p>
+        </div>
+        <div class="ind-grid">
+            <!-- INDIVIDUALS - Video Available -->
+            <a href="industry-individual.html" class="ind-card" style="text-decoration:none; color:inherit;">
+                <div class="ind-video-area">
+                    <video src="images/industry_individual_1765429956417.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <div class="ind-content">
+                    <h3>INDIVIDUALS</h3>
+                    <div class="ind-price">$297</div>
+                    <div class="ind-more neon-cyan">→ DETAILS</div>
+                </div>
+            </a>
+            <!-- RESTAURANTS - Using PNG -->
+            <a href="industry-restaurant.html" class="ind-card" style="text-decoration:none; color:inherit;">
+                <div class="ind-video-area">
+                    <img src="images/industry_restaurant_1765429822997.png" alt="Restaurant">
+                </div>
+                <div class="ind-content">
+                    <h3>RESTAURANTS</h3>
+                    <div class="ind-price">$1,497</div>
+                    <div class="ind-more neon-orange">→ DETAILS</div>
+                </div>
+            </a>
+            <!-- LIQUOR STORES - Using PNG -->
+            <a href="industry-liquor.html" class="ind-card" style="text-decoration:none; color:inherit;">
+                <div class="ind-video-area">
+                    <img src="images/industry_liquor_1765429838209.png" alt="Liquor Store">
+                </div>
+                <div class="ind-content">
+                    <h3>LIQUOR STORES</h3>
+                    <div class="ind-price">$1,297</div>
+                    <div class="ind-more neon-purple">→ DETAILS</div>
+                </div>
+            </a>
+            <!-- BEAUTY SALONS - Video Available -->
+            <a href="industry-salon.html" class="ind-card" style="text-decoration:none; color:inherit;">
+                <div class="ind-video-area">
+                    <video src="images/industry_salon_1765429859260.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <div class="ind-content">
+                    <h3>BEAUTY SALONS</h3>
+                    <div class="ind-price">$997</div>
+                    <div class="ind-more neon-pink">→ DETAILS</div>
+                </div>
+            </a>
+            <!-- CONTRACTORS - Video Available -->
+            <a href="industry-contractor.html" class="ind-card" style="text-decoration:none; color:inherit;">
+                <div class="ind-video-area">
+                    <video src="images/industry_contractor_1765429876651.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <div class="ind-content">
+                    <h3>CONTRACTORS</h3>
+                    <div class="ind-price">$1,497</div>
+                    <div class="ind-more neon-yellow">→ DETAILS</div>
+                </div>
+            </a>
+            <!-- RETAIL - Video Available -->
+            <a href="industry-retail.html" class="ind-card" style="text-decoration:none; color:inherit;">
+                <div class="ind-video-area">
+                    <video src="images/retail_store.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <div class="ind-content">
+                    <h3>RETAIL</h3>
+                    <div class="ind-price">$1,197</div>
+                    <div class="ind-more neon-cyan">→ DETAILS</div>
+                </div>
+            </a>
+            <!-- ENTERPRISE - Video Available -->
+            <a href="industry-enterprise.html" class="ind-card" style="text-decoration:none; color:inherit;">
+                <div class="ind-video-area">
+                    <video src="images/industrial_plant_2090.mp4" autoplay loop muted playsinline></video>
+                </div>
+                <div class="ind-content">
+                    <h3>ENTERPRISE</h3>
+                    <div class="ind-price">$4,997+</div>
+                    <div class="ind-more neon-green">→ DETAILS</div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+
+    <!-- PAYMENT METHODS -->
+    <section class="section" id="payment-methods"
+        style="background: linear-gradient(180deg, #000 0%, rgba(188,19,254,0.05) 100%);">
+        <div class="section-title">
+            <h2 class="glow-text">// PAYMENT METHODS</h2>
+            <p id="payment-desc">Flexible payment options for your region</p>
+        </div>
+        <div id="payment-methods-container"
+            style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 1000px; margin: 0 auto;">
+            <!-- Dynamic payment methods will be rendered here -->
+        </div>
+    </section>
+
+
+    <!-- AI ASSISTANTS -->
+    <section class="cta-section"
+        style="background: linear-gradient(180deg, rgba(0,243,255,0.05) 0%, #000 100%); padding: 60px 5%;">
+        <h2 class="glow-blue" style="margin-bottom: 15px;">🤖 AI ASSISTANTS</h2>
+        <p style="color: #888; margin-bottom: 40px;">Connect with our intelligent team 24/7</p>
+        <div id="ai-assistants-container"
+            style="display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; max-width: 900px; margin: 0 auto;">
+            <!-- Dynamic content will be rendered here by updateContacts() -->
+        </div>
+    </section>
+
+    <!-- LEAD CAPTURE MODAL -->
+    <div id="lead-modal"
+        style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:2000; justify-content:center; align-items:center;">
+        <div
+            style="background:#0a0a0a; border:1px solid #00f3ff; border-radius:15px; padding:40px; max-width:450px; width:90%; position:relative; box-shadow:0 0 50px rgba(0,243,255,0.3);">
+            <button onclick="closeLeadModal()"
+                style="position:absolute; top:15px; right:15px; background:none; border:none; color:#888; font-size:1.5rem; cursor:pointer;">✕</button>
+            <h3 style="font-family:'Orbitron',sans-serif; color:#00f3ff; margin-bottom:20px; text-align:center;">🚀 GET
+                STARTED</h3>
+            <form id="lead-form" onsubmit="submitLead(event)">
+                <input type="text" id="lead-name" placeholder="Your Name" required
+                    style="width:100%; padding:15px; margin-bottom:15px; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:1rem;">
+                <input type="tel" id="lead-phone" placeholder="Phone / WhatsApp" required
+                    style="width:100%; padding:15px; margin-bottom:15px; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:1rem;">
+                <input type="email" id="lead-email" placeholder="Email (optional)"
+                    style="width:100%; padding:15px; margin-bottom:15px; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:1rem;">
+                <select id="lead-industry" required
+                    style="width:100%; padding:15px; margin-bottom:15px; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:1rem;">
+                    <option value="">Select Industry</option>
+                    <option value="restaurant">Restaurant</option>
+                    <option value="salon">Salon / Spa</option>
+                    <option value="contractor">Contractor / Plumber</option>
+                    <option value="retail">Retail Store</option>
+                    <option value="liquor">Liquor Store</option>
+                    <option value="individual">Individual / Freelancer</option>
+                    <option value="enterprise">Enterprise</option>
+                    <option value="other">Other</option>
+                </select>
+                <textarea id="lead-message" placeholder="Tell us about your project..." rows="3"
+                    style="width:100%; padding:15px; margin-bottom:20px; background:#111; border:1px solid #333; border-radius:8px; color:#fff; font-size:1rem; resize:none;"></textarea>
+                <button type="submit"
+                    style="width:100%; padding:18px; background:linear-gradient(135deg, #25D366, #128C7E); border:none; border-radius:8px; color:#000; font-family:'Orbitron',sans-serif; font-weight:700; font-size:1rem; cursor:pointer; text-transform:uppercase; letter-spacing:2px;">
+                    📩 SEND REQUEST
+                </button>
+            </form>
+            <p id="lead-status" style="text-align:center; margin-top:15px; color:#888; font-size:0.85rem;"></p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <p id="footer-location" style="font-family: 'Orbitron', sans-serif; letter-spacing: 2px; margin-bottom: 10px;">
+            ORION_TECH // SAN JOSE, CA</p>
+        <p id="footer-contacts">💬 <a href="https://wa.me/16692342444" style="color: #25D366;">(669) 234-2444</a> | 📞
+            <a href="tel:+18312221072" style="color: var(--neon-blue);">(831) 222-1072</a> | ✈️ <a
+                href="https://t.me/oriontechbot" style="color: #0088cc;">@oriontechbot</a>
+        </p>
+        <p id="footer-person" style="margin-top: 5px;">📧 <a href="mailto:agem2013@gmail.com"
+                style="color: #fff;">agem2013@gmail.com</a> |
+            <a href="https://agem2024.github.io/SEGURITI-USC/cv_pro.html" style="color: var(--neon-green);">Alex G.
+                Espinosa</a>
+        </p>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/16692342444" class="whatsapp-float"
+        onclick="gtag('event', 'contact', {'event_category': 'WhatsApp Float', 'event_label': 'Floating Button Click', 'value': 1});">
+        <img src="images/capability_whatsapp_bot_1765573180451.png" alt="WhatsApp"
+            style="width: 100%; height: 100%; object-fit: cover;">
+    </a>
+
+    <!-- Telegram Float -->
+    <a href="https://t.me/oriontechbot" class="telegram-float"
+        onclick="gtag('event', 'contact', {'event_category': 'Telegram Float', 'event_label': 'Floating Button Click', 'value': 1});">
+        <video src="images/orion_bot.mp4" autoplay muted loop playsinline
+            style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></video>
+    </a>
+
+    <script>
+        const translations = {
+            en: {
+                nav_cta: "Initialize Contact", badge: "⚡ NEXT-GEN AI AUTOMATION",
+                hero_title: "DEPLOY INTELLIGENT SYSTEMS FOR YOUR BUSINESS",
+                hero_desc: "AI Agents, custom apps, AI integration. We build autonomous systems that work 24/7 so you don't have to.",
+                hero_cta1: "DEPLOY NOW", hero_cta2: "VIEW DEMOS",
+                stat1: "ONLINE", stat2: "LANGUAGES", stat3: "SCALABILITY",
+                services_title: "// CAPABILITIES", services_desc: "What we deploy for individuals, businesses, and enterprises",
+                svc1_title: "CUSTOM AI AGENTS", svc1_desc: "Autonomous bots that handle customer service, orders, bookings. Zero human intervention required.",
+                svc2_title: "MOBILE SYSTEMS", svc2_desc: "Native iOS & Android apps. Push notifications, offline mode, seamless UX.",
+                svc3_title: "WEB PLATFORMS", svc3_desc: "E-commerce, dashboards, admin panels, booking engines. Full-stack solutions.",
+                svc4_title: "AI INTEGRATION", svc4_desc: "GPT-4, Gemini, Claude. Vision, voice, text. Your business powered by the latest AI.",
+                svc5_title: "WORKFLOW AUTOMATION", svc5_desc: "Invoicing, inventory, CRM sync, email flows. Eliminate manual work.",
+                svc6_title: "24/7 OPERATIONS", svc6_desc: "Monitoring, updates, security, backups. We keep your systems running.",
+                demos_title: "// LIVE EXAMPLES", demos_desc: "See our technology in action",
+                demo1_title: "Restaurant Order Bot", demo1_desc: "Automated menu, order taking, payment links, delivery tracking. 40% more orders.",
+                demo2_title: "Service Booking App", demo2_desc: "Appointment scheduling, reminders, loyalty points, payment processing.",
+                demo3_title: "Quote Estimator Bot", demo3_desc: "Customer sends photo → AI analyzes → Instant quote. For contractors, plumbers.",
+                mp_title: "MP PRO", mp_subtitle: "Professional AI Diagnosis & Estimation",
+                mp_desc: "🔧 A Plumber in your Pocket. Get instant plumbing estimates, DIY solutions, and professional guidance.",
+                mp_for: "For: Homeowners, Renters, Property Managers, Anyone!",
+                mp_feature: "Feature: Send a photo → AI diagnoses the issue",
+                mp_output: "Output: Instant cost estimate + repair options",
+                mp_diy: "DIY Tips: Basic fixes you can do yourself",
+                mp_powered: "Powered by: Gemini 2.0 Vision AI",
+                mp_pricebook: "Price Book: 200+ plumbing services",
+                mp_lang: "Languages: English, Spanish",
+                invai_title: "InvAI Inventory", invai_subtitle: "Intelligent Stock Management",
+                invai_desc: "AI-powered inventory tracking, predictive analytics, and automated reordering.",
+                invai_feature: "Feature: Real-time dashboard & alerts", invai_output: "Output: Optimization reports",
+                eppro_title: "EP PRO Estimator", eppro_subtitle: "Plumbing Cost Calculator",
+                eppro_desc: "Instant plumbing estimates, parts selection, and labor calculation.",
+                eppro_feature: "Feature: Difficulty sliders & AI cost logic", eppro_output: "Output: Professional quote PDF",
+                ind_title: "// INDUSTRY PACKAGES", ind_desc: "Specialized solutions starting from",
+                cta_title: "DEPLOY YOUR SYSTEM TODAY", cta_desc: "Free consultation. No commitment. See what AI can do for your business.", cta_btn: "INITIALIZE CONTACT"
+            },
+            es: {
+                nav_cta: "Iniciar Contacto", badge: "⚡ AUTOMATIZACIÓN IA DE NUEVA GENERACIÓN",
+                hero_title: "DESPLIEGA SISTEMAS INTELIGENTES PARA TU NEGOCIO",
+                hero_desc: "Agentes IA, apps personalizadas, integración IA. Construimos sistemas autónomos que trabajan 24/7 para que tú no tengas que hacerlo.",
+                hero_cta1: "DESPLEGAR AHORA", hero_cta2: "VER DEMOS",
+                stat1: "EN LÍNEA", stat2: "IDIOMAS", stat3: "ESCALABILIDAD",
+                services_title: "// CAPACIDADES", services_desc: "Lo que desplegamos para personas, negocios y empresas",
+                svc1_title: "AGENTES IA PERSONALIZADOS", svc1_desc: "Bots autónomos que manejan servicio al cliente, pedidos, reservas. Sin intervención humana.",
+                svc2_title: "SISTEMAS MÓVILES", svc2_desc: "Apps nativas iOS y Android. Notificaciones push, modo offline, UX perfecta.",
+                svc3_title: "PLATAFORMAS WEB", svc3_desc: "E-commerce, dashboards, paneles admin, motores de reservas. Soluciones full-stack.",
+                svc4_title: "INTEGRACIÓN IA", svc4_desc: "GPT-4, Gemini, Claude. Visión, voz, texto. Tu negocio potenciado con IA.",
+                svc5_title: "AUTOMATIZACIÓN", svc5_desc: "Facturación, inventario, CRM, emails. Elimina el trabajo manual.",
+                svc6_title: "OPERACIONES 24/7", svc6_desc: "Monitoreo, actualizaciones, seguridad, backups. Mantenemos tus sistemas.",
+                demos_title: "// EJEMPLOS EN VIVO", demos_desc: "Ve nuestra tecnología en acción",
+                demo1_title: "Bot de Pedidos Restaurante", demo1_desc: "Menú automatizado, toma de pedidos, links de pago, tracking de delivery. 40% más pedidos.",
+                demo2_title: "App de Reservas", demo2_desc: "Agenda de citas, recordatorios, puntos de lealtad, procesamiento de pagos.",
+                demo3_title: "Bot Estimador de Cotizaciones", demo3_desc: "Cliente envía foto → IA analiza → Cotización instantánea. Para contratistas, plomeros.",
+                mp_title: "MP PRO", mp_subtitle: "Diagnóstico y Estimación Profesional con IA",
+                mp_desc: "🔧 Un Plomero en tu Bolsillo. Obtén estimados instantáneos, soluciones DIY y guía profesional.",
+                mp_for: "Para: Dueños, Inquilinos, Administradores, ¡Todos!",
+                mp_feature: "Función: Envía foto → IA diagnostica el problema",
+                mp_output: "Salida: Estimado de costo instantáneo + opciones de reparación",
+                mp_diy: "DIY Tips: Arreglos básicos que puedes hacer tú mismo",
+                mp_powered: "Potenciado por: Gemini 2.0 Vision AI",
+                mp_pricebook: "Libro de Precios: 200+ servicios de plomería",
+                mp_lang: "Idiomas: Inglés, Español",
+                invai_title: "Inventario InvAI", invai_subtitle: "Gestión de Stock Inteligente",
+                invai_desc: "Seguimiento de inventario con IA, análisis predictivo y reordenamiento automático.",
+                invai_feature: "Función: Panel en tiempo real y alertas", invai_output: "Salida: Reportes de optimización",
+                eppro_title: "Estimador EP PRO", eppro_subtitle: "Calculadora de Costos de Plomería",
+                eppro_desc: "Estimados de plomería instantáneos, selección de partes y cálculo de mano de obra.",
+                eppro_feature: "Función: Ajuste de dificultad y lógica IA", eppro_output: "Salida: Cotización PDF profesional",
+                ind_title: "// PAQUETES POR INDUSTRIA", ind_desc: "Soluciones especializadas desde",
+                cta_title: "DESPLIEGA TU SISTEMA HOY", cta_desc: "Consulta gratis. Sin compromiso. Ve lo que la IA puede hacer por tu negocio.", cta_btn: "INICIAR CONTACTO"
+            },
+            zh: {
+                nav_cta: "开始联系", badge: "⚡ 新一代AI自动化",
+                hero_title: "为您的业务部署智能系统",
+                hero_desc: "AI智能代理、定制应用、AI集成。我们构建24/7自主运行的系统。",
+                hero_cta1: "立即部署", hero_cta2: "查看演示",
+                stat1: "在线", stat2: "种语言", stat3: "可扩展性",
+                services_title: "// 功能", services_desc: "我们为个人、企业和公司部署的解决方案",
+                svc1_title: "AI智能代理", svc1_desc: "自主机器人处理客户服务、订单、预订。无需人工干预。",
+                svc2_title: "移动系统", svc2_desc: "原生iOS和Android应用。推送通知、离线模式。",
+                svc3_title: "WEB平台", svc3_desc: "电子商务、仪表板、管理面板、预订引擎。",
+                svc4_title: "AI集成", svc4_desc: "GPT-4、Gemini、Claude。视觉、语音、文本。",
+                svc5_title: "工作流自动化", svc5_desc: "发票、库存、CRM同步、邮件流程。",
+                svc6_title: "24/7运营", svc6_desc: "监控、更新、安全、备份。",
+                demos_title: "// 实时示例", demos_desc: "查看我们的技术",
+                demo1_title: "餐厅订单机器人", demo1_desc: "自动菜单、接单、支付链接、配送跟踪。增加40%订单。",
+                demo2_title: "服务预订应用", demo2_desc: "预约安排、提醒、积分、支付处理。",
+                demo3_title: "报价估算机器人", demo3_desc: "客户发送照片→AI分析→即时报价。",
+                ind_title: "// 行业套餐", ind_desc: "专业解决方案起价",
+                cta_title: "今天部署您的系统", cta_desc: "免费咨询。无需承诺。", cta_btn: "开始联系"
+            },
+            tl: {
+                nav_cta: "Simulan ang Contact", badge: "⚡ NEXT-GEN AI AUTOMATION",
+                hero_title: "MAG-DEPLOY NG INTELLIGENT SYSTEMS PARA SA IYONG NEGOSYO",
+                hero_desc: "AI Agents, custom apps, AI integration. Gumagawa kami ng autonomous systems na gumagana 24/7.",
+                hero_cta1: "DEPLOY NGAYON", hero_cta2: "TINGNAN ANG DEMOS",
+                stat1: "ONLINE", stat2: "WIKA", stat3: "SCALABILITY",
+                services_title: "// CAPABILITIES", services_desc: "Kung ano ang naka-deploy namin para sa mga indibidwal, negosyo, at empresa",
+                svc1_title: "CUSTOM AI AGENTS", svc1_desc: "Autonomous na bots na humahawak ng customer service, orders, bookings.",
+                svc2_title: "MOBILE SYSTEMS", svc2_desc: "Native na iOS at Android apps. Push notifications, offline mode.",
+                svc3_title: "WEB PLATFORMS", svc3_desc: "E-commerce, dashboards, admin panels, booking engines.",
+                svc4_title: "AI INTEGRATION", svc4_desc: "GPT-4, Gemini, Claude. Vision, voice, text.",
+                svc5_title: "WORKFLOW AUTOMATION", svc5_desc: "Invoicing, inventory, CRM sync, email flows.",
+                svc6_title: "24/7 OPERATIONS", svc6_desc: "Monitoring, updates, security, backups.",
+                demos_title: "// LIVE EXAMPLES", demos_desc: "Tingnan ang aming technology in action",
+                demo1_title: "Restaurant Order Bot", demo1_desc: "Automated menu, order taking, payment links. 40% more orders.",
+                demo2_title: "Service Booking App", demo2_desc: "Appointment scheduling, reminders, loyalty points.",
+                demo3_title: "Quote Estimator Bot", demo3_desc: "Customer nagpadala ng photo → AI nag-analyze → Instant quote.",
+                ind_title: "// INDUSTRY PACKAGES", ind_desc: "Specialized solutions simula sa",
+                cta_title: "DEPLOY ANG IYONG SYSTEM NGAYON", cta_desc: "Libreng konsulta. Walang commitment.", cta_btn: "SIMULAN ANG CONTACT"
+            },
+            vi: {
+                nav_cta: "Bắt đầu Liên hệ", badge: "⚡ TỰ ĐỘNG HÓA AI THẾ HỆ MỚI",
+                hero_title: "TRIỂN KHAI HỆ THỐNG THÔNG MINH CHO DOANH NGHIỆP",
+                hero_desc: "Đại lý AI, ứng dụng tùy chỉnh, tích hợp AI. Chúng tôi xây dựng hệ thống tự động hoạt động 24/7.",
+                hero_cta1: "TRIỂN KHAI NGAY", hero_cta2: "XEM DEMO",
+                stat1: "ONLINE", stat2: "NGÔN NGỮ", stat3: "KHẢ NĂNG MỞ RỘNG",
+                services_title: "// KHẢ NĂNG", services_desc: "Những gì chúng tôi triển khai cho cá nhân, doanh nghiệp",
+                svc1_title: "ĐẠI LÝ AI TÙY CHỈNH", svc1_desc: "Bot tự động xử lý dịch vụ khách hàng, đơn hàng, đặt chỗ.",
+                svc2_title: "HỆ THỐNG DI ĐỘNG", svc2_desc: "Ứng dụng iOS & Android. Thông báo đẩy, chế độ ngoại tuyến.",
+                svc3_title: "NỀN TẢNG WEB", svc3_desc: "Thương mại điện tử, bảng điều khiển, hệ thống đặt chỗ.",
+                svc4_title: "TÍCH HỢP AI", svc4_desc: "GPT-4, Gemini, Claude. Hình ảnh, giọng nói, văn bản.",
+                svc5_title: "TỰ ĐỘNG HÓA", svc5_desc: "Hóa đơn, kho, CRM, email tự động.",
+                svc6_title: "VẬN HÀNH 24/7", svc6_desc: "Giám sát, cập nhật, bảo mật, sao lưu.",
+                demos_title: "// VÍ DỤ TRỰC TIẾP", demos_desc: "Xem công nghệ của chúng tôi",
+                demo1_title: "Bot Đặt hàng Nhà hàng", demo1_desc: "Menu tự động, nhận đơn, liên kết thanh toán. Tăng 40% đơn hàng.",
+                demo2_title: "Ứng dụng Đặt lịch", demo2_desc: "Lên lịch hẹn, nhắc nhở, điểm tích lũy.",
+                demo3_title: "Bot Ước tính Báo giá", demo3_desc: "Khách gửi ảnh → AI phân tích → Báo giá tức thì.",
+                ind_title: "// GÓI NGÀNH", ind_desc: "Giải pháp chuyên biệt từ",
+                cta_title: "TRIỂN KHAI HỆ THỐNG HÔM NAY", cta_desc: "Tư vấn miễn phí. Không cam kết.", cta_btn: "BẮT ĐẦU LIÊN HỆ"
+            }
+        };
+        let currentLang = 'en';
+        let currentCountry = 'usa';
+
+        // ================================================================
+        // REGIONAL PRICING CONFIGURATION
+        // Prices adjusted for each country's market
+        // ================================================================
+        const regionalPricing = {
+            usa: {
+                currency: 'USD',
+                symbol: '$',
+                prices: {
+                    individuals: 297,
+                    restaurants: 1497,
+                    liquor: 1297,
+                    salons: 997,
+                    contractors: 1497,
+                    retail: 1197,
+                    enterprise: '4,997+'
+                }
+            },
+            colombia: {
+                currency: 'COP',
+                symbol: '$',
+                prices: {
+                    individuals: '890,000',
+                    restaurants: '4,490,000',
+                    liquor: '3,890,000',
+                    salons: '2,990,000',
+                    contractors: '4,490,000',
+                    retail: '2,990,000',
+                    enterprise: '14,990,000+'
+                }
+            },
+            mexico: {
+                currency: 'MXN',
+                symbol: '$',
+                prices: {
+                    individuals: '5,297',
+                    restaurants: '26,997',
+                    liquor: '23,497',
+                    salons: '17,997',
+                    contractors: '26,997',
+                    retail: '18,000',
+                    enterprise: '89,997+'
+                }
+            },
+            peru: {
+                currency: 'PEN',
+                symbol: 'S/',
+                prices: {
+                    individuals: '1,097',
+                    restaurants: '5,547',
+                    liquor: '4,797',
+                    salons: '3,697',
+                    contractors: '5,547',
+                    retail: '4,437',
+                    enterprise: '18,497+'
+                }
+            },
+            ecuador: {
+                currency: 'USD',
+                symbol: '$',
+                prices: {
+                    individuals: 247,
+                    restaurants: 1247,
+                    liquor: 1097,
+                    salons: 847,
+                    contractors: 1247,
+                    retail: 997,
+                    enterprise: '4,197+'
+                }
+            },
+            canada: {
+                currency: 'CAD',
+                symbol: '$',
+                prices: {
+                    individuals: 397,
+                    restaurants: 1997,
+                    liquor: 1747,
+                    salons: 1347,
+                    contractors: 1997,
+                    retail: 1597,
+                    enterprise: '6,697+'
+                }
+            }
+        };
+
+        // Function to update all prices on the page
+        function updatePrices(countryKey) {
+            const pricing = regionalPricing[countryKey] || regionalPricing.usa;
+            const priceElements = document.querySelectorAll('.ind-price');
+            const priceOrder = ['individuals', 'restaurants', 'liquor', 'salons', 'contractors', 'retail', 'enterprise'];
+
+            priceElements.forEach((el, index) => {
+                if (priceOrder[index]) {
+                    const price = pricing.prices[priceOrder[index]];
+                    const formatted = typeof price === 'number' ? price.toLocaleString() : price;
+                    el.textContent = `${pricing.symbol}${formatted}`;
+                    el.setAttribute('data-currency', pricing.currency);
+                }
+            });
+
+            console.log('Prices updated for:', countryKey, pricing.currency);
+        }
+
+        // ================================================================
+        // PAYMENT METHODS BY COUNTRY
+        // ================================================================
+        const paymentMethods = {
+            usa: [
+                { name: 'Credit/Debit Cards', icon: '💳', priority: 'high' },
+                { name: 'Apple Pay', icon: '🍎', priority: 'high' },
+                { name: 'Google Pay', icon: '🟢', priority: 'high' },
+                { name: 'ACH Bank Transfer', icon: '🏦', priority: 'medium' },
+                { name: 'Affirm / Klarna (BNPL)', icon: '📅', priority: 'medium' }
+            ],
+            mexico: [
+                { name: 'OXXO Pay (Cash)', icon: '🏪', priority: 'critical' },
+                { name: 'Credit Cards', icon: '💳', priority: 'high' },
+                { name: 'SPEI Transfer', icon: '🏦', priority: 'high' },
+                { name: 'Meses sin Intereses', icon: '📅', priority: 'high' },
+                { name: 'Kueski Pay (BNPL)', icon: '⚡', priority: 'medium' }
+            ],
+            canada: [
+                { name: 'Interac e-Transfer', icon: '🇨🇦', priority: 'critical' },
+                { name: 'Credit/Debit Cards', icon: '💳', priority: 'high' },
+                { name: 'Apple Pay', icon: '🍎', priority: 'high' },
+                { name: 'Google Pay', icon: '🟢', priority: 'medium' }
+            ],
+            peru: [
+                { name: 'Yape', icon: '📱', priority: 'critical' },
+                { name: 'PLIN', icon: '💜', priority: 'critical' },
+                { name: 'Credit Cards', icon: '💳', priority: 'high' },
+                { name: 'Cuotas (Installments)', icon: '📅', priority: 'high' },
+                { name: 'Bank Transfer (IRT)', icon: '🏦', priority: 'medium' }
+            ],
+            colombia: [
+                { name: 'Nequi', icon: '💚', priority: 'critical' },
+                { name: 'Daviplata', icon: '🔴', priority: 'critical' },
+                { name: 'PSE Transfer', icon: '🏦', priority: 'high' },
+                { name: 'Credit Cards', icon: '💳', priority: 'high' },
+                { name: 'Cuotas (Installments)', icon: '📅', priority: 'medium' }
+            ],
+            ecuador: [
+                { name: 'Credit/Debit Cards', icon: '💳', priority: 'high' },
+                { name: 'Bank Transfer', icon: '🏦', priority: 'high' },
+                { name: 'Cash Options', icon: '💵', priority: 'medium' }
+            ]
+        };
+
+        // Function to update payment methods display
+        function updatePaymentMethods(countryKey) {
+            const container = document.getElementById('payment-methods-container');
+            if (!container) return;
+
+            const methods = paymentMethods[countryKey] || paymentMethods.usa;
+            let html = '';
+
+            methods.forEach(method => {
+                const priorityColor = method.priority === 'critical' ? '#ff006e' :
+                    method.priority === 'high' ? '#00f3ff' : '#39ff14';
+                const priorityLabel = method.priority === 'critical' ? '🔥 CRITICAL' :
+                    method.priority === 'high' ? '✅ ESSENTIAL' : '⚪ AVAILABLE';
+
+                html += `
+                    <div style="
+                        background: rgba(0,0,0,0.6);
+                        border: 1px solid ${priorityColor};
+                        border-radius: 15px;
+                        padding: 20px;
+                        min-width: 200px;
+                        max-width: 250px;
+                        text-align: center;
+                        transition: all 0.3s;
+                    "
+                    onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 30px ${priorityColor}40';"
+                    onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none';">
+                        <div style="font-size: 3rem; margin-bottom: 10px;">${method.icon}</div>
+                        <div style="font-family: 'Orbitron', sans-serif; color: #fff; font-size: 0.9rem; margin-bottom: 8px;">${method.name}</div>
+                        <div style="font-size: 0.7rem; color: ${priorityColor}; letter-spacing: 1px;">${priorityLabel}</div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            console.log('Payment methods updated for:', countryKey);
+        }
+
+        // ================================================================
+        // UPDATE CONTACTS FUNCTION
+        // Dynamically renders AI Assistants based on selected country
+        // ================================================================
+        function updateContacts(countryKey) {
+            const container = document.getElementById('ai-assistants-container');
+            if (!container) return;
+
+            const country = regionalTeams[countryKey] || regionalTeams.usa;
+            let html = '';
+
+            // Show CEO (Alex) for all countries EXCEPT Colombia
+            if (countryKey !== 'colombia') {
+                const ceoRole = headquarters.role[currentLang] || headquarters.role.en;
+                html += `
+                    <a href="https://wa.me/${headquarters.whatsapp.replace(/[^0-9]/g, '')}"
+                        onclick="gtag('event', 'contact', {'event_category': 'AI Assistants', 'event_label': 'Alex Espinosa WhatsApp', 'value': 1});"
+                        style="background: rgba(37,211,102,0.1); border: 1px solid #25D366; padding: 25px 35px; text-decoration: none; text-align: center; min-width: 200px; border-radius: 15px; transition: all 0.3s;">
+                        <video src="${headquarters.video}" autoplay muted loop playsinline
+                            style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #25D366; box-shadow: 0 0 20px rgba(37,211,102,0.5);"></video>
+                        <div style="font-family: 'Orbitron'; color: #25D366; font-size: 1rem; font-weight: 700;">${headquarters.name}</div>
+                        <div style="color: #888; font-size: 0.85rem; margin-top: 5px; letter-spacing: 1px;">${ceoRole}</div>
+                        <div style="color: #555; font-size: 0.7rem; margin-top: 8px;">💬 WhatsApp</div>
+                    </a>
+                `;
+            }
+
+            // Show local director if exists (like Juan Camilo for Colombia)
+            if (country.director) {
+                const directorRole = country.director.role[currentLang] || country.director.role.en;
+                html += `
+                    <a href="https://wa.me/${country.director.whatsapp.replace(/[^0-9]/g, '')}"
+                        onclick="gtag('event', 'contact', {'event_category': 'AI Assistants', 'event_label': '${country.director.name} WhatsApp', 'value': 1});"
+                        style="background: rgba(255,140,0,0.1); border: 1px solid #FF8C00; padding: 25px 35px; text-decoration: none; text-align: center; min-width: 200px; border-radius: 15px; transition: all 0.3s;">
+                        <video src="${country.director.video}" autoplay muted loop playsinline
+                            style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid #FF8C00; box-shadow: 0 0 20px rgba(255,140,0,0.5);"></video>
+                        <div style="font-family: 'Orbitron'; color: #FF8C00; font-size: 1rem; font-weight: 700;">${country.director.name}</div>
+                        <div style="color: #888; font-size: 0.85rem; margin-top: 5px; letter-spacing: 1px;">${directorRole}</div>
+                        <div style="color: #555; font-size: 0.7rem; margin-top: 8px;">💬 WhatsApp</div>
+                    </a>
+                `;
+            }
+
+            // For Colombia: show Cronos + USA assistants. For others: show their own assistants
+            const assistantsToShow = countryKey === 'colombia'
+                ? [...(country.assistants || []), ...(regionalTeams.usa.assistants || [])]
+                : (country.assistants || []);
+
+            if (assistantsToShow.length > 0) {
+                assistantsToShow.forEach(assistant => {
+                    const assistantRole = assistant.role[currentLang] || assistant.role.en;
+                    const assistantContactType = assistant.contactType[currentLang] || assistant.contactType.en;
+
+                    html += `
+                        <a href="${assistant.contact}"
+                            onclick="gtag('event', 'contact', {'event_category': 'AI Assistants', 'event_label': '${assistant.name}', 'value': 1});"
+                            style="background: ${assistant.colorRgba}; border: 1px solid ${assistant.color}; padding: 25px 35px; text-decoration: none; text-align: center; min-width: 200px; border-radius: 15px; transition: all 0.3s;">
+                            <video src="${assistant.video}" autoplay muted loop playsinline
+                                style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 3px solid ${assistant.color}; box-shadow: 0 0 20px ${assistant.colorRgba.replace('0.1', '0.5')};"></video>
+                            <div style="font-family: 'Orbitron'; color: ${assistant.color}; font-size: 1rem; font-weight: 700;">${assistant.name}</div>
+                            <div style="color: #888; font-size: 0.85rem; margin-top: 5px; letter-spacing: 1px;">${assistantRole}</div>
+                            <div style="color: #555; font-size: 0.7rem; margin-top: 8px;">${assistant.icon} ${assistantContactType}</div>
+                        </a>
+                    `;
+                });
+            }
+
+            container.innerHTML = html;
+            console.log('Contacts updated for:', countryKey);
+        }
+
+        // ================================================================
+        // UPDATE FOOTER FUNCTION
+        // Dynamically updates footer based on selected country
+        // ================================================================
+        function updateFooter(countryKey) {
+            const country = regionalTeams[countryKey];
+            if (!country) return;
+
+            const footerLocation = document.getElementById('footer-location');
+            const footerContacts = document.getElementById('footer-contacts');
+            const footerPerson = document.getElementById('footer-person');
+
+            if (countryKey === 'colombia') {
+                // Colombia footer
+                const directorRole = country.director.role[currentLang] || country.director.role.en;
+                footerLocation.textContent = 'ORION_TECH // COLOMBIA';
+                footerContacts.innerHTML = '💬 <a href="https://wa.me/573245143926" style="color: #25D366;">(+57) 324 514 3926</a> | 📞 <a href="tel:+18312221072" style="color: var(--neon-blue);">(831) 222-1072</a> | ✈️ <a href="https://t.me/oriontechbot" style="color: #0088cc;">@oriontechbot</a>';
+                footerPerson.innerHTML = '📧 <a href="mailto:agem2013@gmail.com" style="color: #fff;">agem2013@gmail.com</a> | <a href="https://agem2024.github.io/SEGURITI-USC/card.html" style="color: var(--neon-green);">Juan Camilo Espinosa - ' + directorRole + '</a>';
+            } else {
+                // Default footer (USA and others)
+                footerLocation.textContent = 'ORION_TECH // SAN JOSE, CA';
+                footerContacts.innerHTML = '💬 <a href="https://wa.me/16692342444" style="color: #25D366;">(669) 234-2444</a> | 📞 <a href="tel:+18312221072" style="color: var(--neon-blue);">(831) 222-1072</a> | ✈️ <a href="https://t.me/oriontechbot" style="color: #0088cc;">@oriontechbot</a>';
+                footerPerson.innerHTML = '📧 <a href="mailto:agem2013@gmail.com" style="color: #fff;">agem2013@gmail.com</a> | <a href="https://agem2024.github.io/SEGURITI-USC/cv_pro.html" style="color: var(--neon-green);">Alex G. Espinosa</a>';
+            }
+
+            console.log('Footer updated for:', countryKey);
+        }
+
+        // ================================================================
+        // REGIONAL TEAMS CONFIGURATION
+        // HQ (Alex CEO) is ALWAYS visible + Local team changes by country
+        // ================================================================
+        const headquarters = {
+            name: 'ALEX G. ESPINOSA',
+            role: { en: 'CEO & FOUNDER', es: 'CEO & FUNDADOR' },
+            whatsapp: '+16692342444',
+            location: { en: 'Bay Area, California', es: 'Bay Area, California' },
+            video: 'images/alex_ceo.mp4',
+            isHQ: true
+        };
+
+        const regionalTeams = {
+            usa: {
+                director: null, // HQ is the director for USA
+                flag: '🇺🇸',
+                name: { en: 'USA', es: 'USA' },
+                subtitle: { en: 'Bay Area, California', es: 'Bay Area, California' },
+                assistants: [
+                    {
+                        name: 'XONA',
+                        role: { en: 'VOICE AI ASSISTANT', es: 'ASISTENTE DE VOZ IA' },
+                        contact: 'tel:+18312221072',
+                        icon: '📞',
+                        contactType: { en: 'Call Direct', es: 'Llamar Directo' },
+                        video: 'images/xona_bot.mp4',
+                        color: 'var(--neon-blue)',
+                        colorRgba: 'rgba(0,243,255,0.1)'
+                    },
+                    {
+                        name: 'ORION BOT',
+                        role: { en: 'CHAT MANAGER', es: 'GESTOR DE CHAT' },
+                        contact: 'https://t.me/oriontechbot',
+                        icon: '✈️',
+                        contactType: { en: 'Telegram', es: 'Telegram' },
+                        video: 'images/orion_bot.mp4',
+                        color: '#0088cc',
+                        colorRgba: 'rgba(0,136,204,0.1)'
+                    },
+                    {
+                        name: 'JARVIS',
+                        role: { en: 'EMAIL ASSISTANT', es: 'ASISTENTE DE EMAIL' },
+                        contact: 'mailto:jarvis@acwater-ai.com',
+                        icon: '📧',
+                        contactType: { en: 'Email', es: 'Email' },
+                        video: 'images/jarvis_email.mp4',
+                        color: 'var(--neon-purple)',
+                        colorRgba: 'rgba(188,19,254,0.1)'
+                    }
+                ]
+            },
+            colombia: {
+                director: {
+                    name: 'JUAN CAMILO E.',
+                    role: { en: 'OPERATIONS DIRECTOR', es: 'DIRECTOR OPERACIONES' },
+                    whatsapp: '+573245143926',
+                    location: { en: 'Colombia - Coffee Axis', es: 'Colombia - Eje Cafetero' },
+                    video: 'images/alex_ceo.mp4' // Placeholder until Juan Camilo has his own
+                },
+                flag: '🇨🇴',
+                name: { en: 'COLOMBIA', es: 'COLOMBIA' },
+                subtitle: { en: 'Coffee Axis Chapter', es: 'Capítulo Eje Cafetero' },
+                assistants: [
+                    {
+                        name: 'CRONOS',
+                        role: { en: 'AI ASSISTANT', es: 'ASISTENTE DE IA' },
+                        contact: 'https://wa.me/573245143926',
+                        icon: '💬',
+                        contactType: { en: 'WhatsApp', es: 'WhatsApp' },
+                        video: 'images/orion_bot.mp4', // Using ORION bot video as placeholder
+                        color: '#25D366',
+                        colorRgba: 'rgba(37,211,102,0.1)'
+                    }
+                ]
+            },
+            mexico: {
+                director: null, // No director assigned yet
+                flag: '🇲🇽',
+                name: { en: 'MEXICO', es: 'MÉXICO' },
+                subtitle: { en: 'CDMX & Guadalajara Chapter', es: 'Capítulo CDMX & Guadalajara' }
+            },
+            peru: {
+                director: null,
+                flag: '🇵🇪',
+                name: { en: 'PERU', es: 'PERÚ' },
+                subtitle: { en: 'Lima & Cusco Chapter', es: 'Capítulo Lima & Cusco' }
+            },
+            ecuador: {
+                director: null,
+                flag: '🇪🇨',
+                name: { en: 'ECUADOR', es: 'ECUADOR' },
+                subtitle: { en: 'Quito & Guayaquil Chapter', es: 'Capítulo Quito & Guayaquil' }
+            },
+            canada: {
+                director: null,
+                flag: '🇨🇦',
+                name: { en: 'CANADA', es: 'CANADÁ' },
+                subtitle: { en: 'North America Chapter', es: 'Capítulo Norte América' }
+            }
+        };
+
+        // Country selector functions
+        function toggleCountryMenu() {
+            const dropdown = document.getElementById('country-dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function setCountry(countryKey) {
+            currentCountry = countryKey;
+            const country = regionalTeams[countryKey];
+
+            // Update selector display
+            document.getElementById('current-flag').textContent = country.flag;
+            document.getElementById('current-country').textContent = country.name[currentLang] || country.name.en;
+
+            // Close dropdown
+            document.getElementById('country-dropdown').classList.remove('active');
+
+            // Update WhatsApp float link based on country
+            const waFloat = document.querySelector('.whatsapp-float');
+            if (waFloat) {
+                if (country.director && country.director.whatsapp) {
+                    waFloat.href = 'https://wa.me/' + country.director.whatsapp.replace(/[^0-9]/g, '');
+                } else {
+                    waFloat.href = 'https://wa.me/' + headquarters.whatsapp.replace(/[^0-9]/g, '');
+                }
+            }
+
+            // Save preference
+            localStorage.setItem('orion_country', countryKey);
+
+            // Track event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'country_change', { 'event_category': 'Region', 'event_label': countryKey });
+            }
+
+            // ⚡ UPDATE PRICES FOR THIS REGION
+            updatePrices(countryKey);
+            updatePaymentMethods(countryKey);
+
+            // ⚡ UPDATE CONTACTS FOR THIS REGION
+            updateContacts(countryKey);
+
+            // ⚡ UPDATE FOOTER FOR THIS REGION
+            updateFooter(countryKey);
+
+            console.log('Country set to:', countryKey);
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.country-selector')) {
+                document.getElementById('country-dropdown').classList.remove('active');
+            }
+        });
+
+        function setLang(lang) {
+            currentLang = lang;
+            // Remove active from all buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            // Find button that contains setLang for this language
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("setLang('" + lang + "')")) {
+                    btn.classList.add('active');
+                }
+            });
+            // Update all translatable elements
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            // ⚡ UPDATE DEMO CARD TRANSLATIONS (Special HTML Handling)
+            const t = translations[lang];
+
+            // MP PRO
+            const mpFor = document.querySelector('[data-i18n="mp_for"]');
+            if (mpFor) mpFor.innerHTML = t.mp_for.replace('For:', '<strong>For:</strong>').replace('Para:', '<strong>Para:</strong>');
+            const mpFeature = document.querySelector('[data-i18n="mp_feature"]');
+            if (mpFeature) mpFeature.innerHTML = t.mp_feature.replace('Feature:', '<strong>Feature:</strong>').replace('Función:', '<strong>Función:</strong>');
+            const mpOutput = document.querySelector('[data-i18n="mp_output"]');
+            if (mpOutput) mpOutput.innerHTML = t.mp_output.replace('Output:', '<strong>Output:</strong>').replace('Salida:', '<strong>Salida:</strong>');
+            const mpDiy = document.querySelector('[data-i18n="mp_diy"]');
+            if (mpDiy) mpDiy.innerHTML = t.mp_diy.replace('DIY Tips:', '<strong>DIY Tips:</strong>').replace('DIY Tips:', '<strong>DIY Tips:</strong>');
+            const mpPowered = document.querySelector('[data-i18n="mp_powered"]');
+            if (mpPowered) mpPowered.innerHTML = t.mp_powered.replace('Powered by:', '<strong>Powered by:</strong>').replace('Potenciado por:', '<strong>Potenciado por:</strong>');
+            const mpPricebook = document.querySelector('[data-i18n="mp_pricebook"]');
+            if (mpPricebook) mpPricebook.innerHTML = t.mp_pricebook.replace('Price Book:', '<strong>Price Book:</strong>').replace('Libro de Precios:', '<strong>Libro de Precios:</strong>');
+            const mpLang = document.querySelector('[data-i18n="mp_lang"]');
+            if (mpLang) mpLang.innerHTML = t.mp_lang.replace('Languages:', '<strong>Languages:</strong>').replace('Idiomas:', '<strong>Idiomas:</strong>');
+
+            // InvAI Inventory
+            const invaiFeature = document.querySelector('[data-i18n="invai_feature"]');
+            if (invaiFeature) invaiFeature.innerHTML = t.invai_feature.replace('Feature:', '<strong>Feature:</strong>').replace('Función:', '<strong>Función:</strong>');
+            const invaiOutput = document.querySelector('[data-i18n="invai_output"]');
+            if (invaiOutput) invaiOutput.innerHTML = t.invai_output.replace('Output:', '<strong>Output:</strong>').replace('Salida:', '<strong>Salida:</strong>');
+
+            // EP PRO Estimator
+            const epproFeature = document.querySelector('[data-i18n="eppro_feature"]');
+            if (epproFeature) epproFeature.innerHTML = t.eppro_feature.replace('Feature:', '<strong>Feature:</strong>').replace('Función:', '<strong>Función:</strong>');
+            const epproOutput = document.querySelector('[data-i18n="eppro_output"]');
+            if (epproOutput) epproOutput.innerHTML = t.eppro_output.replace('Output:', '<strong>Output:</strong>').replace('Salida:', '<strong>Salida:</strong>');
+
+            // Update country selector text to match language
+            const country = regionalTeams[currentCountry];
+            if (country) {
+                document.getElementById('current-country').textContent = country.name[lang] || country.name.en;
+            }
+
+            // ⚡ UPDATE CONTACTS TO REFRESH LANGUAGE
+            updateContacts(currentCountry);
+
+            // ⚡ UPDATE FOOTER TO REFRESH LANGUAGE
+            updateFooter(currentCountry);
+
+            // ⚡ UPDATE CHATBOT LANGUAGE
+            if (typeof updateInitialChatMessage === 'function') {
+                updateInitialChatMessage(lang);
+            }
+
+            document.documentElement.lang = lang;
+            localStorage.setItem('orion_lang', lang);
+            console.log('Language set to:', lang);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize dynamic content
+            const savedLang = localStorage.getItem('orion_lang');
+            const savedCountry = localStorage.getItem('orion_country') || 'colombia';
+
+            // Auto-set language based on country if no preference saved
+            const spanishCountries = ['colombia', 'mexico', 'peru', 'ecuador'];
+            const defaultLang = savedLang || (spanishCountries.includes(savedCountry) ? 'es' : 'en');
+
+            setLang(defaultLang);
+            setCountry(savedCountry);
+            updatePrices(savedCountry);
+            updatePaymentMethods(savedCountry);
+            updateContacts(savedCountry);
+
+            // Update initial chat message based on language
+            updateInitialChatMessage(defaultLang);
+        });
+
+        function updateInitialChatMessage(lang) {
+            // Update greeting message
+            const messagesDiv = document.getElementById('xonaMessages');
+            if (messagesDiv) {
+                const greeting = lang === 'es'
+                    ? '¡Hola! Soy CHONA, tu asistente de ORION Tech. ¿Cómo puedo ayudarte a automatizar tu negocio hoy?'
+                    : "Hello! I'm XONA, your ORION Tech AI assistant. How can I help automate your business today?";
+                messagesDiv.innerHTML = `<div class="xona-msg bot">${greeting}</div>`;
+            }
+
+            // Update header elements
+            const headerTitle = document.getElementById('xona-header-title');
+            const headerStatus = document.getElementById('xona-header-status');
+            if (headerTitle) {
+                headerTitle.textContent = lang === 'es' ? 'XONA // ASISTENTE IA' : 'XONA // AI ASSISTANT';
+            }
+            if (headerStatus) {
+                headerStatus.textContent = lang === 'es' ? 'ENLACE NEURAL ACTIVO' : 'NEURAL LINK ACTIVE';
+            }
+
+            // Update input placeholder
+            const inputEl = document.getElementById('xonaInput');
+            if (inputEl) {
+                inputEl.placeholder = lang === 'es' ? 'Escribe tu mensaje...' : 'Type your message...';
+            }
+        }
+    </script>
+
+    <!-- 🤖 XONA AI CHATBOT - YEAR 2090 EDITION -->
+    <style>
+        .xona-chat-btn {
+            position: fixed;
+            bottom: 100px;
+            right: 25px;
+            width: 70px;
+            height: 70px;
+            background: #000;
+            /* Dark background to make neon pop */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 9999;
+            /* Intense initial shadow */
+            box-shadow: 0 0 30px rgba(0, 243, 255, 0.8), 0 0 60px rgba(188, 19, 254, 0.6);
+            animation: xonaNeonFlash 1.5s infinite alternate;
+            /* Faster, alternating flash */
+            border: 3px solid #00f3ff;
+            /* Thicker border */
+            overflow: hidden;
+            /* Keep video contained */
+        }
+
+        /* .xona-chat-btn::before removed to allow video content */
+
+        @keyframes xonaNeonFlash {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(0, 243, 255, 0.6), 0 0 40px rgba(188, 19, 254, 0.4);
+                border-color: #00f3ff;
             }
 
             100% {
-                transform: translateY(0px);
+                transform: scale(1.1);
+                /* Super intense flash shadow */
+                box-shadow: 0 0 50px rgba(0, 243, 255, 1), 0 0 80px rgba(188, 19, 254, 0.9), 0 0 100px rgba(255, 255, 255, 0.4);
+                border-color: #fff;
+                /* Border flashes white */
+            }
+        }
+
+        @keyframes xonaGlow {
+            from {
+                filter: drop-shadow(0 0 5px #00f3ff);
+            }
+
+            to {
+                filter: drop-shadow(0 0 15px #bc13fe);
+            }
+        }
+
+        .xona-chat-container {
+            position: fixed;
+            bottom: 180px;
+            right: 25px;
+            width: 380px;
+            max-height: 500px;
+            background: rgba(5, 5, 20, 0.95);
+            border: 1px solid rgba(0, 243, 255, 0.4);
+            border-radius: 20px;
+            z-index: 9998;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 0 40px rgba(0, 243, 255, 0.3), inset 0 0 30px rgba(188, 19, 254, 0.1);
+            backdrop-filter: blur(20px);
+        }
+
+        .xona-chat-container.active {
+            display: flex;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .telegram-float {
+            position: fixed;
+            bottom: 25px;
+            right: 100px;
+            width: 60px;
+            height: 60px;
+            background: #0088cc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            text-decoration: none;
+            z-index: 999;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(0, 136, 204, 0.6);
+            transition: 0.3s;
+            animation: floatPulseBlue 2s infinite;
+        }
+
+        .telegram-float:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes floatPulseBlue {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(0, 136, 204, 0.6);
+            }
+
+            50% {
+                box-shadow: 0 0 40px rgba(0, 136, 204, 0.9);
+            }
+        }
+
+        .xona-header {
+            padding: 15px 20px;
+            background: linear-gradient(90deg, rgba(0, 243, 255, 0.2), rgba(188, 19, 254, 0.2));
+            border-bottom: 1px solid rgba(0, 243, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .xona-avatar {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #00f3ff, #bc13fe);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.5);
+        }
+
+        .xona-info h4 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00f3ff;
+            font-size: 1rem;
+            margin: 0;
+            text-shadow: 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+
+        .xona-info span {
+            font-size: 0.75rem;
+            color: #25D366;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .xona-info span::before {
+            content: '●';
+            animation: blink 1s infinite;
+        }
+
+        .xona-voice-toggle {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #25D366, #00f3ff);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            margin-left: auto;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .xona-voice-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px rgba(37, 211, 102, 0.6);
+        }
+
+        .xona-voice-toggle:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        .xona-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            max-height: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .xona-msg {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 15px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .xona-msg.bot {
+            align-self: flex-start;
+            background: rgba(0, 243, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            color: #e0e0e0;
+        }
+
+        .xona-msg.user {
+            align-self: flex-end;
+            background: linear-gradient(135deg, rgba(188, 19, 254, 0.3), rgba(0, 243, 255, 0.2));
+            border: 1px solid rgba(188, 19, 254, 0.4);
+            color: white;
+        }
+
+        .xona-msg.typing::after {
+            content: '...';
+            animation: typingDots 1s infinite;
+        }
+
+        @keyframes typingDots {
+
+            0%,
+            20% {
+                content: '.';
+            }
+
+            40% {
+                content: '..';
+            }
+
+            60%,
+            100% {
+                content: '...';
+            }
+        }
+
+        .xona-input-area {
+            padding: 15px;
+            border-top: 1px solid rgba(0, 243, 255, 0.2);
+            display: flex;
+            gap: 10px;
+        }
+
+        .xona-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 25px;
+            padding: 12px 20px;
+            color: white;
+            font-size: 0.9rem;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .xona-input:focus {
+            border-color: #00f3ff;
+            box-shadow: 0 0 15px rgba(0, 243, 255, 0.3);
+        }
+
+        .xona-input::placeholder {
+            color: #666;
+        }
+
+        .xona-send {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #00f3ff, #bc13fe);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .xona-send:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(0, 243, 255, 0.5);
+        }
+
+        .xona-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #888;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .xona-close:hover {
+            color: #ff006e;
+        }
+
+        @media (max-width: 480px) {
+            .xona-chat-container {
+                width: calc(100% - 30px);
+                right: 15px;
+                left: 15px;
+                bottom: 90px;
+                max-height: 60vh;
+            }
+
+            .xona-chat-btn {
+                bottom: 15px;
+                right: 15px;
+                width: 55px;
+                height: 55px;
+            }
+
+            .whatsapp-float {
+                bottom: 15px;
+                left: 15px;
+                right: auto;
+                width: 50px;
+                height: 50px;
+            }
+
+            .telegram-float {
+                display: none;
+            }
+
+            .lang-selector {
+                display: none;
+            }
+
+            .global-controls {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                padding: 10px;
+                z-index: 100;
+            }
+
+            .country-selector {
+                position: relative;
+                top: auto;
+                right: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .global-controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                padding: 15px 10px;
+            }
+
+            .country-selector {
+                position: relative;
+            }
+
+            .lang-selector {
+                position: relative;
+                top: auto;
+                right: auto;
+                flex-direction: row;
+                gap: 5px;
+            }
+
+            .lang-btn {
+                font-size: 0.7rem;
+                padding: 6px 10px;
+            }
+
+            .xona-chat-btn {
+                bottom: 80px;
+                right: 20px;
             }
         }
     </style>
 
-    <script src="../../SEGURITI-USC/docs/js/orion-pricing.js"></script>
+    <!-- Chat Button -->
+    <div class="xona-chat-btn" onclick="toggleXonaChat()">
+        <video src="images/xona_bot.mp4" autoplay muted loop playsinline
+            style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;"></video>
+    </div>
+
+    <!-- Chat Window -->
+    <div class="xona-chat-container" id="xonaChat">
+        <button class="xona-close" onclick="toggleXonaChat()">✕</button>
+        <div class="xona-header">
+            <div class="xona-avatar">🤖</div>
+            <div class="xona-info">
+                <h4 id="xona-header-title">XONA // ASISTENTE IA</h4>
+                <span id="xona-header-status">ENLACE NEURAL ACTIVO</span>
+            </div>
+            <button class="xona-voice-toggle" id="xonaVoiceToggle" onclick="toggleXonaVoice()"
+                title="Voz activada (clic para desactivar)">🔊</button>
+        </div>
+        <div class="xona-messages" id="xonaMessages">
+            <div class="xona-msg bot">¡Hola! Soy XONA. ¿En qué puedo ayudarte?</div>
+        </div>
+        <div class="xona-input-area">
+            <button class="xona-mic" id="xonaMic" onclick="toggleVoiceInput()" title="Voice Input">🎤</button>
+            <input type="text" class="xona-input" id="xonaInput" placeholder="Escribe tu mensaje..."
+                onkeypress="if(event.key==='Enter')sendXonaMsg()">
+            <button class="xona-send" onclick="sendXonaMsg()">➤</button>
+        </div>
+        <div class="xona-voice-status" id="xonaVoiceStatus"></div>
+    </div>
+
+    <style>
+        .xona-mic {
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(0, 243, 255, 0.3);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .xona-mic:hover,
+        .xona-mic.listening {
+            background: linear-gradient(135deg, #ff006e, #bc13fe);
+            border-color: #ff006e;
+            box-shadow: 0 0 20px rgba(255, 0, 110, 0.5);
+            animation: micPulse 0.5s infinite;
+        }
+
+        @keyframes micPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        .xona-voice-status {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #00f3ff;
+            padding: 5px;
+            height: 20px;
+        }
+    </style>
+
+    <script>
+        // Toggle service details
+        function toggleDetails(card) {
+            const details = card.querySelector('.service-details');
+            const btn = card.querySelector('.more-btn');
+            const isActive = details.classList.contains('active');
+
+            // Close all other details
+            document.querySelectorAll('.service-details.active').forEach(d => d.classList.remove('active'));
+            document.querySelectorAll('.service-card.expanded').forEach(c => c.classList.remove('expanded'));
+            document.querySelectorAll('.more-btn').forEach(b => b.textContent = '+ MORE');
+
+            if (!isActive) {
+                details.classList.add('active');
+                card.classList.add('expanded');
+                btn.textContent = '- LESS';
+            }
+        }
+
+        const XONA_API = 'https://orion-cloud.onrender.com/api/chat';
+        let xonaChatOpen = false;
+        let isListening = false;
+        let recognition = null;
+
+        // Initialize Speech Recognition
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = currentLang === 'es' ? 'es-CO' : 'en-US';
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('xonaInput').value = transcript;
+                document.getElementById('xonaVoiceStatus').textContent = '';
+                stopListening();
+                sendXonaMsg();
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech error:', event.error);
+                document.getElementById('xonaVoiceStatus').textContent = '⚠️ Voice error. Try again.';
+                stopListening();
+            };
+
+            recognition.onend = () => stopListening();
+        }
+
+        // Voice control state (enabled by default)
+        let xonaVoiceEnabled = true;
+
+        // Multilingual SHORT greetings - ORION Tech Professional
+        const xonaGreetings = {
+            en: "Hi! I'm XONA. How can I help?",
+            es: "¡Hola! Soy XONA. ¿En qué puedo ayudarte?",
+            zh: "您好！我是XONA。",
+            tl: "Hi! Ako si XONA.",
+            vi: "Xin chào! Tôi là XONA."
+        };
+
+        function toggleXonaChat() {
+            xonaChatOpen = !xonaChatOpen;
+            document.getElementById('xonaChat').classList.toggle('active', xonaChatOpen);
+            if (xonaChatOpen) {
+                document.getElementById('xonaInput').focus();
+                // Only speak greeting if voice is enabled and it's the first time opening
+                if (xonaVoiceEnabled) {
+                    const greeting = xonaGreetings[currentLang] || xonaGreetings.en;
+                    speakXona(greeting);
+                }
+            }
+        }
+
+        function toggleXonaVoice() {
+            xonaVoiceEnabled = !xonaVoiceEnabled;
+            const btn = document.getElementById('xonaVoiceToggle');
+            if (xonaVoiceEnabled) {
+                btn.textContent = '🔊';
+                btn.title = currentLang === 'es' ? 'Voz activada (clic para desactivar)' : 'Voice ON (click to disable)';
+                btn.style.background = 'linear-gradient(135deg, #25D366, #00f3ff)';
+
+                // Immediate feedback
+                const feedback = currentLang === 'es' ? 'Voz activada.' : 'Voice enabled.';
+                speakXona(feedback);
+            } else {
+                btn.textContent = '🔇';
+                btn.title = currentLang === 'es' ? 'Voz desactivada (clic para activar)' : 'Voice OFF (click to enable)';
+                btn.style.background = 'rgba(255, 255, 255, 0.1)';
+                if ('speechSynthesis' in window) speechSynthesis.cancel();
+            }
+            // Save preference
+            localStorage.setItem('xona_voice_enabled', xonaVoiceEnabled);
+        }
+
+        // Load voice preference on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedVoicePref = localStorage.getItem('xona_voice_enabled');
+            if (savedVoicePref === 'false') {
+                xonaVoiceEnabled = false;
+                const btn = document.getElementById('xonaVoiceToggle');
+                if (btn) {
+                    btn.textContent = '🔇';
+                    btn.style.background = 'rgba(255, 255, 255, 0.1)';
+                }
+            }
+        });
+
+        function toggleVoiceInput() {
+            if (!recognition) {
+                alert('Voice input not supported in this browser. Try Chrome.');
+                return;
+            }
+            if (isListening) {
+                stopListening();
+            } else {
+                startListening();
+            }
+        }
+
+        function startListening() {
+            isListening = true;
+            recognition.lang = currentLang === 'es' ? 'es-CO' : 'en-US';
+            document.getElementById('xonaMic').classList.add('listening');
+            document.getElementById('xonaVoiceStatus').textContent = currentLang === 'es' ? '🎤 Escuchando...' : '🎤 Listening...';
+            recognition.start();
+        }
+
+        function stopListening() {
+            isListening = false;
+            document.getElementById('xonaMic').classList.remove('listening');
+            document.getElementById('xonaVoiceStatus').textContent = '';
+            try { recognition.stop(); } catch (e) { }
+        }
+
+        // Text-to-Speech for XONA responses - HYBRID (OpenAI API -> Browser Fallback)
+        // Text-to-Speech for XONA responses - HYBRID (OpenAI API -> Browser Fallback)
+        async function speakXona(text) {
+            // Check if voice is enabled
+            if (!xonaVoiceEnabled) {
+                console.log('🔇 Voice disabled by user');
+                return;
+            }
+
+            // Phonetic adjustment for pronunciation 
+            // 'XONA' sometimes read as 'Ks-ona'. We want 'Sona' or 'Shona'.
+            // User feedback: "mal escrito el nombre". 
+            // If the issue is visual text, we don't change it here. 
+            // If it's audio, 'Chona' might sound too hard. Let's try 'Sona' for soft X or keep 'Xona' if TTS handles it well, 
+            // but the user said "mal escrito". I will assume they mean the chatbot Header or Greetings.
+            // However, strict request is "voz de men" (male voice) correction.
+
+            // 1. Phonetic fix for AUDIO only (not visual)
+            let spokenText = text;
+            // If the user meant the text IS written wrong on screen, I need to check HTML. 
+            // For audio, 'Chona' might be what sounded like a man or wrong? 
+            // Let's use 'XONA' as is for OpenAI (it's smart) 
+            // and 'Sona' for browser fallback to avoid Hard K or Ch.
+
+            // API ROTATION ORDER:
+            // 1. Primary: ORION Cloud (OpenAI TTS) - Natural voice ('nova' is female)
+            // 2. Fallback: Browser SpeechSynthesis - Built-in voice
+
+            try {
+                // Determine language
+                const lang = currentLang || 'es';
+
+                // PRIMARY API: ORION Cloud (Render) with OpenAI TTS
+                // Set a timeout for the fetch to avoid long waits (2.5 seconds)
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 2500);
+
+                const response = await fetch('https://orion-cloud.onrender.com/api/tts', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: spokenText, lang }), // Send cleaned text
+                    signal: controller.signal
+                });
+                clearTimeout(timeoutId);
+
+                if (response.ok) {
+                    const blob = await response.blob();
+                    const audioUrl = URL.createObjectURL(blob);
+                    const audio = new Audio(audioUrl);
+
+                    // Critical: Handle Promise for Autoplay policies
+                    try {
+                        await audio.play();
+                        console.log('🎤 XONA Voice: OpenAI Natural (via API)');
+                        return; // Success, exit function
+                    } catch (playError) {
+                        console.warn('⚠️ Autoplay prevented or Audio Error. Switching to fallback.', playError);
+                        // Fallback will be called below
+                    }
+                } else {
+                    console.warn('⚠️ Local API TTS failed (status ' + response.status + '), using browser fallback');
+                }
+            } catch (e) {
+                console.warn('⚠️ API unavailable or timed out. Using browser fallback:', e.message);
+            }
+
+            // Function to execute Browser TTS Fallback
+            const useBrowserTTS = () => {
+                if ('speechSynthesis' in window) {
+                    speechSynthesis.cancel(); // Stop any current speech
+                    const utterance = new SpeechSynthesisUtterance(spokenText);
+
+                    if (currentLang === 'es') {
+                        utterance.lang = 'es-MX'; // Mexican Spanish usually better quality
+                        utterance.rate = 1.1; // Slightly faster
+                    } else {
+                        utterance.lang = 'en-US';
+                        utterance.rate = 1.0;
+                    }
+                    utterance.pitch = 1.2; // Higher pitch for female
+                    utterance.volume = 1.0;
+
+                    const setVoice = () => {
+                        const voices = speechSynthesis.getVoices();
+                        let selectedVoice = null;
+
+                        // console.log("🗣️ Available voices:", voices.map(v => v.name + ' (' + v.lang + ')').join(', '));
+
+                        if (currentLang === 'es') {
+                            // High priority female voices
+                            const femaleKeywords = ['sabina', 'paulina', 'helena', 'laura', 'monica', 'female', 'google español'];
+                            const maleKeywords = ['david', 'pablo', 'raul', 'male'];
+
+                            // 1. Try to find a specific high-quality female voice
+                            selectedVoice = voices.find(v => v.lang.includes('es') && femaleKeywords.some(sw => v.name.toLowerCase().includes(sw)));
+
+                            // 2. If not found, find ANY Spanish voice that is NOT explicitly male
+                            if (!selectedVoice) {
+                                selectedVoice = voices.find(v => v.lang.includes('es') && !maleKeywords.some(mw => v.name.toLowerCase().includes(mw)));
+                            }
+                        } else {
+                            // English
+                            const femaleKeywords = ['zira', 'samantha', 'google us english', 'female'];
+                            const maleKeywords = ['david', 'mark', 'male'];
+
+                            selectedVoice = voices.find(v => v.lang.includes('en') && femaleKeywords.some(sw => v.name.toLowerCase().includes(sw)));
+
+                            if (!selectedVoice) {
+                                selectedVoice = voices.find(v => v.lang.includes('en') && !maleKeywords.some(mw => v.name.toLowerCase().includes(mw)));
+                            }
+                        }
+
+                        if (selectedVoice) {
+                            utterance.voice = selectedVoice;
+                            console.log('🎤 XONA Voice: Browser Fallback -', selectedVoice.name);
+                        } else {
+                            console.log('⚠️ No specific female voice found, using default.');
+                        }
+                        speechSynthesis.speak(utterance);
+                    };
+
+                    if (speechSynthesis.getVoices().length > 0) {
+                        setVoice();
+                    } else {
+                        speechSynthesis.onvoiceschanged = () => {
+                            setVoice();
+                            speechSynthesis.onvoiceschanged = null;
+                        };
+                    }
+                }
+            };
+
+            // If we reached here, execute Fallback
+            useBrowserTTS();
+        }
+
+        async function sendXonaMsg() {
+            const input = document.getElementById('xonaInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            const messagesDiv = document.getElementById('xonaMessages');
+
+            // Add user message
+            messagesDiv.innerHTML += `<div class="xona-msg user">${msg}</div>`;
+            input.value = '';
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            // Add typing indicator
+            const typingId = 'typing-' + Date.now();
+            const typingText = currentLang === 'es' ? 'Procesando' : 'Processing';
+            messagesDiv.innerHTML += `<div class="xona-msg bot typing" id="${typingId}">${typingText}</div>`;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+
+            try {
+                const res = await fetch(XONA_API, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: msg, lang: currentLang })
+                });
+
+                const data = await res.json();
+                document.getElementById(typingId).remove();
+
+                if (data.response) {
+                    messagesDiv.innerHTML += `<div class="xona-msg bot">${data.response}</div>`;
+                    speakXona(data.response); // Speak the response!
+                } else {
+                    const errMsg = currentLang === 'es'
+                        ? '⚠️ Conexión interrumpida. Por favor contacta por WhatsApp.'
+                        : '⚠️ Neural link interrupted. Please contact via WhatsApp.';
+                    messagesDiv.innerHTML += `<div class="xona-msg bot">${errMsg}</div>`;
+                    speakXona(currentLang === 'es' ? 'Conexión interrumpida. Contacta por WhatsApp.' : 'Neural link interrupted. Contact via WhatsApp.');
+                }
+            } catch (e) {
+                const errMsgEs = '⚠️ ORION offline. <a href="https://wa.me/16692342444" style="color:#25D366;">Contactar por WhatsApp</a>';
+                const errMsgEn = '⚠️ ORION offline. <a href="https://wa.me/16692342444" style="color:#25D366;">Contact via WhatsApp</a>';
+                messagesDiv.innerHTML += `<div class="xona-msg bot">${currentLang === 'es' ? errMsgEs : errMsgEn}</div>`;
+                speakXona(currentLang === 'es' ? 'ORION está offline. Contacta por WhatsApp.' : 'ORION is offline. Please contact via WhatsApp.');
+            }
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        // Load voices when available
+        if ('speechSynthesis' in window) {
+            speechSynthesis.onvoiceschanged = () => speechSynthesis.getVoices();
+        }
+    </script>
+    <script>
+        // Version 3.1 Boost
+        console.log("ORION TECH v3.1 Loaded");
+
+        // Toggle demo details for live examples
+        function toggleDemoDetails(btn) {
+            const details = btn.nextElementSibling;
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+                btn.textContent = '- LESS';
+            } else {
+                details.style.display = 'none';
+                btn.textContent = '+ MORE';
+            }
+        }
+
+        // Lead Modal Functions
+        function openLeadModal() {
+            document.getElementById('lead-modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLeadModal() {
+            document.getElementById('lead-modal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        async function submitLead(e) {
+            e.preventDefault();
+            const status = document.getElementById('lead-status');
+            status.textContent = '⏳ Sending...';
+            status.style.color = '#00f3ff';
+
+            const leadData = {
+                name: document.getElementById('lead-name').value,
+                phone: document.getElementById('lead-phone').value,
+                email: document.getElementById('lead-email').value || null,
+                industry: document.getElementById('lead-industry').value,
+                message: document.getElementById('lead-message').value || null,
+                status: 'new'
+            };
+
+            // Wait for Firebase to be ready
+            if (typeof window.saveLead === 'function') {
+                const leadId = await window.saveLead(leadData);
+                if (leadId) {
+                    status.textContent = '✅ Request sent! We\'ll contact you soon.';
+                    status.style.color = '#39ff14';
+                    document.getElementById('lead-form').reset();
+                    gtag('event', 'lead_form_submit', { 'event_category': 'Leads', 'event_label': leadData.industry });
+                    setTimeout(closeLeadModal, 2500);
+                } else {
+                    status.textContent = '⚠️ Error. Try WhatsApp instead.';
+                    status.style.color = '#ff006e';
+                }
+            } else {
+                // Fallback: redirect to WhatsApp
+                const msg = encodeURIComponent(`Hi! I'm ${leadData.name} (${leadData.industry}). ${leadData.message || ''}`);
+                window.open(`https://wa.me/16692342444?text=${msg}`, '_blank');
+                closeLeadModal();
+            }
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLeadModal();
+        });
+    </script>
 </body>
 
 </html>

@@ -1,0 +1,2217 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JHON | Centro de Mando ORION 2026</title>
+
+    <!-- 🔒 PÁGINA PRIVADA - NO INDEXAR -->
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="description" content="Centro de Mando Privado - Acceso Restringido">
+
+    <!-- 🏷️ Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-PNTF4GM9');</script>
+
+    <!-- 📊 Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GY61W7K2B6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-GY61W7K2B6', {
+            page_title: 'JHON Command Center',
+            page_location: window.location.href,
+            custom_map: { 'dimension1': 'access_level' }
+        });
+        gtag('set', 'user_properties', {
+            access_level: 'admin',
+            user_type: 'internal'
+        });
+    </script>
+
+    <link rel="icon"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Exo+2:wght@300;400;500;600&display=swap');
+
+        :root {
+            --neon-blue: #00f5ff;
+            --neon-purple: #bf00ff;
+            --neon-pink: #ff00a8;
+            --neon-green: #00ff88;
+            --neon-orange: #ff6600;
+            --dark-bg: #0a0a1a;
+            --darker-bg: #050510;
+            --glass-bg: rgba(10, 10, 30, 0.7);
+            --glass-border: rgba(0, 245, 255, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: var(--darker-bg);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .cyber-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(0, 245, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(191, 0, 255, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(255, 0, 168, 0.08) 0%, transparent 50%),
+                linear-gradient(180deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: grid-move 20s linear infinite;
+        }
+
+        /* Audio/Podcast Styles */
+        .audio-card {
+            background: rgba(10, 20, 40, 0.6);
+            border: 1px solid var(--neon-purple);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .audio-card:hover {
+            box-shadow: 0 0 15px rgba(191, 0, 255, 0.2);
+            transform: translateX(5px);
+            background: rgba(191, 0, 255, 0.1);
+        }
+
+        .audio-icon {
+            font-size: 2em;
+            background: rgba(255, 255, 255, 0.1);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .audio-details {
+            flex-grow: 1;
+        }
+
+        .audio-title {
+            color: var(--neon-purple);
+            font-weight: bold;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .audio-subtitle {
+            font-size: 0.8em;
+            color: #ccc;
+        }
+
+        audio {
+            height: 30px;
+            width: 100%;
+            margin-top: 8px;
+            filter: invert(1) hue-rotate(180deg);
+            /* Style the default player to look darker */
+        }
+
+        /* Video Grid Styles */
+        .video-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .video-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 245, 255, 0.15);
+            border-color: var(--neon-cyan);
+        }
+
+        .video-player {
+            width: 100%;
+            display: block;
+            border-bottom: 1px solid var(--glass-border);
+            background: #000;
+        }
+
+        .video-info {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(5px);
+        }
+
+        .video-info strong {
+            display: block;
+            color: var(--neon-cyan);
+            font-size: 0.95rem;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .video-info span {
+            font-size: 0.8rem;
+            color: #bdc3c7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        @keyframes grid-move {
+            0% {
+                transform: perspective(500px) rotateX(60deg) translateY(0);
+            }
+
+            100% {
+                transform: perspective(500px) rotateX(60deg) translateY(50px);
+            }
+        }
+
+        /* Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            animation: float 15s infinite ease-in-out;
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: rgba(5, 5, 16, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            z-index: 1000;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-section img {
+            height: 50px;
+            filter: drop-shadow(0 0 10px var(--neon-blue));
+        }
+
+        .logo-text {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+        }
+
+        .jhon-badge {
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            animation: pulse-glow 2s infinite;
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 10px var(--neon-purple);
+            }
+
+            50% {
+                box-shadow: 0 0 30px var(--neon-purple), 0 0 60px var(--neon-pink);
+            }
+        }
+
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--neon-green);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 10px var(--neon-green);
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .time-display {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--neon-blue);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding-top: 100px;
+            padding-bottom: 40px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+        }
+
+        .brain-container {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 30px;
+        }
+
+        .brain-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, var(--neon-purple) 0%, transparent 70%);
+            filter: blur(40px);
+            animation: brain-pulse 3s infinite;
+        }
+
+        @keyframes brain-pulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        .brain-icon {
+            font-size: 150px;
+            position: relative;
+            z-index: 1;
+            animation: brain-float 3s ease-in-out infinite;
+        }
+
+        @keyframes brain-float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero .subtitle {
+            font-size: 1.4rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 20px;
+        }
+
+        .hero .tagline {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+        }
+
+        /* Chat Interface */
+        .chat-section {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .chat-container {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+        }
+
+        .chat-header {
+            background: linear-gradient(90deg, rgba(0, 245, 255, 0.1), rgba(191, 0, 255, 0.1));
+            padding: 15px 25px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .chat-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chat-messages {
+            height: 300px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            animation: message-in 0.3s ease-out;
+        }
+
+        @keyframes message-in {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.jhon {
+            display: flex;
+            gap: 10px;
+        }
+
+        .message.jhon .avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .message.jhon .content {
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            padding: 12px 18px;
+            border-radius: 15px;
+            border-top-left-radius: 5px;
+            max-width: 80%;
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message.user .content {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+            padding: 12px 18px;
+            border-radius: 15px;
+            border-top-right-radius: 5px;
+            max-width: 80%;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 15px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 15px 25px;
+            color: white;
+            font-size: 1rem;
+            font-family: 'Exo 2', sans-serif;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 245, 255, 0.2);
+        }
+
+        .chat-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+        }
+
+        /* Quick Actions */
+        .quick-actions {
+            display: flex;
+            gap: 10px;
+            padding: 0 20px 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .quick-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-btn:hover {
+            background: rgba(0, 245, 255, 0.1);
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+
+        /* Control Panels Grid */
+        .panels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .panel {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+
+        .panel:hover {
+            border-color: var(--neon-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 245, 255, 0.1);
+        }
+
+        .panel-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .panel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-title .icon {
+            font-size: 1.4rem;
+        }
+
+        .panel-badge {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 15px;
+            background: rgba(0, 255, 136, 0.2);
+            color: var(--neon-green);
+        }
+
+        .panel-content {
+            padding: 20px;
+        }
+
+        /* Bot Cards */
+        .bot-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .bot-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .bot-card:hover {
+            background: rgba(0, 245, 255, 0.05);
+            border-color: var(--neon-blue);
+            transform: scale(1.02);
+        }
+
+        .bot-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .bot-card .name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .bot-card .status {
+            font-size: 0.75rem;
+            color: var(--neon-green);
+        }
+
+        .bot-card.offline .status {
+            color: var(--neon-orange);
+        }
+
+        /* Project Links */
+        .project-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: rgba(0, 245, 255, 0.05);
+            border-color: var(--neon-blue);
+            transform: translateX(5px);
+        }
+
+        .project-link .emoji {
+            font-size: 1.3rem;
+        }
+
+        .project-link .details {
+            flex: 1;
+        }
+
+        .project-link .name {
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .project-link .desc {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .project-link .arrow {
+            color: var(--neon-blue);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .project-link:hover .arrow {
+            opacity: 1;
+        }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+        }
+
+        .stat-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+        }
+
+        .footer .version {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            margin-bottom: 10px;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neon-blue);
+            border-radius: 10px;
+        }
+
+        /* Voice Button */
+        .voice-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 2rem;
+            z-index: 1000;
+            box-shadow: 0 10px 40px rgba(191, 0, 255, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .voice-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(191, 0, 255, 0.6);
+        }
+
+        .voice-btn.listening {
+            animation: voice-pulse 1s infinite;
+        }
+
+        @keyframes voice-pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+                box-shadow: 0 20px 60px rgba(191, 0, 255, 0.8);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .panels-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bot-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 🏷️ Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PNTF4GM9" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+
+    <div class="cyber-bg"></div>
+    <div class="grid-overlay"></div>
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-section">
+            <!-- Logo animado oficial -->
+            <video autoplay muted loop playsinline
+                style="height: 50px; filter: drop-shadow(0 0 10px var(--neon-blue));">
+                <source src="images/orion_logo_2090.mp4" type="video/mp4">
+            </video>
+            <span class="logo-text">ORION</span>
+            <span class="jhon-badge">JHON AI</span>
+        </div>
+        <div class="nav-status">
+            <div class="status-indicator">
+                <span class="status-dot"></span>
+                <span>Sistema Activo</span>
+            </div>
+            <div class="time-display" id="clock">--:--:--</div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="brain-container">
+                <div class="brain-glow"></div>
+                <img src="images/jhon_avatar.png" alt="JHON AI" class="brain-icon"
+                    style="width: 150px; height: 150px; object-fit: contain;">
+            </div>
+            <h1>JHON</h1>
+            <p class="subtitle">Jefe Holístico de Operaciones Neuronales</p>
+            <p class="tagline">Centro de Mando ORION Tech • 2026 Edition</p>
+        </section>
+
+        <!-- Chat Section -->
+        <section class="chat-section">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <div class="chat-title">
+                        <span>🧠</span>
+                        <span>Habla con JHON</span>
+                    </div>
+                    <div class="status-indicator">
+                        <span class="status-dot"></span>
+                        <span>Conectado</span>
+                    </div>
+                </div>
+
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message jhon">
+                        <div class="avatar">🧠</div>
+                        <div class="content">
+                            Buenos días, Alex. Soy <strong>JHON</strong>, su asistente ejecutivo en ORION Tech.<br><br>
+                            Tengo acceso completo a todos los sistemas: bots, métricas, leads, documentación estratégica
+                            y operaciones confidenciales.<br><br>
+                            ¿En qué puedo servirle hoy?
+                        </div>
+                    </div>
+                </div>
+
+                <div class="quick-actions">
+                    <button class="quick-btn" onclick="sendQuick('Estado de los bots')">🤖 Sistemas</button>
+                    <button class="quick-btn" onclick="sendQuick('Métricas actuales')">📊 Métricas</button>
+                    <button class="quick-btn" onclick="sendQuick('Leads')">📋 Leads</button>
+                    <button class="quick-btn" onclick="sendQuick('Precios')">💰 Pricing</button>
+                    <button class="quick-btn" onclick="sendQuick('Tareas pendientes')">✅ Tareas</button>
+                    <button class="quick-btn" onclick="sendQuick('English')">🇺🇸 EN</button>
+                    <button class="quick-btn" onclick="sendQuick('Ayuda')">❓ Ayuda</button>
+                </div>
+
+
+                <div class="chat-input-container">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Escribe algo a JHON..."
+                        onkeypress="handleKeyPress(event)">
+                    <button class="send-btn" onclick="sendMessage()">⬆️</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Control Panels -->
+        <section class="panels-grid">
+            <!-- Bots Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span class="icon">🤖</span>
+                        <span>Ecosistema de Bots</span>
+                    </div>
+                    <span class="panel-badge">4 Activos</span>
+                </div>
+                <div class="panel-content">
+                    <div class="bot-grid">
+                        <div class="bot-card" onclick="window.open('https://wa.me/16692342444', '_blank')">
+                            <div class="icon">🟢</div>
+                            <div class="name">ORION Clean</div>
+                            <div class="status">WhatsApp • Online</div>
+                        </div>
+                        <div class="bot-card" onclick="window.open('https://t.me/cronosorion_bot', '_blank')">
+                            <div class="icon">🔵</div>
+                            <div class="name">Cronos</div>
+                            <div class="status">Telegram • Online</div>
+                        </div>
+                        <div class="bot-card" onclick="window.open('https://orion-cloud.onrender.com', '_blank')">
+                            <div class="icon">☁️</div>
+                            <div class="name">ORION Cloud</div>
+                            <div class="status">Render • Online</div>
+                        </div>
+                        <div class="bot-card offline">
+                            <div class="icon">📞</div>
+                            <div class="name">BRUNO Voice</div>
+                            <div class="status">Twilio • Standby</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Studio Apps Panel (NEW 2026) -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span class="icon">🚀</span>
+                        <span>AI Studio Apps</span>
+                    </div>
+                    <span class="panel-badge" style="background: rgba(57,255,20,0.2); color: #39ff14;">3 LIVE</span>
+                </div>
+                <div class="panel-content">
+                    <div class="bot-grid">
+                        <div class="bot-card"
+                            onclick="window.open('https://ai.studio/apps/drive/1bMGhzGDqLL_aDfnSC78Ie_HnsF7b691I?fullscreenApplet=true', '_blank')">
+                            <div class="icon">🔧</div>
+                            <div class="name">MP PRO</div>
+                            <div class="status" style="color: var(--neon-green);">Plumber Diagnosis</div>
+                        </div>
+                        <div class="bot-card"
+                            onclick="window.open('https://ai.studio/apps/drive/1qqUcvHx_KD94VplUFjDxAiAl84Ji1jt7?fullscreenApplet=true', '_blank')">
+                            <div class="icon">📦</div>
+                            <div class="name">InvAI</div>
+                            <div class="status" style="color: var(--neon-blue);">Inventory AI</div>
+                        </div>
+                        <div class="bot-card"
+                            onclick="window.open('https://ai.studio/apps/drive/1vikKncwaJRxWOANGeEcnchTAM96CqmnZ?fullscreenApplet=true', '_blank')">
+                            <div class="icon">💰</div>
+                            <div class="name">EP PRO</div>
+                            <div class="status" style="color: var(--neon-purple);">Estimator Pro</div>
+                        </div>
+                        <div class="bot-card" onclick="window.open('https://aistudio.google.com/', '_blank')">
+                            <div class="icon">✨</div>
+                            <div class="name">AI Studio</div>
+                            <div class="status" style="color: #888;">Create New App</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span class="icon">📂</span>
+                        <span>Proyectos Activos</span>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="project-list">
+                        <a href="orion-bots.html" class="project-link">
+                            <span class="emoji">🌐</span>
+                            <div class="details">
+                                <div class="name">ORION Bots Landing</div>
+                                <div class="desc">Página oficial de servicios</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="landing.html" class="project-link">
+                            <span class="emoji">🚀</span>
+                            <div class="details">
+                                <div class="name">Landing Principal</div>
+                                <div class="desc">Multilingüe, multi-país</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="manual.html" class="project-link">
+                            <span class="emoji">📖</span>
+                            <div class="details">
+                                <div class="name">Manual ORION</div>
+                                <div class="desc">Documentación técnica</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="card.html" class="project-link">
+                            <span class="emoji">🪪</span>
+                            <div class="details">
+                                <div class="name">Tarjeta Digital</div>
+                                <div class="desc">Alex Espinosa CEO</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="cv.html" class="project-link">
+                            <span class="emoji">📄</span>
+                            <div class="details">
+                                <div class="name">CV Profesional</div>
+                                <div class="desc">Resume interactivo</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project Index & Apps Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span class="icon">🗂️</span>
+                        <span>Project Index (Master)</span>
+                    </div>
+                    <span class="panel-badge">COMPLETE</span>
+                </div>
+                <div class="panel-content">
+                    <div class="project-list" style="max-height: 400px; overflow-y: auto;">
+
+                        <!-- 1. ORION CORE -->
+                        <div class="list-section">🚀 ORION CORE (Local Dev)</div>
+                        <a href="orion-bots.html" class="project-link">
+                            <span class="emoji">🤖</span>
+                            <div class="details">
+                                <div class="name">ORION Bots Center</div>
+                                <div class="desc">/orion-clean/public/orion-bots.html</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="landing.html" class="project-link">
+                            <span class="emoji">🌐</span>
+                            <div class="details">
+                                <div class="name">Landing Page Clean</div>
+                                <div class="desc">/orion-clean/public/landing.html</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+
+                        <!-- 2. IDENTITY -->
+                        <div class="list-section">🆔 IDENTITY & CARDS</div>
+                        <a href="card.html" class="project-link">
+                            <span class="emoji">👨‍💼</span>
+                            <div class="details">
+                                <div class="name">Alex Espinosa (CEO)</div>
+                                <div class="desc">Tarjeta Digital (Local)</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="cv.html" class="project-link">
+                            <span class="emoji">📄</span>
+                            <div class="details">
+                                <div class="name">CV Alex Espinosa</div>
+                                <div class="desc">Resume Interactivo</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/juan camilo capitulo colombia/card.html"
+                            class="project-link">
+                            <span class="emoji">👷</span>
+                            <div class="details">
+                                <div class="name">Juan Camilo (Ops)</div>
+                                <div class="desc">Tarjeta Digital Colombia</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/juan camilo capitulo colombia/cv.html"
+                            class="project-link">
+                            <span class="emoji">📋</span>
+                            <div class="details">
+                                <div class="name">CV Juan Camilo</div>
+                                <div class="desc">Resume Operativo</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+
+                        <!-- 3. PRICE BOOK -->
+                        <div class="list-section">💰 PRICE BOOK ECOSYSTEM</div>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/SEGURITI-USC/docs/pricebook-index.html"
+                            class="project-link">
+                            <span class="emoji">📚</span>
+                            <div class="details">
+                                <div class="name">Price Book MASTER</div>
+                                <div class="desc">Índice Principal (Docs)</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/SEGURITI-USC/docs/pricebook.html"
+                            class="project-link">
+                            <span class="emoji">🏠</span>
+                            <div class="details">
+                                <div class="name">Residential PB</div>
+                                <div class="desc">Servicios Hogar</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/SEGURITI-USC/docs/pricebook-industrial.html"
+                            class="project-link">
+                            <span class="emoji">🏭</span>
+                            <div class="details">
+                                <div class="name">Industrial PB</div>
+                                <div class="desc">Alta Presión/Industrial</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+
+                        <!-- 4. INDUSTRIES -->
+                        <div class="list-section">🏢 INDUSTRIES (SEGURITI-USC)</div>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/SEGURITI-USC/docs/industry-restaurant.html"
+                            class="project-link">
+                            <span class="emoji">🍽️</span>
+                            <div class="details">
+                                <div class="name">Restaurants</div>
+                                <div class="desc">Grease Traps/Drains</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/SEGURITI-USC/docs/industry-retail.html"
+                            class="project-link">
+                            <span class="emoji">🛍️</span>
+                            <div class="details">
+                                <div class="name">Retail & Malls</div>
+                                <div class="desc">Restrooms/Maintenance</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/SEGURITI-USC/docs/industry-enterprise.html"
+                            class="project-link">
+                            <span class="emoji">🏢</span>
+                            <div class="details">
+                                <div class="name">Enterprise</div>
+                                <div class="desc">Corporate Services</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/SEGURITI-USC/docs/industry-contractor.html"
+                            class="project-link">
+                            <span class="emoji">🔨</span>
+                            <div class="details">
+                                <div class="name">Contractors</div>
+                                <div class="desc">Construction Partners</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+
+                        <!-- 5. STRATEGY & DOCS -->
+                        <div class="list-section">🔐 STRATEGY & SECRETS</div>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/CLIENTES_POTENCIALES_ORION_PLUMBING.md"
+                            class="project-link">
+                            <span class="emoji">👥</span>
+                            <div class="details">
+                                <div class="name">Leads (231)</div>
+                                <div class="desc">Base de Datos Clientes</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/ORION_TECH_SECRETOS_OPERATIVOS.md"
+                            class="project-link">
+                            <span class="emoji">🤐</span>
+                            <div class="details">
+                                <div class="name">Secretos Operativos</div>
+                                <div class="desc">CONFIDENCIAL</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/ESTRATEGIA_VENTAS_MARKETING_LEADS.md"
+                            class="project-link">
+                            <span class="emoji">📈</span>
+                            <div class="details">
+                                <div class="name">Estrategia Ventas</div>
+                                <div class="desc">Master Plan</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+
+                        <!-- 6. TOOLS -->
+                        <div class="list-section">🛠️ EXTERNAL TOOLS</div>
+                        <a href="https://analytics.google.com/" target="_blank" class="project-link">
+                            <span class="emoji">📊</span>
+                            <div class="details">
+                                <div class="name">Google Analytics</div>
+                                <div class="desc">Dashboard Oficial (GA4)</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="https://tagmanager.google.com/" target="_blank" class="project-link">
+                            <span class="emoji">🏷️</span>
+                            <div class="details">
+                                <div class="name">Google Tag Manager</div>
+                                <div class="desc">Container Management</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="https://github.com/agem2024/SEGURITI-USC" target="_blank" class="project-link">
+                            <span class="emoji">📦</span>
+                            <div class="details">
+                                <div class="name">GitHub Repo</div>
+                                <div class="desc">Source Code</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Podcasts & Deep Dives Panel (NEW) -->
+            <div class="panel" style="grid-column: span 1;">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span class="icon">🎙️</span>
+                        <span>Podcasts & Análisis IA</span>
+                    </div>
+                    <span class="panel-badge">6 EPISODIOS</span>
+                </div>
+                <div class="panel-content" style="max-height: 400px; overflow-y: auto;">
+
+                    <!-- Podcast 1 -->
+                    <div class="audio-card">
+                        <div class="audio-icon">🧠</div>
+                        <div class="audio-details">
+                            <span class="audio-title">EP Plumbing: IA y Gemini</span>
+                            <span class="audio-subtitle">Desentrañando la Gestión Total (ES)</span>
+                            <audio controls src="media/podcast_ep_io_gemini_vision.m4a"></audio>
+                        </div>
+                    </div>
+
+                    <!-- Podcast 2 -->
+                    <div class="audio-card">
+                        <div class="audio-icon">🚀</div>
+                        <div class="audio-details">
+                            <span class="audio-title">Plomería en la Era IA</span>
+                            <span class="audio-subtitle">Análisis Profundo de Impacto (ES)</span>
+                            <audio controls src="media/podcast_plomeria_era_ia.m4a"></audio>
+                        </div>
+                    </div>
+
+                    <!-- Podcast 3 -->
+                    <div class="audio-card">
+                        <div class="audio-icon">🇺🇸</div>
+                        <div class="audio-details">
+                            <span class="audio-title">The Radical Reinvention</span>
+                            <span class="audio-subtitle">English Visionary Brief</span>
+                            <audio controls src="media/podcast_ai_overhaul_english.m4a"></audio>
+                        </div>
+                    </div>
+
+                    <!-- Podcast 4 (ES) -->
+                    <div class="audio-card">
+                        <div class="audio-icon">🔄</div>
+                        <div class="audio-details">
+                            <span class="audio-title">Función a Transformación</span>
+                            <span class="audio-subtitle">Claves de Propuesta (ES)</span>
+                            <audio controls src="media/podcast_funcion_transformacion_es.m4a"></audio>
+                        </div>
+                    </div>
+
+                    <!-- Podcast 5 (EN) -->
+                    <div class="audio-card">
+                        <div class="audio-icon">💼</div>
+                        <div class="audio-details">
+                            <span class="audio-title">Plumbing Goes PRO</span>
+                            <span class="audio-subtitle">Legal & Profit Tracking (EN)</span>
+                            <audio controls src="media/podcast_plumbing_goes_pro_en.m4a"></audio>
+                        </div>
+                    </div>
+
+                    <!-- Podcast 6 (EN) -->
+                    <div class="audio-card">
+                        <div class="audio-icon">🤖</div>
+                        <div class="audio-details">
+                            <span class="audio-title">Deep Dive: AI Overhaul</span>
+                            <span class="audio-subtitle">Full Analysis (EN)</span>
+                            <audio controls src="media/podcast_ai_overhaul_full_en.m4a"></audio>
+                        </div>
+                    </div>
+
+                    <!-- Documentation Link -->
+                    <a href="media/docs_ep_plumbing.md" target="_blank" class="project-link" style="margin-top: 10px;">
+                        <span class="emoji">📄</span>
+                        <div class="details">
+                            <div class="name">Documentación Explicativa</div>
+                            <div class="desc">EP Plumbing Docs (MD)</div>
+                        </div>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Media Center Panel (Expanded) -->
+            <div class="panel media-panel" style="grid-column: span 1;">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span class="icon">🎬</span>
+                        <span>Media Center & Podcasts</span>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="video-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+
+                        <!-- New Video: AI Co-Pilot -->
+                        <div class="video-card">
+                            <video controls class="video-player">
+                                <source src="media/video_ai_copilot.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-info">
+                                <strong>AI Co-Pilot</strong>
+                                <span>Vision (EN)</span>
+                            </div>
+                        </div>
+
+                        <!-- New Video: Plataforma Integral -->
+                        <div class="video-card">
+                            <video controls class="video-player">
+                                <source src="media/video_plataforma_integral.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-info">
+                                <strong>Plataforma Integral</strong>
+                                <span>Demo Completo (ES)</span>
+                            </div>
+                        </div>
+
+                        <!-- Video 1 -->
+                        <div class="video-card">
+                            <video controls class="video-player">
+                                <source src="media/estimator_pro_es.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-info">
+                                <strong>EP Estimator Pro</strong>
+                                <span>Podcast Explainer (ES)</span>
+                            </div>
+                        </div>
+
+                        <!-- Video 2 -->
+                        <div class="video-card">
+                            <video controls class="video-player">
+                                <source src="media/ai_promo.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-info">
+                                <strong>Futuristic Promo</strong>
+                                <span>Ads Campaign</span>
+                            </div>
+                        </div>
+
+                        <!-- Video 3 -->
+                        <div class="video-card">
+                            <video controls class="video-player">
+                                <source src="media/plomeria_inteligente.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-info">
+                                <strong>Plomería Inteligente</strong>
+                                <span>Clasificado #1</span>
+                            </div>
+                        </div>
+
+                        <!-- Video 4 -->
+                        <div class="video-card">
+                            <video controls class="video-player">
+                                <source src="media/garbage_disposal.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-info">
+                                <strong>Garbage Disposal</strong>
+                                <span>Service Demo</span>
+                            </div>
+                        </div>
+
+                        <!-- Video 5 -->
+                        <div class="video-card">
+                            <video controls class="video-player">
+                                <source src="media/app_connect.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-info">
+                                <strong>App Connect</strong>
+                                <span>User Walkthrough</span>
+                            </div>
+                        </div>
+
+                        <!-- Video 6 (NEW) -->
+                        <div class="video-card">
+                            <video controls class="video-player">
+                                <source src="media/video_platform_explained_en.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-info">
+                                <strong>Platform Explained</strong>
+                                <span>Full Breakdown (EN)</span>
+                            </div>
+                        </div>
+
+                        <!-- Video 7 (NEW) -->
+                        <div class="video-card">
+                            <video controls class="video-player">
+                                <source src="media/video_ep_estimator_es.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-info">
+                                <strong>EP Estimator PRO</strong>
+                                <span>Feature Demo (ES)</span>
+                            </div>
+                        </div>
+
+                        <!-- Video 8 (NEW) -->
+                        <div class="video-card">
+                            <video controls class="video-player">
+                                <source src="media/video_plumber_pocket_en.mp4" type="video/mp4">
+                            </video>
+                            <div class="video-info">
+                                <strong>Plumber in Your Pocket</strong>
+                                <span>Mobile Concept (EN)</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span class="icon">📊</span>
+                        <span>Métricas en Tiempo Real</span>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="leadsCount">231</div>
+                            <div class="stat-label">Leads Totales</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="botsActive">4</div>
+                            <div class="stat-label">Bots Activos</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="aiAppsCount">3</div>
+                            <div class="stat-label">AI Studio Apps</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="messagesDay">--</div>
+                            <div class="stat-label">Mensajes Hoy</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="conversion">3%</div>
+                            <div class="stat-label">Tasa Conversión</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" style="color: var(--neon-green);">2026</div>
+                            <div class="stat-label">Año Activo</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Clientes 2026 Panel (NEW) -->
+            <div class="panel">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <span class="icon">👥</span>
+                        <span>Clientes ORION 2026</span>
+                    </div>
+                    <span class="panel-badge"
+                        style="background: rgba(255,102,0,0.2); color: var(--neon-orange);">NEW</span>
+                </div>
+                <div class="panel-content">
+                    <div class="project-list">
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/clientes orion tech 2026/"
+                            class="project-link">
+                            <span class="emoji">📁</span>
+                            <div class="details">
+                                <div class="name">Carpeta Clientes 2026</div>
+                                <div class="desc">Propuestas y Proyectos Activos</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/clientes orion tech 2026/mike counsil/"
+                            class="project-link">
+                            <span class="emoji">🔧</span>
+                            <div class="details">
+                                <div class="name">Mike Counsil Plumbing</div>
+                                <div class="desc">San José, CA - Enterprise</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                        <a href="file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/clientes orion tech 2026/mungela glow/"
+                            class="project-link">
+                            <span class="emoji">✨</span>
+                            <div class="details">
+                                <div class="name">Mungela Glow</div>
+                                <div class="desc">Beauty/Salon - Propuesta</div>
+                            </div>
+                            <span class="arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="version">JHON v3.0 • Centro de Mando ORION Tech 2026</div>
+        <p>Desarrollado por Alex Espinosa • San José, California • 2024-2026</p>
+    </footer>
+
+    <!-- Voice Button -->
+    <button class="voice-btn" id="voiceBtn" onclick="toggleVoice()">🎤</button>
+
+    <script>
+        // ========== JHON AI CORE - ASSISTANT MANAGER ==========
+        // Personalidad: Sereno, Sobrio, Intelectunal
+        // Voz: Masculina
+        // Idiomas: ES, EN, PT, FR
+
+        // ========== CONFIGURACIÓN GLOBAL ==========
+        let currentLang = 'es';
+        let voiceEnabled = true;
+        let jhonVoice = null;
+
+        const JHON_PERSONALITY = {
+            name: 'JHON',
+            fullName: 'Jefe Holístico de Operaciones Neuronales',
+            role: 'Asistente Manager Ejecutivo',
+            traits: ['sereno', 'sobrio', 'intelectual', 'profesional'],
+            owner: 'Alex Espinosa',
+            company: 'ORION Tech'
+        };
+
+        // ========== BASE DE CONOCIMIENTO ORION ==========
+        const ORION_KNOWLEDGE = {
+            company: {
+                name: 'ORION Tech International LLC',
+                meaning: 'Orion Reactive Intelligence Operating Network',
+                founder: 'Alexander G. Espinosa',
+                hq: 'San José, California, USA',
+                founded: 2024,
+                mission: 'Empoderar negocios con automatización inteligente',
+                languages: ['Español', 'English', 'Português', 'Français', '中文', 'Tagalog', 'Tiếng Việt']
+            },
+            bots: {
+                orionClean: { name: 'ORION Clean', platform: 'WhatsApp', status: 'online', phone: '+1 669 234 2444' },
+                cronos: { name: 'Cronos', platform: 'Telegram', status: 'online', username: '@cronosorion_bot' },
+                orionCloud: { name: 'ORION Cloud', platform: 'Render', status: 'online', url: 'https://orion-cloud.onrender.com' },
+                bruno: { name: 'BRUNO Voice', platform: 'Twilio', status: 'standby' }
+            },
+            leads: {
+                total: 231,
+                bayArea: 187,
+                colombia: 44,
+                categories: ['Restaurantes', 'Salones', 'Licoreras', 'Plomeros', 'Auto Repair', 'Dentistas', 'Gyms', 'Ferreterías']
+            },
+            pricing: {
+                usa: { starter: '$997', business: '$1,997', enterprise: '$4,997+' },
+                colombia: { emprendedor: '$150K COP', pyme: '$450K COP', business: '$1.2M COP' }
+            },
+            kpis: {
+                conversionTarget: '3%',
+                weeklyDemos: 5,
+                weeklyContacts: 100,
+                churnTarget: '<5%'
+            }
+        };
+
+        // ========== TRADUCCIONES ==========
+        const TRANSLATIONS = {
+            es: {
+                greeting: `Buenos días, Alex. Soy JHON, tu asistente ejecutivo. ¿En qué puedo servirte hoy?`,
+                botsStatus: 'Estado de los sistemas',
+                allOperational: 'Todos los sistemas operan con normalidad.',
+                metricsTitle: 'Métricas actuales',
+                leadsTitle: 'Cartera de leads',
+                tasksTitle: 'Tareas pendientes',
+                understood: 'Entendido. Procesando su solicitud.',
+                clarify: '¿Podría especificar un poco más su requerimiento?',
+                voiceOn: 'Síntesis de voz activada',
+                voiceOff: 'Síntesis de voz desactivada'
+            },
+            en: {
+                greeting: `Good morning, Alex. I'm JHON, your executive assistant. How may I assist you today?`,
+                botsStatus: 'Systems status',
+                allOperational: 'All systems operating normally.',
+                metricsTitle: 'Current metrics',
+                leadsTitle: 'Lead portfolio',
+                tasksTitle: 'Pending tasks',
+                understood: 'Understood. Processing your request.',
+                clarify: 'Could you please specify your requirement?',
+                voiceOn: 'Voice synthesis enabled',
+                voiceOff: 'Voice synthesis disabled'
+            },
+            pt: {
+                greeting: `Bom dia, Alex. Sou JHON, seu assistente executivo. Como posso ajudá-lo hoje?`,
+                botsStatus: 'Status dos sistemas',
+                allOperational: 'Todos os sistemas operando normalmente.',
+                metricsTitle: 'Métricas atuais',
+                leadsTitle: 'Carteira de leads',
+                tasksTitle: 'Tarefas pendentes',
+                understood: 'Entendido. Processando sua solicitação.',
+                clarify: 'Poderia especificar um pouco mais sua solicitação?',
+                voiceOn: 'Síntese de voz ativada',
+                voiceOff: 'Síntese de voz desativada'
+            },
+            fr: {
+                greeting: `Bonjour, Alex. Je suis JHON, votre assistant exécutif. Comment puis-je vous aider aujourd'hui?`,
+                botsStatus: 'État des systèmes',
+                allOperational: 'Tous les systèmes fonctionnent normalement.',
+                metricsTitle: 'Métriques actuelles',
+                leadsTitle: 'Portefeuille de prospects',
+                tasksTitle: 'Tâches en attente',
+                understood: 'Compris. Traitement de votre demande.',
+                clarify: 'Pourriez-vous préciser votre demande?',
+                voiceOn: 'Synthèse vocale activée',
+                voiceOff: 'Synthèse vocale désactivée'
+            }
+        };
+
+        const t = (key) => TRANSLATIONS[currentLang][key] || TRANSLATIONS['es'][key];
+
+        // ========== RELOJ ==========
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').textContent = now.toLocaleTimeString('es-ES', { hour12: false });
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // ========== PARTÍCULAS ==========
+        function createParticles() {
+            const container = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.background = ['#00f5ff', '#bf00ff', '#ff00a8', '#00ff88'][Math.floor(Math.random() * 4)];
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ========== SÍNTESIS DE VOZ NATURAL POR IDIOMA ==========
+        let voicesByLang = {};
+
+        function initVoice() {
+            if ('speechSynthesis' in window) {
+                speechSynthesis.onvoiceschanged = () => {
+                    const voices = speechSynthesis.getVoices();
+                    console.log('📢 Voces disponibles:', voices.length);
+
+                    // Voces preferidas por idioma (ESTRICTAMENTE MASCULINAS + BRUNO)
+                    const voicePreferences = {
+                        'es': ['Bruno', 'Microsoft Bruno', 'Pablo', 'Microsoft Pablo', 'Raul', 'Spanish Male', 'es-MX', 'es-ES'],
+                        'en': ['David', 'Microsoft David', 'Ryan', 'Mark', 'en-US'],
+                        'pt': ['Daniel', 'Microsoft Daniel', 'pt-BR'],
+                        'fr': ['Paul', 'Microsoft Paul', 'fr-FR']
+                    };
+
+                    // Lista negra de voces femeninas conocidas para evitar errores
+                    const excludedVoices = ['Sabina', 'Paulina', 'Helena', 'Zira', 'Samantha', 'Monica', 'Yara', 'Hortense', 'Julie', 'Susan', 'Hazel'];
+
+                    // Buscar mejor voz MASCULINA para cada idioma
+                    for (let lang in voicePreferences) {
+                        const prefs = voicePreferences[lang];
+                        let foundVoice = null;
+
+                        for (let pref of prefs) {
+                            // Buscar match que NO contenga nombre femenino
+                            const candidate = voices.find(v =>
+                                (v.name.includes(pref) || v.voiceURI.includes(pref) || v.lang.includes(pref)) &&
+                                !excludedVoices.some(ex => v.name.includes(ex))
+                            );
+
+                            if (candidate) {
+                                foundVoice = candidate;
+                                console.log(`🎤 Voz Masculina ${lang}:`, candidate.name);
+                                break;
+                            }
+                        }
+
+                        // Fallback: buscar cualquier voz del idioma excluyendo femeninas
+                        if (!foundVoice) {
+                            const langCode = lang === 'es' ? 'es' : lang === 'en' ? 'en' : lang === 'pt' ? 'pt' : 'fr';
+                            foundVoice = voices.find(v =>
+                                v.lang.startsWith(langCode) &&
+                                !excludedVoices.some(ex => v.name.includes(ex))
+                            );
+                        }
+
+                        // Asignar voz encontrada (o default si todo falla)
+                        voicesByLang[lang] = foundVoice || voices[0];
+                    }
+
+                    // Establecer voz inicial
+                    jhonVoice = voicesByLang[currentLang] || voices[0];
+                };
+                speechSynthesis.getVoices();
+            }
+        }
+        initVoice();
+
+        function speak(text) {
+            if (!voiceEnabled || !('speechSynthesis' in window)) return;
+
+            // Limpiar HTML del texto
+            const cleanText = text.replace(/<[^>]*>/g, '').replace(/•/g, '').replace(/\n/g, '. ');
+
+            speechSynthesis.cancel(); // Cancelar cualquier speech anterior
+
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+
+            // Usar voz nativa del idioma actual
+            utterance.voice = voicesByLang[currentLang] || jhonVoice;
+            utterance.rate = 1.0;    // Velocidad normal natural
+            utterance.pitch = 1.0;   // Tono natural
+            utterance.volume = 1.0;
+
+            // Establecer idioma correcto
+            utterance.lang = {
+                'es': 'es-MX',  // Español México (más natural para Latinoamérica)
+                'en': 'en-US',
+                'pt': 'pt-BR',
+                'fr': 'fr-FR'
+            }[currentLang] || 'es-MX';
+
+            speechSynthesis.speak(utterance);
+        }
+
+        // ========== CHAT ==========
+        const chatMessages = document.getElementById('chatMessages');
+        const chatInput = document.getElementById('chatInput');
+
+        function sendMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+
+            addMessage(text, 'user');
+            chatInput.value = '';
+
+            // Mostrar indicador de "pensando"
+            const thinking = document.createElement('div');
+            thinking.className = 'message jhon thinking';
+            thinking.innerHTML = `<div class="avatar">🧠</div><div class="content"><em>Analizando...</em></div>`;
+            chatMessages.appendChild(thinking);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Respuesta de JHON con delay profesional
+            setTimeout(() => {
+                thinking.remove();
+                const response = getJHONResponse(text);
+                addMessage(response, 'jhon');
+                speak(response);
+            }, 800 + Math.random() * 400);
+        }
+
+        function sendQuick(text) {
+            chatInput.value = text;
+            sendMessage();
+        }
+
+        function handleKeyPress(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function addMessage(text, type) {
+            const div = document.createElement('div');
+            div.className = `message ${type}`;
+
+            if (type === 'jhon') {
+                div.innerHTML = `
+                    <div class="avatar">🧠</div>
+                    <div class="content">${text}</div>
+                `;
+            } else {
+                div.innerHTML = `<div class="content">${text}</div>`;
+            }
+
+            chatMessages.appendChild(div);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // ========== JHON AI - RESPUESTAS INTELIGENTES ==========
+        function getJHONResponse(input) {
+            const lower = input.toLowerCase();
+            const k = ORION_KNOWLEDGE;
+
+            // Saludos
+            if (/^(hola|hi|hello|buenos|buen|oi|bonjour)/i.test(lower)) {
+                return t('greeting');
+            }
+
+            // Estado de bots
+            if (lower.includes('estado') || lower.includes('bot') || lower.includes('status')) {
+                return `<strong>${t('botsStatus')}:</strong><br>
+                🟢 ${k.bots.orionClean.name} — ${k.bots.orionClean.platform} • ${k.bots.orionClean.status.toUpperCase()}<br>
+                🔵 ${k.bots.cronos.name} — ${k.bots.cronos.platform} • ${k.bots.cronos.status.toUpperCase()}<br>
+                ☁️ ${k.bots.orionCloud.name} — ${k.bots.orionCloud.platform} • ${k.bots.orionCloud.status.toUpperCase()}<br>
+                📞 ${k.bots.bruno.name} — ${k.bots.bruno.platform} • ${k.bots.bruno.status.toUpperCase()}<br><br>
+                ${t('allOperational')}`;
+            }
+
+            // Métricas
+            if (lower.includes('métrica') || lower.includes('metric') || lower.includes('reporte') || lower.includes('report') || lower.includes('kpi')) {
+                return `<strong>${t('metricsTitle')}:</strong><br>
+                • Leads en cartera: ${k.leads.total}<br>
+                • Bay Area: ${k.leads.bayArea} negocios<br>
+                • Colombia: ${k.leads.colombia} negocios<br>
+                • Conversión objetivo: ${k.kpis.conversionTarget}<br>
+                • Meta semanal demos: ${k.kpis.weeklyDemos}<br>
+                • Meta contactos: ${k.kpis.weeklyContacts}/semana<br><br>
+                ¿Requiere un desglose por categoría o región?`;
+            }
+
+            // Leads
+            if (lower.includes('lead') || lower.includes('cliente') || lower.includes('prospect')) {
+                return `<strong>${t('leadsTitle')}:</strong><br>
+                Identificados: <strong>${k.leads.total}</strong> negocios potenciales<br><br>
+                <strong>Distribución geográfica:</strong><br>
+                • Bay Area, California: ${k.leads.bayArea}<br>
+                • Eje Cafetero, Colombia: ${k.leads.colombia}<br><br>
+                <strong>Categorías:</strong><br>
+                ${k.leads.categories.map(c => `• ${c}`).join('<br>')}<br><br>
+                ¿Desea que priorice algún segmento específico?`;
+            }
+
+            // Precios
+            if (lower.includes('precio') || lower.includes('price') || lower.includes('cost') || lower.includes('paquete') || lower.includes('package')) {
+                return `<strong>Estructura de precios ORION Tech:</strong><br><br>
+                <strong>🇺🇸 USA (USD):</strong><br>
+                • Starter: ${k.pricing.usa.starter}<br>
+                • Business: ${k.pricing.usa.business}<br>
+                • Enterprise: ${k.pricing.usa.enterprise}<br><br>
+                <strong>🇨🇴 Colombia (COP):</strong><br>
+                • Emprendedor: ${k.pricing.colombia.emprendedor}<br>
+                • PYME: ${k.pricing.colombia.pyme}<br>
+                • Business: ${k.pricing.colombia.business}<br><br>
+                Márgenes promedio: 75-85%. ¿Necesita cotización personalizada?`;
+            }
+
+            // Tareas
+            if (lower.includes('tarea') || lower.includes('task') || lower.includes('pendiente') || lower.includes('todo')) {
+                return `<strong>${t('tasksTitle')}:</strong><br>
+                1. Contactar 50 leads prioritarios esta semana<br>
+                2. Programar 5 demos con leads calificados<br>
+                3. Actualizar CRM con nuevos contactos<br>
+                4. Enviar propuestas a leads calientes<br>
+                5. Revisar métricas de bots activos<br>
+                6. Preparar reporte semanal de ventas<br><br>
+                ¿Desea que priorice alguna tarea en particular?`;
+            }
+
+            // Sobre ORION
+            if (lower.includes('orion') || lower.includes('empresa') || lower.includes('company') || lower.includes('about')) {
+                return `<strong>ORION Tech International LLC</strong><br><br>
+                <strong>Significado:</strong> ${k.company.meaning}<br>
+                <strong>Fundador:</strong> ${k.company.founder}<br>
+                <strong>Sede:</strong> ${k.company.hq}<br>
+                <strong>Fundación:</strong> ${k.company.founded}<br><br>
+                <strong>Misión:</strong><br>
+                "${k.company.mission}"<br><br>
+                <strong>Idiomas soportados:</strong><br>
+                ${k.company.languages.join(', ')}`;
+            }
+
+            // Cambiar idioma
+            if (lower.includes('english') || lower.includes('inglés')) {
+                currentLang = 'en';
+                return `Language changed to English. How may I assist you, Alex?`;
+            }
+            if (lower.includes('español') || lower.includes('spanish')) {
+                currentLang = 'es';
+                return `Idioma cambiado a español. ¿En qué puedo ayudarle, Alex?`;
+            }
+            if (lower.includes('português') || lower.includes('portuguese')) {
+                currentLang = 'pt';
+                return `Idioma alterado para português. Como posso ajudá-lo, Alex?`;
+            }
+            if (lower.includes('français') || lower.includes('french')) {
+                currentLang = 'fr';
+                return `Langue changée en français. Comment puis-je vous aider, Alex?`;
+            }
+
+            // Voz on/off
+            if (lower.includes('voz') || lower.includes('voice') || lower.includes('mute') || lower.includes('silencio')) {
+                voiceEnabled = !voiceEnabled;
+                return voiceEnabled ? t('voiceOn') : t('voiceOff');
+            }
+
+            // Ayuda
+            if (lower.includes('ayuda') || lower.includes('help') || lower.includes('comando') || lower.includes('command')) {
+                return `<strong>Comandos disponibles:</strong><br><br>
+                <strong>Información:</strong><br>
+                • "estado bots" — Ver status de sistemas<br>
+                • "métricas" — KPIs actuales<br>
+                • "leads" — Cartera de prospectos<br>
+                • "precios" — Estructura de pricing<br>
+                • "tareas" — Pendientes<br>
+                • "orion" — Info de la empresa<br><br>
+                <strong>Configuración:</strong><br>
+                • "english/español/português/français" — Cambiar idioma<br>
+                • "voz" — Activar/desactivar síntesis<br><br>
+                Estoy a su disposición, Alex.`;
+            }
+
+            // Respuesta genérica profesional
+            return `${t('understood')}<br><br>
+            Como su asistente ejecutivo, tengo acceso completo a:<br>
+            • 🤖 Ecosistema de bots ORION<br>
+            • 📊 Métricas y analytics en tiempo real<br>
+            • 📋 Base de datos de ${k.leads.total} leads<br>
+            • 💰 Información de pricing confidencial<br>
+            • 🔐 Documentación estratégica<br><br>
+            ${t('clarify')}`;
+        }
+
+        // ========== RECONOCIMIENTO DE VOZ ==========
+        const voiceBtn = document.getElementById('voiceBtn');
+        let isListening = false;
+        let recognition;
+
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = () => {
+                isListening = true;
+                voiceBtn.classList.add('listening');
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                chatInput.value = transcript;
+                sendMessage();
+            };
+
+            recognition.onend = () => {
+                isListening = false;
+                voiceBtn.classList.remove('listening');
+            };
+
+            recognition.onerror = (event) => {
+                console.error('Speech recognition error:', event.error);
+                isListening = false;
+                voiceBtn.classList.remove('listening');
+            };
+        }
+
+        function toggleVoice() {
+            if (!recognition) {
+                alert('Tu navegador no soporta reconocimiento de voz');
+                return;
+            }
+
+            // Cambiar idioma de reconocimiento según selección actual
+            recognition.lang = {
+                'es': 'es-ES',
+                'en': 'en-US',
+                'pt': 'pt-BR',
+                'fr': 'fr-FR'
+            }[currentLang] || 'es-ES';
+
+            if (isListening) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        }
+
+        // ========== MÉTRICAS ANIMADAS ==========
+        function animateStats() {
+            const messagesEl = document.getElementById('messagesDay');
+            const randomMessages = Math.floor(Math.random() * 50) + 100;
+            messagesEl.textContent = randomMessages;
+        }
+        animateStats();
+        setInterval(animateStats, 30000);
+
+        // ========== CONFIGURACIÓN DE APIs ==========
+        const ORION_CONFIG = {
+            whatsappAPI: 'http://localhost:3000',
+            telegramAPI: 'https://orion-cloud.onrender.com',
+            openAI: window.OPENAI_API_KEY || null,
+            gemini: window.GEMINI_API_KEY || 'AIzaSyCJxzTzJB_yvSnJCbk5LzU-tL0X5jNvcvI',
+            serper: window.SERPER_API_KEY || null,
+            groq: window.GROQ_API_KEY || null
+        };
+
+        // ========== GEMINI API LOCAL ==========
+        const GEMINI_CONFIG = {
+            apiKey: ORION_CONFIG.gemini,
+            model: 'gemini-1.5-flash',
+            endpoint: 'https://generativelanguage.googleapis.com/v1beta/models'
+        };
+
+        async function askGemini(prompt) {
+            if (!GEMINI_CONFIG.apiKey) {
+                return 'Gemini API no configurada. Por favor agregue GEMINI_API_KEY.';
+            }
+
+            try {
+                const response = await fetch(
+                    `${GEMINI_CONFIG.endpoint}/${GEMINI_CONFIG.model}:generateContent?key=${GEMINI_CONFIG.apiKey}`,
+                    {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            contents: [{
+                                parts: [{
+                                    text: `Eres JHON, asistente ejecutivo sereno, sobrio e intelectual de ORION Tech. 
+                                    Tu dueño es Alex Espinosa, CEO. Responde profesionalmente y en español.
+                                    Tienes acceso a: 231 leads, 4 bots activos, pricing ($997-$4997 USA).
+                                    
+                                    Usuario: ${prompt}`
+                                }]
+                            }],
+                            generationConfig: {
+                                temperature: 0.7,
+                                topK: 40,
+                                topP: 0.95,
+                                maxOutputTokens: 500
+                            }
+                        })
+                    }
+                );
+
+                const data = await response.json();
+                if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
+                    return data.candidates[0].content.parts[0].text;
+                }
+                return 'No pude procesar tu solicitud. Intenta de nuevo.';
+            } catch (error) {
+                console.error('Gemini Error:', error);
+                return 'Error de conexión con Gemini. Verificando sistemas...';
+            }
+        }
+
+        // ========== CONTROL DE PÁGINAS ==========
+        const PAGES_REGISTRY = {
+            private: [
+                { name: 'JHON Centro de Mando', path: 'jhon-command-center.html', type: 'admin' }
+            ],
+            public: [
+                { name: 'ORION Bots Landing', path: 'orion-bots.html', icon: '🌐', desc: 'Página oficial de servicios' },
+                { name: 'Landing Principal', path: 'landing.html', icon: '🚀', desc: 'Multilingüe, multi-país' },
+                { name: 'Manual ORION', path: 'manual.html', icon: '📖', desc: 'Documentación técnica' },
+                { name: 'Tarjeta Digital', path: 'card.html', icon: '🪪', desc: 'Alex Espinosa CEO' },
+                { name: 'CV Profesional', path: 'cv.html', icon: '📄', desc: 'Resume interactivo' }
+            ],
+            external: [
+                { name: 'GitHub Pages', url: 'https://agem2024.github.io/SEGURITI-USC/', icon: '📦' },
+                { name: 'ORION Cloud', url: 'https://orion-cloud.onrender.com', icon: '☁️' },
+                { name: 'GTM Dashboard', url: 'https://tagmanager.google.com/', icon: '🏷️' },
+                { name: 'GA4 Analytics', url: 'https://analytics.google.com/', icon: '📊' }
+            ]
+        };
+
+        function openPage(path) {
+            // Track event in GA4
+            gtag('event', 'page_navigation', {
+                'event_category': 'Navigation',
+                'event_label': path,
+                'source': 'JHON_Command_Center'
+            });
+            window.open(path, '_blank');
+        }
+
+        function openExternalPage(url) {
+            gtag('event', 'external_navigation', {
+                'event_category': 'External',
+                'event_label': url,
+                'source': 'JHON_Command_Center'
+            });
+            window.open(url, '_blank');
+        }
+
+        // ========== TRACKING DE INTERACCIONES ==========
+        function trackJHONInteraction(type, details) {
+            gtag('event', 'jhon_interaction', {
+                'event_category': 'JHON_AI',
+                'event_action': type,
+                'event_label': details
+            });
+        }
+
+        // Track cuando se envía un mensaje
+        const originalSendMessage = sendMessage;
+        sendMessage = function () {
+            const text = chatInput.value.trim();
+            if (text) {
+                trackJHONInteraction('chat_message', text.substring(0, 50));
+            }
+            originalSendMessage();
+        };
+
+        // ========== GEMINI PARA RESPUESTAS AVANZADAS ==========
+        async function getAdvancedResponse(input) {
+            const lower = input.toLowerCase();
+
+            // Si pide usar Gemini explícitamente
+            if (lower.includes('gemini') || lower.includes('ia avanzada') || lower.includes('analiza')) {
+                const response = await askGemini(input);
+                return response.replace(/\n/g, '<br>');
+            }
+
+            // Para preguntas complejas que no están en el knowledge base
+            if (lower.length > 100 || lower.includes('explica') || lower.includes('recomienda')) {
+                const response = await askGemini(input);
+                return response.replace(/\n/g, '<br>');
+            }
+
+            return null; // Usar respuesta local
+        }
+
+        // ========== INICIALIZACIÓN ==========
+        console.log('🧠 JHON v2.0 - Asistente Manager Ejecutivo');
+        console.log('👤 Personalidad: Sereno, Sobrio, Intelectual, Profesional');
+        console.log('🗣️ Voz: Masculina');
+        console.log('🌐 Idiomas: ES, EN, PT, FR');
+        console.log('📡 APIs configuradas:', Object.keys(ORION_CONFIG).filter(k => ORION_CONFIG[k]).join(', '));
+        console.log('🔒 Página privada: noindex, nofollow');
+        console.log('📊 Analytics: GTM-PNTF4GM9 | GA4: G-GY61W7K2B6');
+
+        // Enviar evento de inicialización
+        gtag('event', 'jhon_initialized', {
+            'event_category': 'System',
+            'event_label': 'JHON v2.0 Started'
+        });
+    </script>
+</body>
+
+</html>

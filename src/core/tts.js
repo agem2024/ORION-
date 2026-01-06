@@ -14,7 +14,7 @@ const OPENAI_KEY = process.env.OPENAI_API_KEY;
 // Voces recomendadas por idioma
 const VOICES = {
     es: 'nova',      // Femenina, cálida - ideal español
-    en: 'alloy',     // Neutral, clara - ideal inglés
+    en: 'shimmer',   // Femenina, suave - ideal inglés
     formal: 'onyx',  // Masculina, profunda - presentaciones
     friendly: 'shimmer', // Femenina, suave
     narrator: 'echo'     // Masculina - narraciones
