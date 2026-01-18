@@ -1,5 +1,12 @@
 {
-    "clientes": {},
+    "clientes": {
+        "mungela_glow": {
+            "nombre": "Endi Islam",
+            "telefono": "+17182699743",
+            "categoria": "Beauty Salon",
+            "fecha_registro": "2026-01-06"
+        }
+    },
     "manager": {
         "camilo_espinosa": {
             "nombre": "Camilo Espinosa",

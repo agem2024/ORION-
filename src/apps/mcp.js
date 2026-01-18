@@ -31,8 +31,8 @@ async function search(query) {
         // Fallback to static data
         return {
             results: [
-                { id: 'price-book', title: 'ORION Price Book', url: 'https://agem2024.github.io/SEGURITI-USC/pricebook-index.html' },
-                { id: 'orion-bots', title: 'ORION Bots Platform', url: 'https://agem2024.github.io/SEGURITI-USC/orion-bots.html' }
+                { id: 'price-book', title: 'ORION Price Book', url: 'https://agem2024.github.io/SEGURITI-USC/docs/pricebook-index.html' },
+                { id: 'orion-bots', title: 'ORION Bots Platform', url: 'https://agem2024.github.io/SEGURITI-USC/docs/orion-bots.html' }
             ]
         };
     }
@@ -81,7 +81,7 @@ AI PACKAGES (monthly):
 - Enterprise: $1,499+
 
 Contact: (669) 234-2444`,
-        url: 'https://agem2024.github.io/SEGURITI-USC/pricebook-index.html'
+        url: 'https://agem2024.github.io/SEGURITI-USC/docs/pricebook-index.html'
     },
     'orion-bots': {
         title: 'ORION Bots',
@@ -90,7 +90,7 @@ CRONOS - Operations (Colombia)
 ORION WhatsApp - AI Bot
 
 Features: Multilingual, Voice TTS, Lead capture, Scheduling`,
-        url: 'https://agem2024.github.io/SEGURITI-USC/orion-bots.html'
+        url: 'https://agem2024.github.io/SEGURITI-USC/docs/orion-bots.html'
     }
 };
 

@@ -1829,8 +1829,25 @@
             chatMessages.scrollTop = chatMessages.scrollHeight;
 
             // Respuesta de JHON con delay profesional
-            setTimeout(() => {
+            setTimeout(async () => {
                 thinking.remove();
+
+                // 🎨 DETECTAR INTENCIÓN DE GENERAR IMAGEN (DALL-E 3 via Backend)
+                if (/^(genera|crea|dibuja|pintar|draw|create|imagen de|image of|un dibujo de)/i.test(text)) {
+                    addMessage('🎨 <strong>Generando arte neural...</strong><br><em>Procesando solicitud DALL-E 3...</em>', 'jhon');
+
+                    const url = await generateJHONImage(text);
+                    if (url) {
+                        const imgHTML = `<div>Aquí tiene su visualización, Alex:<br><a href="${url}" target="_blank"><img src="${url}" style="max-width: 100%; border-radius: 10px; margin-top: 10px; box-shadow: 0 0 15px var(--neon-blue);" alt="Generado por JHON"></a></div>`;
+                        addMessage(imgHTML, 'jhon');
+                        speak('Imagen generada exitosamente.');
+                    } else {
+                        addMessage('❌ Lo siento, hubo un error generando la imagen. Verifique que el servidor (puerto 3030) esté activo.', 'jhon');
+                        speak('Error en la generación de imagen.');
+                    }
+                    return;
+                }
+
                 const response = getJHONResponse(text);
                 addMessage(response, 'jhon');
                 speak(response);
@@ -2117,6 +2134,28 @@
             } catch (error) {
                 console.error('Gemini Error:', error);
                 return 'Error de conexión con Gemini. Verificando sistemas...';
+            }
+        }
+
+        // ========== BACKEND API (SECURE IMAGE GEN) ==========
+        async function generateJHONImage(prompt) {
+            try {
+                // Call local index.js server (secure proxy)
+                const response = await fetch('http://localhost:3030/api/image', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt: prompt })
+                });
+
+                const data = await response.json();
+                if (data.success && data.url) {
+                    return data.url;
+                }
+                console.error('API Error:', data.error);
+                return null;
+            } catch (e) {
+                console.error('Fetch Error:', e);
+                return null;
             }
         }
 

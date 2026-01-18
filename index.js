@@ -52,10 +52,10 @@ const MANUAL_URL = 'https://neon-agent-hub.web.app/jarvis_manual.html';
 const NEKON_URL = 'https://neon-agent-hub.web.app/nekon_ai.html';
 
 // 💰 PRICE BOOK URL
-const PRICEBOOK_URL = 'https://agem2024.github.io/SEGURITI-USC/pricebook-index.html';
+const PRICEBOOK_URL = 'https://agem2024.github.io/SEGURITI-USC/docs/pricebook-index.html';
 
 // 🤖 ORION BOTS URL
-const ORIONBOTS_URL = 'https://agem2024.github.io/SEGURITI-USC/orion-bots.html';
+const ORIONBOTS_URL = 'https://agem2024.github.io/SEGURITI-USC/docs/orion-bots.html';
 
 // 🎄 CHRISTMAS CARDS URL
 const CHRISTMAS_URL = 'https://agem2024.github.io/tarjetas-y-mesj/';
@@ -80,8 +80,8 @@ const ESSENTIAL_LINKS = [
     { name: 'neKon Landing', desc: 'Landing page IA', url: 'https://neon-agent-hub.web.app/nekon_ai.html' },
     { name: 'JHON Command Center', desc: 'Centro de control', url: 'file:///c:/Users/alexp/OneDrive/Documentos/_Proyectos/acwater/02_Projects/AI_Development/AI_Media/PROYECTOS/AI_Impact_Bay_Area/orion-clean/public/jhon-command-center.html' },
     { name: 'Tarjetas Navidad', desc: 'Cards de navidad', url: 'https://agem2024.github.io/tarjetas-y-mesj/' },
-    { name: 'CV Alex', desc: 'CV profesional', url: 'https://agem2024.github.io/SEGURITI-USC/rosa/cv_pro.html' },
-    { name: 'Tarjeta Alex', desc: 'Digital card CEO', url: 'https://agem2024.github.io/SEGURITI-USC/rosa/card.html' }
+    { name: 'CV Alex', desc: 'CV profesional', url: 'https://agem2024.github.io/SEGURITI-USC/docs/cv_pro.html' },
+    { name: 'Tarjeta Alex', desc: 'Digital card CEO', url: 'https://agem2024.github.io/SEGURITI-USC/docs/card.html' }
 ];
 
 // 💾 PERSISTENT STATE
@@ -354,6 +354,37 @@ Confirm: "Great [NAME]! We'll contact you for your demo within 24 hours!"
             res.sendStatus(200);
         });
 
+        // 🎨 IMAGE GENERATION API ENDPOINT (DALL-E 3)
+        app.post('/api/image', async (req, res) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Headers', 'Content-Type');
+
+            try {
+                const { prompt } = req.body;
+                if (!prompt) return res.status(400).json({ error: 'Prompt required' });
+
+                logger.info(`🎨 Image Request: ${prompt}`);
+                const url = await ai.generateImage(prompt);
+
+                if (url) {
+                    res.json({ success: true, url });
+                } else {
+                    res.status(500).json({ error: 'Failed to generate image' });
+                }
+            } catch (e) {
+                logger.error('Image API Error: ' + e.message);
+                res.status(500).json({ error: e.message });
+            }
+        });
+
+        // CORS preflight for Image
+        app.options('/api/image', (req, res) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Methods', 'POST');
+            res.header('Access-Control-Allow-Headers', 'Content-Type');
+            res.sendStatus(200);
+        });
+
         // 🎬 SORA VIDEO GENERATION API ENDPOINT
         app.post('/api/video', async (req, res) => {
             res.header('Access-Control-Allow-Origin', '*');
@@ -475,21 +506,51 @@ Contacto: WhatsApp (669) 234-2444`
 
     sock.ev.on('creds.update', saveCreds);
 
+    let isWaitingForQR = false;
+    let qrTimeout = null;
+
     sock.ev.on('connection.update', (update) => {
         const { connection, lastDisconnect, qr } = update;
         if (qr) {
-            qrcode.generate(qr, { small: true });
-            try {
-                const QRCodeFile = require('qrcode');
-                QRCodeFile.toFile('./qr.png', qr, { scale: 10 }, () => exec('start qr.png'));
-            } catch (e) { }
+            // Solo mostrar QR si no estamos ya esperando uno
+            if (!isWaitingForQR) {
+                isWaitingForQR = true;
+                logger.info('📱 ESCANEA EL QR - Tienes 60 segundos...');
+                qrcode.generate(qr, { small: true });
+                try {
+                    const QRCodeFile = require('qrcode');
+                    QRCodeFile.toFile('./qr.png', qr, { scale: 10 }, () => exec('start qr.png'));
+                } catch (e) { }
+
+                // Dar 60 segundos para escanear
+                qrTimeout = setTimeout(() => {
+                    isWaitingForQR = false;
+                    logger.warn('⏰ QR expirado. Reiniciando...');
+                }, 60000);
+            }
         }
         if (connection === 'close') {
-            const shouldReconnect = (lastDisconnect.error instanceof Boom) ?
-                lastDisconnect.error.output?.statusCode !== DisconnectReason.loggedOut : true;
-            if (shouldReconnect) setTimeout(startOrion, 3000);
-            else logger.error('⛔ Logged out. Delete auth_info to re-scan.');
+            // Limpiar timeout si existe
+            if (qrTimeout) clearTimeout(qrTimeout);
+            isWaitingForQR = false;
+
+            const statusCode = (lastDisconnect?.error instanceof Boom) ?
+                lastDisconnect.error.output?.statusCode : 0;
+            const errorMessage = lastDisconnect?.error?.message || '';
+
+            // Check for conflict error - another session took over
+            if (errorMessage.includes('conflict') || statusCode === 440) {
+                logger.warn('⚠️ Sesión en conflicto - otra instancia activa. Esperando 60s...');
+                setTimeout(startOrion, 60000); // Wait 60 seconds before retry
+            } else if (statusCode !== DisconnectReason.loggedOut) {
+                logger.info('🔄 Reconectando en 10 segundos...');
+                setTimeout(startOrion, 10000);
+            } else {
+                logger.error('⛔ Logged out. Delete auth_info to re-scan.');
+            }
         } else if (connection === 'open') {
+            if (qrTimeout) clearTimeout(qrTimeout);
+            isWaitingForQR = false;
             logger.info('✅ ORION CONNECTED AND ONLINE');
 
             // Start Antigravity Inbox Watcher
@@ -763,6 +824,8 @@ Contacto: WhatsApp (669) 234-2444`
                 }
                 continue;
             }
+
+
 
 
             // 🎬 GENERAR VIDEO CON SORA AI

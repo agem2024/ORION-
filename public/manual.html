@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ORION SYSTEM - Manual Interactivo</title>
+    <title>ORION SYSTEM - Manual Completo v6.0</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap"
         rel="stylesheet">
@@ -31,6 +31,7 @@
             color: #e0e0e0;
             line-height: 1.6;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
 
         .bg-grid {
@@ -58,7 +59,7 @@
         }
 
         .hero {
-            min-height: 100vh;
+            min-height: 80vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -70,7 +71,7 @@
 
         .hero-video {
             width: 100%;
-            max-width: 800px;
+            max-width: 600px;
             border-radius: 20px;
             box-shadow: var(--glow);
             margin-bottom: 2rem;
@@ -107,6 +108,7 @@
             font-size: 0.9rem;
             margin-top: 1rem;
             display: inline-block;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
         }
 
         nav {
@@ -123,7 +125,7 @@
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.5rem;
             list-style: none;
         }
 
@@ -133,6 +135,8 @@
             padding: 0.5rem 1rem;
             border-radius: 8px;
             transition: all 0.3s;
+            font-size: 0.9rem;
+            font-family: 'Orbitron', sans-serif;
         }
 
         nav a:hover {
@@ -142,7 +146,7 @@
 
         section {
             padding: 4rem 2rem;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -150,15 +154,14 @@
             display: flex;
             align-items: center;
             gap: 1.5rem;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
         }
 
         .section-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-            object-fit: cover;
-            box-shadow: var(--glow);
+            font-size: 3rem;
+            filter: drop-shadow(0 0 10px var(--primary));
         }
 
         h2 {
@@ -169,14 +172,16 @@
 
         h3 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--secondary);
             margin: 2rem 0 1rem;
+            border-left: 4px solid var(--secondary);
+            padding-left: 1rem;
         }
 
         .commands-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 1.5rem;
         }
 
@@ -186,6 +191,19 @@
             padding: 1.5rem;
             border: 1px solid rgba(0, 242, 255, 0.1);
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .command-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            opacity: 0.5;
         }
 
         .command-card:hover {
@@ -197,26 +215,31 @@
         .command-code {
             font-family: 'Courier New', monospace;
             background: rgba(0, 242, 255, 0.1);
-            color: var(--primary);
+            color: #fff;
             padding: 0.5rem 1rem;
             border-radius: 8px;
             display: inline-block;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.8rem;
             font-size: 1.1rem;
+            font-weight: bold;
+            border: 1px solid rgba(0, 242, 255, 0.3);
         }
 
         .command-desc {
-            color: #a0a0a0;
+            color: #b0b0b0;
             margin-top: 0.5rem;
+            font-size: 0.95rem;
         }
 
         .tag {
             display: inline-block;
             padding: 0.2rem 0.6rem;
             border-radius: 4px;
-            font-size: 0.75rem;
-            margin-right: 0.5rem;
-            font-weight: 500;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            vertical-align: middle;
         }
 
         .tag-core {
@@ -231,6 +254,11 @@
 
         .tag-ai {
             background: var(--secondary);
+            color: white;
+        }
+
+        .tag-danger {
+            background: #ff003c;
             color: white;
         }
 
@@ -251,63 +279,12 @@
 
         .persona-card:hover {
             border-color: var(--primary);
+            background: rgba(0, 242, 255, 0.05);
         }
 
         .persona-emoji {
             font-size: 3rem;
             margin-bottom: 0.5rem;
-        }
-
-        .quick-start {
-            background: linear-gradient(135deg, rgba(0, 242, 255, 0.1) 0%, rgba(123, 44, 191, 0.1) 100%);
-            border-radius: 20px;
-            padding: 2rem;
-            border: 1px solid rgba(0, 242, 255, 0.2);
-        }
-
-        .steps {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .step {
-            flex: 1;
-            min-width: 200px;
-            text-align: center;
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.5rem;
-            margin: 0 auto 1rem;
-        }
-
-        .access-box {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 2rem;
-            margin: 2rem 0;
-            border: 2px solid var(--primary);
-        }
-
-        .access-box h3 {
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .access-box a {
-            color: var(--primary);
-            font-size: 1.2rem;
-            word-break: break-all;
         }
 
         footer {
@@ -317,24 +294,21 @@
             border-top: 1px solid rgba(0, 242, 255, 0.1);
         }
 
-        footer p {
-            color: #606060;
-            font-size: 0.9rem;
-        }
-
+        /* Responsive Fixes */
         @media (max-width: 768px) {
-            .commands-grid {
-                grid-template-columns: 1fr;
-            }
-
-            nav ul {
-                flex-direction: column;
-                align-items: center;
-            }
-
             .section-header {
                 flex-direction: column;
                 text-align: center;
+            }
+
+            nav ul {
+                justify-content: start;
+                overflow-x: auto;
+                padding-bottom: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
             }
         }
     </style>
@@ -348,131 +322,190 @@
         <video src="images/grok-video-033ad738-41fc-45a5-9298-aaa347b31323.mp4" class="hero-video" autoplay loop muted
             playsinline></video>
         <h1>🌌 ORION SYSTEM</h1>
-        <p>Orion Reactive Intelligence Operating Network<br>Tu Asistente Personal de WhatsApp con IA Gemini</p>
-        <span class="version-badge">vClean + ANTIGRAVITY</span>
+        <p>Orion Reactive Intelligence Operating Network<br>Lista Oficial y Completa de Comandos</p>
+        <span class="version-badge">VERSION 6.0 COMPLETE</span>
     </section>
 
     <!-- Navigation -->
     <nav>
         <ul>
-            <li><a href="#inicio">🚀 Inicio</a></li>
-            <li><a href="#core">⚡ Core</a></li>
+            <li><a href="#pro">💼 Profesional</a></li>
+            <li><a href="#ai">🤖 IA & Video</a></li>
+            <li><a href="#web">🌐 Web & Datos</a></li>
+            <li><a href="#voice">🗣️ Voz & Traducción</a></li>
             <li><a href="#pc">🖥️ PC Control</a></li>
-            <li><a href="#apps">📱 Apps</a></li>
+            <li><a href="#memoria">🧠 Memoria</a></li>
             <li><a href="#personas">🎭 Personas</a></li>
-            <li><a href="#antigravity">🔐 Antigravity</a></li>
-            <li><a href="#access">🌐 Acceso</a></li>
         </ul>
     </nav>
 
-    <!-- Quick Start -->
-    <section id="inicio">
-        <div class="quick-start">
-            <h2>🚀 Inicio Rápido</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h4>Iniciar Bot</h4>
-                    <code>node index.js</code>
-                </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h4>Escanear QR</h4>
-                    <p>Con WhatsApp</p>
-                </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h4>Escribir "!menu"</h4>
-                    <p>Ver comandos</p>
-                </div>
+    <!-- Profesional -->
+    <section id="pro">
+        <div class="section-header">
+            <span class="section-icon">💼</span>
+            <div>
+                <h2>PROFESIONAL & ENVIOS</h2>
+                <p>Herramientas de negocio, ventas y comunicación directa.</p>
+            </div>
+        </div>
+
+        <div class="commands-grid">
+            <div class="command-card">
+                <div class="command-code">/enviar [numero] [msg]</div>
+                <p class="command-desc">Envía un mensaje de WhatsApp a cualquier número.<br><em>Ej: /enviar 14081234567
+                        Hola Cliente</em></p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">enviar email a...</div>
+                <p class="command-desc">Envía correos con lenguaje natural.<br><em>Formato: enviar email a [correo]
+                        asunto [x] mensaje [y]</em></p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">!pb / pricebook</div>
+                <p class="command-desc">Link directo al Price Book v6.0 PRO (100+ servicios).</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">cv / cv2</div>
+                <p class="command-desc">Envía tu CV Profesional (Versión corta o extendida).</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">tj / tarjeta</div>
+                <p class="command-desc">Envía tu tarjeta de presentación digital.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">apps / links</div>
+                <p class="command-desc">Lista completa de Apps de ORION y links esenciales.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">/tjnav</div>
+                <p class="command-desc">Activa Nelson AI para enviar tarjetas de Navidad.</p>
             </div>
         </div>
     </section>
 
-    <!-- Core Commands -->
-    <section id="core">
+    <!-- IA Generativa -->
+    <section id="ai">
         <div class="section-header">
-            <video src="images/grok-video-e9e2a37c-4205-43d2-8b04-12ebad9fc3cb.mp4" class="section-icon" autoplay loop
-                muted playsinline></video>
+            <span class="section-icon">🤖</span>
             <div>
-                <h2>⚡ COMANDOS CORE</h2>
-                <p>Funciones principales sin necesidad de API</p>
+                <h2>IA GENERATIVA & LOCAL</h2>
+                <p>Generación de Video, Imagen, Música y Avatares (Local & Cloud).</p>
             </div>
         </div>
 
-        <h3>📋 Sistema</h3>
+        <h3>🎥 Video AI</h3>
         <div class="commands-grid">
             <div class="command-card">
-                <span class="tag tag-core">CORE</span>
-                <div class="command-code">!menu</div>
-                <p class="command-desc">Ver todos los comandos y estado del sistema.</p>
+                <div class="command-code">/video [prompt]</div>
+                <p class="command-desc">Genera video corto usando <strong>Sora AI</strong> (OpenAI).</p>
             </div>
             <div class="command-card">
-                <span class="tag tag-core">CORE</span>
-                <div class="command-code">!acutor</div>
-                <p class="command-desc">Recibir link del manual interactivo (Firebase).</p>
+                <div class="command-code">/wan</div>
+                <p class="command-desc">Ayuda para usar Wan 2.1 (Generador de video de Alibaba).</p>
             </div>
             <div class="command-card">
-                <span class="tag tag-core">CORE</span>
-                <div class="command-code">!acutor2</div>
-                <p class="command-desc">Recibir link de la landing page neKon AI.</p>
+                <div class="command-code">/wan-i2v</div>
+                <p class="command-desc">Instrucciones para animar una imagen estática (Image-to-Video).</p>
             </div>
             <div class="command-card">
-                <span class="tag tag-core">CORE</span>
-                <div class="command-code">!reset</div>
-                <p class="command-desc">Reiniciar al modo ORION y borrar historial.</p>
-            </div>
-            <div class="command-card">
-                <span class="tag tag-core">CORE</span>
-                <div class="command-code">!pb</div>
-                <p class="command-desc">Acceder al Price Book v6.0 PRO con 100 servicios.</p>
-            </div>
-            <div class="command-card">
-                <span class="tag tag-core">CORE</span>
-                <div class="command-code">!otp</div>
-                <p class="command-desc">Ver landing page ORION Tech (venta de bots).</p>
+                <div class="command-code">/pinokio</div>
+                <p class="command-desc">Ayuda y estado de herramientas locales de video (Pinokio).</p>
             </div>
         </div>
 
-        <h3>🎄 Navideños (Nelson AI)</h3>
+        <h3>🎨 Creative AI (Local)</h3>
         <div class="commands-grid">
             <div class="command-card">
-                <span class="tag tag-ai">NELSON</span>
-                <div class="command-code">/tjnav</div>
-                <p class="command-desc">Iniciar asistente de tarjetas navideñas (Nelson).</p>
+                <div class="command-code">imagen [prompt]</div>
+                <p class="command-desc">Ayuda para generar imágenes offline con Fooocus o SDXL.</p>
             </div>
             <div class="command-card">
-                <span class="tag tag-ai">NELSON</span>
-                <div class="command-code">/tlinv</div>
-                <p class="command-desc">Alias para el asistente Nelson (Link directo de tarjetas).</p>
+                <div class="command-code">musica [prompt]</div>
+                <p class="command-desc">Ayuda para generar música offline con MusicGen.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">/avatar</div>
+                <p class="command-desc">Ayuda para crear avatares hablantes (SadTalker/LivePortrait).</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">/ollama [prompt]</div>
+                <p class="command-desc">Consulta a la IA Local (Gemma2 o Llama3) sin internet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Web & Datos -->
+    <section id="web">
+        <div class="section-header">
+            <span class="section-icon">🌐</span>
+            <div>
+                <h2>INTERNET & DATOS</h2>
+                <p>Búsqueda en tiempo real, noticias y scraping.</p>
             </div>
         </div>
 
-        <h3>🗣️ Voz y Multimedia</h3>
         <div class="commands-grid">
+            <div class="command-card">
+                <div class="command-code">/buscar [texto]</div>
+                <p class="command-desc">Busca en Google y devuelve los 5 mejores resultados con links.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">/scrape [url]</div>
+                <p class="command-desc">Lee el contenido de una página web y te lo resume.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">/groq [pregunta]</div>
+                <p class="command-desc">Consulta rápida a IA gratuita (Groq Cloud).</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">/noticias</div>
+                <p class="command-desc">Obtiene titulares recientes de tecnología (TechCrunch/Verge).</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">/orion [pregunta]</div>
+                <p class="command-desc">Busca información en la Base de Conocimientos interna (MCP).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Voz & Traducción -->
+    <section id="voice">
+        <div class="section-header">
+            <span class="section-icon">🗣️</span>
+            <div>
+                <h2>VOZ, AUDIO & TRADUCCIÓN</h2>
+                <p>Procesamiento de audio avanzado y YouTube.</p>
+            </div>
+        </div>
+
+        <div class="commands-grid">
+            <div class="command-card">
+                <div class="command-code">orvoz [mensaje]</div>
+                <p class="command-desc">La IA te responde con una <strong>Nota de Voz HD</strong> (OpenAI TTS).</p>
+            </div>
             <div class="command-card">
                 <div class="command-code">!say [texto]</div>
-                <p class="command-desc">Convierte texto a audio de WhatsApp.</p>
+                <p class="command-desc">Simplemente lee el texto en voz alta y envía el audio.</p>
             </div>
             <div class="command-card">
-                <div class="command-code">!yt [URL]</div>
-                <p class="command-desc">Descarga video de YouTube y lo envía.</p>
+                <div class="command-code">traducir [x] a [idioma]</div>
+                <p class="command-desc">Traduce textos automáticamente a cualquier idioma.</p>
             </div>
             <div class="command-card">
-                <div class="command-code">!search [texto]</div>
-                <p class="command-desc">Busca en Google y muestra resultados.</p>
+                <div class="command-code">youtube [url]</div>
+                <p class="command-desc">Descarga un video de YouTube y te lo envía al chat.</p>
             </div>
             <div class="command-card">
-                <div class="command-code">!cal</div>
-                <p class="command-desc">Ver próximos eventos de Google Calendar.</p>
+                <div class="command-code">youtube audio [url]</div>
+                <p class="command-desc">Extrae y descarga solo el audio (MP3) de YouTube.</p>
             </div>
             <div class="command-card">
-                <div class="command-code">!noticias</div>
-                <p class="command-desc">Obtener las últimas noticias tech.</p>
+                <div class="command-code">/transcribir</div>
+                <p class="command-desc">Ayuda para transcribir notas de voz o archivos de audio (Whisper).</p>
             </div>
             <div class="command-card">
-                <div class="command-code">!qr [texto]</div>
-                <p class="command-desc">Generar código QR como imagen.</p>
+                <div class="command-code">/voz</div>
+                <p class="command-desc">Ayuda para clonación de voz local (F5-TTS/Chatterbox).</p>
             </div>
         </div>
     </section>
@@ -480,11 +513,10 @@
     <!-- PC Control -->
     <section id="pc">
         <div class="section-header">
-            <video src="images/grok-video-f143a3fb-ed16-45d5-a487-e4d4f411a473.mp4" class="section-icon" autoplay loop
-                muted playsinline></video>
+            <span class="section-icon">🖥️</span>
             <div>
-                <h2>🖥️ CONTROL PC</h2>
-                <p>Controla tu computadora desde WhatsApp</p>
+                <h2>CONTROL DE PC</h2>
+                <p>Administración remota del servidor.</p>
             </div>
         </div>
 
@@ -492,92 +524,66 @@
             <div class="command-card">
                 <span class="tag tag-pc">PC</span>
                 <div class="command-code">!captura</div>
-                <p class="command-desc">Captura de pantalla del PC.</p>
-            </div>
-            <div class="command-card">
-                <span class="tag tag-pc">PC</span>
-                <div class="command-code">!web [URL]</div>
-                <p class="command-desc">Captura de pantalla de una página web.</p>
+                <p class="command-desc">Toma una captura de pantalla (Screenshot) y te la envía.</p>
             </div>
             <div class="command-card">
                 <span class="tag tag-pc">PC</span>
                 <div class="command-code">!portapapeles</div>
-                <p class="command-desc">Leer contenido del clipboard.</p>
+                <p class="command-desc">Lee el contenido actual del portapapeles (Copy/Paste).</p>
             </div>
             <div class="command-card">
                 <span class="tag tag-pc">PC</span>
                 <div class="command-code">!copiar [texto]</div>
-                <p class="command-desc">Escribir texto al portapapeles.</p>
+                <p class="command-desc">Escribe texto remotamente en el portapapeles del PC.</p>
             </div>
             <div class="command-card">
                 <span class="tag tag-pc">PC</span>
                 <div class="command-code">!estado</div>
-                <p class="command-desc">Ver estado del sistema (CPU/RAM).</p>
+                <p class="command-desc">Muestra métricas del sistema (CPU, RAM, Uptime).</p>
             </div>
             <div class="command-card">
-                <span class="tag tag-pc">PC</span>
+                <span class="tag tag-danger">PELIGRO</span>
                 <div class="command-code">!apagar pc</div>
-                <p class="command-desc">Apagar la computadora en 10 segundos.</p>
+                <p class="command-desc">Apaga el computador en 10 segundos.</p>
             </div>
             <div class="command-card">
-                <span class="tag tag-pc">PC</span>
+                <span class="tag tag-danger">PELIGRO</span>
                 <div class="command-code">!reiniciar pc</div>
-                <p class="command-desc">Reiniciar la computadora en 10 segundos.</p>
+                <p class="command-desc">Reinicia el computador en 10 segundos.</p>
             </div>
         </div>
     </section>
 
-    <!-- Apps & Memory -->
-    <section id="apps">
+    <!-- Memoria -->
+    <section id="memoria">
         <div class="section-header">
-            <video src="images/grok-video-d47e78f4-136a-404e-b30f-740a5232c085.mp4" class="section-icon" autoplay loop
-                muted playsinline></video>
+            <span class="section-icon">🧠</span>
             <div>
-                <h2>📱 APPS & MEMORIA</h2>
-                <p>Sistema de memoria persistente y contactos</p>
+                <h2>MEMORIA & ANTIGRAVITY</h2>
+                <p>Base de datos de recuerdos y gestión de tareas.</p>
             </div>
         </div>
 
-        <h3>🧠 Memoria</h3>
         <div class="commands-grid">
             <div class="command-card">
-                <div class="command-code">!recuerda [X] es [Y]</div>
-                <p class="command-desc">Guardar información en la memoria.</p>
+                <div class="command-code">recuerda [X] es [Y]</div>
+                <p class="command-desc">Guarda un dato simple en la memoria global.</p>
             </div>
             <div class="command-card">
                 <div class="command-code">!memoria [tema]</div>
-                <p class="command-desc">Buscar en la memoria guardada.</p>
-            </div>
-        </div>
-
-        <h3>📞 Contactos</h3>
-        <div class="commands-grid">
-            <div class="command-card">
-                <div class="command-code">!contactos</div>
-                <p class="command-desc">Ver tu agenda de contactos.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Antigravity -->
-    <section id="antigravity">
-        <div class="section-header">
-            <video src="images/grok-video-33ee54cf-2343-40f8-b611-42113b8d18bf.mp4" class="section-icon" autoplay loop
-                muted playsinline></video>
-            <div>
-                <h2>🔐 ANTIGRAVITY</h2>
-                <p>Sistema de tareas y automatización</p>
-            </div>
-        </div>
-
-        <div class="commands-grid">
-            <div class="command-card">
-                <div class="command-code">!ag [tarea]</div>
-                <p class="command-desc">Registrar una tarea en Antigravity.</p>
+                <p class="command-desc">Busca en los recuerdos guardados.</p>
             </div>
             <div class="command-card">
-                <div class="command-code">!tareas</div>
-                <p class="command-desc">Ver todas las tareas pendientes.</p>
+                <div class="command-code">recuerda que [Persona]...</div>
+                <p class="command-desc">Guarda información específica sobre un contacto.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">que sabes de [Persona]</div>
+                <p class="command-desc">Recupera toda la información guardada de un contacto.</p>
+            </div>
+            <div class="command-card">
+                <div class="command-code">antigravity [tarea]</div>
+                <p class="command-desc">Agrega una tarea nueva a la lista de Antigravity Antigravity.</p>
             </div>
         </div>
     </section>
@@ -585,69 +591,48 @@
     <!-- Personas -->
     <section id="personas">
         <h2>🎭 PERSONAS (MIRROR MODE)</h2>
-        <p style="margin-bottom: 2rem;">Cambia la personalidad de ORION escribiendo el nombre</p>
+        <p style="margin-bottom: 2rem;">Cambia la personalidad de ORION escribiendo el nombre exacto.</p>
 
         <div class="personas-grid">
             <div class="persona-card">
                 <div class="persona-emoji">🌌</div>
                 <h4>ORION</h4>
                 <code>orion</code>
-                <p>Profesional y preciso</p>
             </div>
             <div class="persona-card">
                 <div class="persona-emoji">🔧</div>
                 <h4>ESTIMATOR</h4>
                 <code>estimator</code>
-                <p>Experto en plomería</p>
             </div>
             <div class="persona-card">
                 <div class="persona-emoji">💼</div>
                 <h4>MPPRO</h4>
                 <code>mppro</code>
-                <p>Negocios y estrategia</p>
             </div>
             <div class="persona-card">
                 <div class="persona-emoji">⚡</div>
                 <h4>NEKON</h4>
                 <code>nekon</code>
-                <p>Código y sistemas</p>
             </div>
             <div class="persona-card">
-                <div class="persona-emoji">🤖</div>
-                <h4>ORION CLEAN</h4>
-                <code>orion-clean</code>
-                <p>Modo legacy/glitch</p>
+                <div class="persona-emoji">📢</div>
+                <h4>ADVORTEX</h4>
+                <code>advortex</code>
             </div>
-        </div>
-    </section>
-
-    <!-- Access Links -->
-    <section id="access">
-        <h2>🌐 ACCESO GLOBAL</h2>
-
-        <div class="access-box">
-            <h3>📖 MANUAL ORION CLEAN (Firebase)</h3>
-            <a href="https://neon-agent-hub.web.app/jarvis_manual.html"
-                target="_blank">https://neon-agent-hub.web.app/jarvis_manual.html</a>
-        </div>
-
-        <div class="access-box">
-            <h3>🚀 LANDING NEKON AI (Firebase)</h3>
-            <a href="https://neon-agent-hub.web.app/nekon_ai.html"
-                target="_blank">https://neon-agent-hub.web.app/nekon_ai.html</a>
-        </div>
-
-        <div class="access-box">
-            <h3>📱 CONTACTO</h3>
-            <p style="font-size: 1.2rem;">WhatsApp: <strong>+1 (669) 234-2444</strong></p>
-            <p style="font-size: 1.2rem;">Email: <strong>jarvisasistente47@gmail.com</strong></p>
+            <div class="persona-card">
+                <div class="persona-emoji">🌐</div>
+                <h4>NEONHUB</h4>
+                <code>neonhub</code>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>ORION SYSTEM | Powered by Gemini AI | neKon AI aGent Consulting</p>
-        <p>© 2024 AGEM. All rights reserved.</p>
+        <p>ORION SYSTEM v6.0 | Powered by Gemini & OpenAI | neKon AI Consulting</p>
+        <p>© 2026 ORION Tech. All rights reserved.</p>
+        <br>
+        <p style="opacity: 0.5; font-size: 0.8rem;">Manual Actualizado Automáticamente</p>
     </footer>
 </body>
 

@@ -130,4 +130,43 @@ async function generateResponse(userMessage, history = [], systemPrompt, imageBu
     return "⚠️ All AI services unavailable. Please try again later or contact via WhatsApp.";
 }
 
-module.exports = { generateResponse };
+// 🎨 IMAGE GENERATION (DALL-E 3)
+async function generateImage(prompt, size = '1024x1024') {
+    if (!OPENAI_KEY) {
+        logger.error('❌ OpenAI Key missing for Image Generation');
+        return null;
+    }
+    logger.info(`🎨 Generating DALL-E 3 Image: "${prompt}"`);
+
+    try {
+        const response = await fetch('https://api.openai.com/v1/images/generations', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${OPENAI_KEY}`
+            },
+            body: JSON.stringify({
+                model: "dall-e-3",
+                prompt: prompt,
+                n: 1,
+                size: size,
+                quality: "standard"
+            })
+        });
+
+        const data = await response.json();
+
+        if (data.data && data.data[0]) {
+            logger.info('✅ Image generated successfully');
+            return data.data[0].url;
+        } else {
+            logger.error(`❌ DALL-E Error: ${JSON.stringify(data)}`);
+            return null;
+        }
+    } catch (error) {
+        logger.error(`❌ DALL-E Exception: ${error.message}`);
+        return null;
+    }
+}
+
+module.exports = { generateResponse, generateImage };

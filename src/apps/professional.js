@@ -41,7 +41,7 @@ function handleProfessionalCommand(msgLower) {
         return `📄 *CV Profesional (ORION)*
 
 🎓 Ingeniero Ambiental // Plomero Pro California // Tech Lead
-🔗 https://agem2024.github.io/SEGURITI-USC/cv_pro.html`;
+🔗 https://agem2024.github.io/SEGURITI-USC/docs/cv_pro.html`;
     }
 
     // CV 2 - PROFESSIONAL CV (Traditional Format)
@@ -50,7 +50,7 @@ function handleProfessionalCommand(msgLower) {
 
 ✨ Formato profesional ATS-friendly con logros cuantificables
 📊 21+ años experiencia | 100+ proyectos | Bilingüe
-🔗 https://agem2024.github.io/SEGURITI-USC/cv_professional.html`;
+🔗 https://agem2024.github.io/SEGURITI-USC/docs/cv_professional.html`;
     }
 
     // TARJETA DIGITAL COMMAND
