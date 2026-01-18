@@ -58,7 +58,7 @@ function handleProfessionalCommand(msgLower) {
         return `💳 *Tarjeta Digital (ORION)*
 
 📱 Conexión Directa
-🔗 https://agem2024.github.io/SEGURITI-USC/card.html`;
+🔗 https://agem2024.github.io/SEGURITI-USC/docs/card.html`;
     }
 
     // PROPUESTA PLOMERÍA (CHRIS)
