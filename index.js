@@ -35,6 +35,14 @@ const professional = require('./src/apps/professional');
 const serper = require('./src/apps/serper');
 const scraper = require('./src/apps/scraper');
 
+// 🧠 JHON CENTRAL BRAIN MODULES
+const fileManager = require('./src/apps/file-manager');
+const security = require('./src/apps/security');
+const xlsxManager = require('./src/apps/xlsx-manager');
+const workflowManager = require('./src/apps/workflow-manager');
+const assetHub = require('./src/apps/asset-hub');
+const botBridge = require('./src/apps/bot-bridge');
+
 // 🎬 WAN 2.1 VIDEO AI (Alibaba)
 let wanVideo;
 try { wanVideo = require('./src/apps/wan-video'); console.log('✅ Wan 2.1 Video AI Loaded'); } catch (e) { console.log('⚠️ Wan Video Missing:', e.message); }
@@ -484,6 +492,103 @@ Contacto: WhatsApp (669) 234-2444`
                 res.status(500).json({ error: 'Failed to generate token' });
             }
         });
+
+        // 🧠 JHON ADMIN API: PROJECT EXPLORER
+        app.get('/api/admin/projects', security.verifyAdmin, (req, res) => {
+            const projects = fileManager.listProjects();
+            res.json({ success: true, projects });
+            security.logAction('LIST_PROJECTS');
+        });
+
+        app.get('/api/admin/projects/:name', security.verifyAdmin, (req, res) => {
+            const details = fileManager.getProjectDetails(req.params.name);
+            if (!details) return res.status(404).json({ error: 'Project not found' });
+            res.json({ success: true, details });
+            security.logAction(`VIEW_PROJECT: ${req.params.name}`);
+        });
+
+        // 🧠 JHON ADMIN API: WORKFLOWS
+        app.get('/api/admin/workflows', security.verifyAdmin, (req, res) => {
+            const workflows = workflowManager.listWorkflows();
+            res.json({ success: true, workflows });
+            security.logAction('LIST_WORKFLOWS');
+        });
+
+        // 🧠 JHON ADMIN API: XLSX PREVIEW
+        app.get('/api/admin/xlsx/preview', security.verifyAdmin, (req, res) => {
+            const filePath = req.query.path;
+            if (!filePath) return res.status(400).json({ error: 'Path required' });
+
+            const summary = xlsxManager.getExcelSummary(filePath);
+            if (!summary) return res.status(404).json({ error: 'Excel file not found or invalid' });
+
+            res.json({ success: true, summary });
+            security.logAction(`PREVIEW_XLSX: ${path.basename(filePath)}`);
+        });
+
+        app.get('/api/admin/xlsx/data', security.verifyAdmin, (req, res) => {
+            const filePath = req.query.path;
+            if (!filePath) return res.status(400).json({ error: 'Path required' });
+
+            const data = xlsxManager.readExcel(filePath);
+            if (!data) return res.status(404).json({ error: 'Excel file not found or invalid' });
+
+            res.json({ success: true, data });
+            security.logAction(`READ_XLSX: ${path.basename(filePath)}`);
+        });
+
+        // 🧠 JHON ADMIN API: ASSET HUB
+        app.get('/api/admin/assets', security.verifyAdmin, (req, res) => {
+            const page = parseInt(req.query.page) || 1;
+            const assets = assetHub.listAssets(page);
+            res.json({ success: true, assets });
+            security.logAction('LIST_ASSETS');
+        });
+
+        // 🧠 JHON ADMIN API: 3D TELEMETRY HOOK
+        app.get('/api/admin/telemetry', security.verifyAdmin, (req, res) => {
+            // Mock telemetry for 3D monitoring
+            const telemetry = {
+                timestamp: new Date().toISOString(),
+                nodes: [
+                    { id: 'ORION_CORE', status: 'ONLINE', load: 12 },
+                    { id: 'JARVIS_CORE', status: 'ONLINE', load: 8 },
+                    { id: 'XONA_AI', status: 'ONLINE', load: 45 },
+                    { id: 'STORAGE', status: 'OPTIMAL', used: '4.2TB' }
+                ],
+                alerts: []
+            };
+            res.json({ success: true, telemetry });
+        });
+
+        // 🧠 JHON ADMIN API: BOT BRIDGE
+        app.get('/api/admin/bots', security.verifyAdmin, (req, res) => {
+            const bots = botBridge.getBotsStatus();
+            res.json({ success: true, bots });
+            security.logAction('LIST_BOTS');
+        });
+
+        app.post('/api/admin/bots/command', security.verifyAdmin, async (req, res) => {
+            const { botId, command } = req.body;
+            if (!botId || !command) return res.status(400).json({ error: 'BotId and Command required' });
+
+            try {
+                const result = await botBridge.sendBotCommand(botId, command);
+                res.json(result);
+                security.logAction(`BOT_COMMAND: ${botId} -> ${command}`);
+            } catch (e) {
+                res.status(500).json({ error: e.message });
+            }
+        });
+
+        // CORS preflight for Admin API
+        app.options('/api/admin/*', (req, res) => {
+            res.header('Access-Control-Allow-Origin', '*');
+            res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+            res.header('Access-Control-Allow-Headers', 'Authorization, Content-Type');
+            res.sendStatus(200);
+        });
+
 
         // CORS preflight for realtime
         app.options('/api/realtime-token', (req, res) => {

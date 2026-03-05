@@ -1,5 +1,5 @@
 {
-  "name": "orion-clean",
+  "name": "orion-secondary",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -17,8 +17,10 @@
     "cheerio": "^1.1.2",
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "form-data": "^4.0.5",
     "google-tts-api": "^2.0.2",
     "googleapis": "^167.0.0",
+    "node-fetch": "^3.3.2",
     "node-telegram-bot-api": "^0.66.0",
     "nodemailer": "^7.0.12",
     "pino": "^10.1.0",
@@ -28,6 +30,7 @@
     "qrcode-terminal": "^0.12.0",
     "rss-parser": "^3.13.0",
     "screenshot-desktop": "^1.15.3",
-    "twilio": "^5.11.2"
+    "twilio": "^5.11.2",
+    "xlsx": "^0.18.5"
   }
 }

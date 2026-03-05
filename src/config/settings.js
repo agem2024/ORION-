@@ -101,7 +101,7 @@ WhatsApp/Telegram notifications to Alex owner.
 
   // 📱 WHATSAPP CONFIG
   WHATSAPP: {
-    NAME: 'ORION_CLEAN',
+    NAME: 'JHON-CENTRAL',
     AUTH_DIR: 'auth_info',
     BROWSER: ['ORION', 'Chrome', '2.0']
   },

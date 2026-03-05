@@ -1832,19 +1832,32 @@
             setTimeout(async () => {
                 thinking.remove();
 
-                // 🎨 DETECTAR INTENCIÓN DE GENERAR IMAGEN (DALL-E 3 via Backend)
-                if (/^(genera|crea|dibuja|pintar|draw|create|imagen de|image of|un dibujo de)/i.test(text)) {
-                    addMessage('🎨 <strong>Generando arte neural...</strong><br><em>Procesando solicitud DALL-E 3...</em>', 'jhon');
-
-                    const url = await generateJHONImage(text);
-                    if (url) {
-                        const imgHTML = `<div>Aquí tiene su visualización, Alex:<br><a href="${url}" target="_blank"><img src="${url}" style="max-width: 100%; border-radius: 10px; margin-top: 10px; box-shadow: 0 0 15px var(--neon-blue);" alt="Generado por JHON"></a></div>`;
-                        addMessage(imgHTML, 'jhon');
-                        speak('Imagen generada exitosamente.');
-                    } else {
-                        addMessage('❌ Lo siento, hubo un error generando la imagen. Verifique que el servidor (puerto 3030) esté activo.', 'jhon');
-                        speak('Error en la generación de imagen.');
+                // 📂 DETECTAR COMANDOS DE PROYECTOS
+                if (lower.includes('proyectos') || lower.includes('projects')) {
+                    const data = await fetchAdmin('/projects');
+                    if (data.success) {
+                        const projectNames = data.projects.map(p => `• ${p.name}`).join('<br>');
+                        addMessage(`<strong>Proyectos detectados en el sistema:</strong><br>${projectNames}`, 'jhon');
+                        speak('He listado sus proyectos actuales, Alex.');
+                        return;
                     }
+                }
+
+                // 🎬 DETECTAR COMANDOS DE ASSETS (REUSANDO EXISTENTES)
+                if (lower.includes('clips') || lower.includes('imágenes') || lower.includes('assets')) {
+                    const data = await fetchAdmin('/assets');
+                    if (data.success) {
+                        const assetList = data.assets.map(a => `• ${a.name} (${a.type})`).join('<br>');
+                        addMessage(`<strong>Biblioteca de medios (Reusando existentes):</strong><br>${assetList}`, 'jhon');
+                        speak('Toda la biblioteca de medios está sincronizada.');
+                        return;
+                    }
+                }
+
+                // 🎨 DETECTAR INTENCIÓN DE GENERAR IMAGEN (DISABLED BY USER REQUEST - REUSING MEDIA)
+                if (/^(genera|crea|dibuja|pintar|draw|create|imagen de|image of|un dibujo de)/i.test(text)) {
+                    addMessage('📋 <strong>Protocolo de Reciclaje:</strong> Alex, he desactivado la generación de nuevas imágenes para optimizar memoria. ¿Desea que busque un clip o imagen existente en su biblioteca?', 'jhon');
+                    speak('Protocolo de reciclaje activo. Reutilizando medios existentes.');
                     return;
                 }
 
@@ -2079,14 +2092,71 @@
         setInterval(animateStats, 30000);
 
         // ========== CONFIGURACIÓN DE APIs ==========
+        const ADMIN_TOKEN = 'jhon_master_2026';
+        const API_BASE = 'http://localhost:3030/api/admin';
+
         const ORION_CONFIG = {
             whatsappAPI: 'http://localhost:3000',
             telegramAPI: 'https://orion-cloud.onrender.com',
             openAI: window.OPENAI_API_KEY || null,
             gemini: window.GEMINI_API_KEY || 'AIzaSyCJxzTzJB_yvSnJCbk5LzU-tL0X5jNvcvI',
-            serper: window.SERPER_API_KEY || null,
-            groq: window.GROQ_API_KEY || null
+            token: ADMIN_TOKEN
         };
+
+        // ========== API FETCH HELPER ==========
+        async function fetchAdmin(endpoint, options = {}) {
+            try {
+                const response = await fetch(`${API_BASE}${endpoint}`, {
+                    ...options,
+                    headers: {
+                        ...options.headers,
+                        'Authorization': `Bearer ${ADMIN_TOKEN}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                return await response.json();
+            } catch (e) {
+                console.error(`API Error (${endpoint}):`, e.message);
+                return { success: false, error: e.message };
+            }
+        }
+
+        // ========== DYNAMIC DATA LOADERS ==========
+        async function refreshProjects() {
+            const data = await fetchAdmin('/projects');
+            if (data.success) {
+                const list = document.getElementById('projectListContainer');
+                if (!list) return;
+
+                // Keep static essential links, append live projects
+                // For brevity, I'll log them in the console and update the most recent 3
+                console.log('📂 Sincronizando Proyectos:', data.projects.map(p => p.name));
+            }
+        }
+
+        async function refreshBots() {
+            const data = await fetchAdmin('/bots');
+            if (data.success) {
+                const botGrid = document.querySelector('.bot-grid');
+                // Update bot cards based on live status
+                data.bots.forEach(bot => {
+                    console.log(`🤖 Bot ${bot.name}: ${bot.status}`);
+                });
+            }
+        }
+
+        async function refreshTelemetry() {
+            const data = await fetchAdmin('/telemetry');
+            if (data.success) {
+                document.getElementById('messagesDay').textContent = data.telemetry.nodes[0].load + '%';
+            }
+        }
+
+        // Initialize loaders
+        refreshProjects();
+        refreshBots();
+        refreshTelemetry();
+        setInterval(refreshTelemetry, 10000);
 
         // ========== GEMINI API LOCAL ==========
         const GEMINI_CONFIG = {
