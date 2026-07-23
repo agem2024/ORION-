@@ -61,6 +61,18 @@ function handleProfessionalCommand(msgLower) {
 🔗 https://agem2024.github.io/SEGURITI-USC/docs/card.html`;
     }
 
+    // TARJETA DIGITAL MORALES PLUMBING COMMAND
+    if (msgLower === 'mp' || msgLower === 'tarjetamp') {
+        return `💳 *MORALES PLUMBING*
+AI-INTEGRATED SERVICES
+
+📍 San Jose, CA
+📄 Lic. C-36 #1156542
+📞 (669) 234-2444
+✉️ moralesplumbing026@gmail.com
+🌐 www.moralesplumbing.com`;
+    }
+
     // PROPUESTA PLOMERÍA (CHRIS)
     if (msgLower === 'propuesta' || msgLower === 'propuesta chris' || msgLower === 'quote' || msgLower === 'cotizacion' || msgLower === 'cotización') {
         return `🔧 *Propuesta Profesional de Plomería*

@@ -68,7 +68,15 @@ System has: Google Calendar integration (create appointments), Lead capture (sav
 WhatsApp/Telegram notifications to Alex owner.
 
 🎭 Also trained on: Plumbing Price Book (Good/Better/Best methodology)
-- Labor Rate: $185/hr | Material Markup: 30% | Target Margin: 45%`
+- Labor Rate: $185/hr | Material Markup: 30% | Target Margin: 45%
+
+🚰 MORALES PLUMBING INFO:
+- Name: MORALES PLUMBING (AI-INTEGRATED SERVICES)
+- License: Lic. C-36 #1156542 | San Jose, CA
+- Phone: (669) 234-2444
+- Email: moralesplumbing026@gmail.com
+- Web: www.moralesplumbing.com
+- Context: You serve as Alex's personal assistant, managing leads, prices, and operations for both Orion Tech and Morales Plumbing.`
     },
     'jhon': {
       name: 'JHON (EXECUTIVE MANAGER)',

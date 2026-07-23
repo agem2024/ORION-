@@ -192,9 +192,9 @@ function initTelegramBot() {
         // 💼 PROFESIONAL & VENTAS
         // ==========================================
         if (professional) {
-            bot.onText(/\/(cv|tj|propuesta|skills|landing|apps|hub|list)/, (msg, match) => {
+            bot.onText(/^\/(cv|mp|tj|propuesta|skills|landing|apps|hub|list)(?:\s|$)/i, (msg, match) => {
                 if (!checkAuth(msg)) return;
-                const res = professional.handleProfessionalCommand(match[1]);
+                const res = professional.handleProfessionalCommand(match[1].toLowerCase());
                 if (res) bot.sendMessage(msg.chat.id, res, { parse_mode: 'Markdown' });
             });
         }
