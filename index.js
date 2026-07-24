@@ -1827,6 +1827,18 @@ _Powered by Wan 2.1 I2V_`
                 continue;
             }
 
+            // 📝 PROPUESTAS RODRIGO
+            if (cleanText === '/r1' || cleanText === 'r1') {
+                const msg = `📄 *Propuestas - 538 Leigh Ave*\n\n` +
+                            `1️⃣ *Reparación:*\nhttps://agem2024.github.io/ORION-/public/propuestas/propuesta_reparacion_538_leigh.html\n\n` +
+                            `2️⃣ *Opción B:*\nhttps://agem2024.github.io/ORION-/public/propuestas/propuesta_opcion_b_538_leigh.html\n\n` +
+                            `3️⃣ *ADU Tankless:*\nhttps://agem2024.github.io/ORION-/public/propuestas/propuesta_adu_tankless_rodrigo.html\n\n` +
+                            `⚖️ *Términos Legales:*\nhttps://agem2024.github.io/ORION-/public/propuestas/propuesta_lega_538_leigh.html`;
+                
+                await sock.sendMessage(from, { text: msg });
+                continue;
+            }
+
             // ❓ AYUDA
             if (cleanText === 'ayuda' || cleanText === 'help' || cleanText === '?') {
                 await sock.sendMessage(from, { text: `❓ *AYUDA ORION CLEAN v2.1*\n\n🧠 *IA & Voz:*\n• /say [texto] - Texto a voz\n• /orvoz [texto] - IA + voz\n• /tr [texto] a [idioma] - Traducir\n\n🔍 *AI Tools:*\n• /buscar [query] - Google Search\n• /scrape [url] - Leer web\n• /groq [query] - AI gratis\n\n📱 *Mensajes:*\n• /enviar [num] [msg] - Enviar WhatsApp\n\n💼 *Profesional:*\n• /cv /tj /skills /landing\n\n🚀 *Productividad:*\n• /ag [tarea] - Nueva tarea\n• /tareas - Ver pendientes\n• /cal - Calendario\n\n📹 *Multimedia:*\n• /yt [url] - YouTube video\n• /qr [texto] - Generar QR\n\n🔗 *Accesos:*\n• pb - Price Book\n• acutor - Manual\n• otp - Orion Bots\n• links - Apps\n\n📱 WhatsApp: +1(669) 234-2444` });

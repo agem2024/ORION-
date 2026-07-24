@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría y Pruebas - Morales Plumbing</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary: #0A192F;
+            --accent: #D4AF37;
+            --text-main: #334155;
+            --text-light: #64748b;
+            --bg-page: #f8fafc;
+            --bg-card: #ffffff;
+            --border: #e2e8f0;
+            --success: #10b981;
+            --danger: #ef4444;
+            --info: #0ea5e9;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-page); color: var(--text-main); line-height: 1.7; -webkit-font-smoothing: antialiased; }
+        
+        .proposal-wrapper { max-width: 960px; margin: 40px auto; background: var(--bg-card); border-radius: 16px; box-shadow: 0 20px 40px -10px rgba(10, 25, 47, 0.1); overflow: hidden; border: 1px solid var(--border); }
+        .doc-header { background: linear-gradient(135deg, #0A192F 0%, #112240 100%); padding: 40px 50px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--accent); flex-wrap: wrap; gap: 20px; }
+        .brand-section { display: flex; align-items: center; gap: 24px; }
+        .brand-logo { height: 90px; background: white; padding: 10px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); object-fit: contain; }
+        .brand-text h1 { color: var(--accent); font-size: 1.8rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 4px; text-transform: uppercase; }
+        .brand-text p { color: #8892b0; font-size: 0.9rem; letter-spacing: 1px; font-weight: 500; }
+        .contact-info { text-align: right; color: #ccd6f6; font-size: 0.9rem; display: flex; flex-direction: column; gap: 6px; }
+        .contact-info a { color: #ccd6f6; text-decoration: none; transition: color 0.2s; }
+        .contact-info a:hover { color: var(--accent); }
+
+        .doc-body { padding: 50px; }
+
+        /* Infographic Timeline */
+        .infographic-wrapper { margin: 40px 0; background: #fff; padding: 30px; border-radius: 16px; border: 1px solid var(--border); box-shadow: 0 10px 30px -10px rgba(10, 25, 47, 0.05); }
+        .infographic-title { text-align: center; color: var(--primary); font-size: 1.2rem; font-weight: 700; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px; }
+        .timeline { display: flex; justify-content: space-between; align-items: flex-start; position: relative; padding: 0 20px; }
+        .timeline::before { content: ''; position: absolute; top: 30px; left: 40px; right: 40px; height: 3px; background: #e2e8f0; z-index: 1; }
+        .step { position: relative; z-index: 2; width: 22%; text-align: center; }
+        .step-icon { width: 60px; height: 60px; background: white; border: 3px solid var(--accent); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; margin: 0 auto 15px auto; box-shadow: 0 0 0 5px white, 0 4px 10px rgba(0,0,0,0.1); }
+        .step:nth-child(1) .step-icon { border-color: var(--primary); color: var(--primary); }
+        .step:nth-child(2) .step-icon { border-color: var(--accent); color: var(--accent); }
+        .step:nth-child(3) .step-icon { border-color: var(--info); color: var(--info); }
+        .step:nth-child(4) .step-icon { border-color: var(--success); color: var(--success); }
+        .step-title { font-weight: 700; color: var(--primary); font-size: 0.95rem; margin-bottom: 5px; }
+        .step-desc { font-size: 0.8rem; color: var(--text-light); line-height: 1.4; }
+
+        @media (max-width: 768px) {
+            .timeline { flex-direction: column; gap: 30px; padding: 0; }
+            .timeline::before { left: 30px; top: 0; bottom: 0; width: 3px; height: auto; right: auto; }
+            .step { width: 100%; display: flex; text-align: left; align-items: center; gap: 20px; }
+            .step-icon { margin: 0; flex-shrink: 0; }
+        }
+
+        .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; background: #f1f5f9; padding: 25px; border-radius: 12px; margin-bottom: 40px; border-left: 4px solid var(--primary); }
+        .meta-item { display: flex; flex-direction: column; gap: 4px; }
+        .meta-item span.label { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-light); letter-spacing: 1px; }
+        .meta-item span.value { font-size: 1rem; font-weight: 600; color: var(--primary); }
+
+        h2.section-title { color: var(--primary); font-size: 1.4rem; margin: 40px 0 20px 0; display: flex; align-items: center; gap: 12px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
+        h2.section-title::before { content: ''; display: block; width: 24px; height: 4px; background: var(--accent); border-radius: 2px; }
+
+        p { margin-bottom: 16px; }
+        
+        .exec-summary { background: #f8fafc; border: 1px solid var(--border); padding: 30px; border-radius: 12px; font-size: 1.05rem; }
+        .exec-summary strong { color: var(--primary); }
+
+        .scope-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin: 30px 0; }
+        .scope-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all 0.3s ease; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); border-left: 4px solid var(--accent); }
+        .scope-card h3 { color: var(--primary); font-size: 1.1rem; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
+        ul { list-style-type: none; margin-bottom: 20px;}
+        ul li { position: relative; padding-left: 20px; margin-bottom: 8px; color: var(--text-main); }
+        ul li::before { content: '•'; position: absolute; left: 0; color: var(--accent); font-weight: bold; font-size: 1.2rem; line-height: 1; top: 2px; }
+
+        .alert-box { background: #f0f9ff; border: 1px solid #bae6fd; border-left: 4px solid var(--info); padding: 20px; border-radius: 8px; margin: 24px 0; color: #0369a1; display: flex; gap: 12px; }
+        
+        .pricing-section { margin: 40px 0; }
+        .pricing-table { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: 20px; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); }
+        .pricing-table th, .pricing-table td { padding: 16px 20px; text-align: left; border-bottom: 1px solid var(--border); }
+        .pricing-table th { background: var(--primary); color: white; font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .pricing-table tr:last-child td { border-bottom: none; }
+        .pricing-table td:last-child, .pricing-table th:last-child { text-align: right; font-weight: 600; }
+        .total-row td { background: #f1f5f9; color: var(--primary); font-weight: 700; font-size: 1.1rem; }
+
+        .signature-area { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 60px; page-break-inside: avoid; }
+        .sig-block { display: flex; flex-direction: column; gap: 12px; }
+        .sig-line { border-bottom: 2px solid var(--text-main); height: 60px; position: relative; }
+        .sig-text { font-size: 0.85rem; color: var(--text-light); }
+        .sig-text strong { color: var(--primary); font-size: 1rem; display: block; margin-bottom: 4px; }
+
+        .doc-footer { background: var(--bg-page); padding: 20px 50px; text-align: center; border-top: 1px solid var(--border); color: var(--text-light); font-size: 0.8rem; }
+        .action-bar { position: fixed; bottom: 30px; right: 30px; display: flex; gap: 15px; z-index: 100; }
+        .btn { background: var(--accent); color: var(--primary); border: none; padding: 14px 28px; border-radius: 50px; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); }
+
+        @media print {
+            body { background: white; color: black; font-size: 11pt; }
+            .proposal-wrapper { margin: 0; box-shadow: none; border: none; max-width: 100%; }
+            .doc-header { background: white; border-bottom: 2px solid black; padding: 0 0 20px 0; color: black; }
+            .brand-logo { filter: grayscale(100%); }
+            .brand-text h1, .contact-info, .contact-info a { color: black !important; }
+            .doc-body { padding: 20px 0; }
+            .meta-grid { border: 1px solid black; padding: 15px; border-left: none; }
+            .alert-box { border: 1px solid black; color: black; background: white; border-left: 3px solid black; }
+            .pricing-table th { background: #eee !important; color: black !important; border: top 1px solid black; }
+            .action-bar { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="action-bar no-print">
+    <button class="btn" onclick="window.print()">🖨️ Imprimir PDF</button>
+</div>
+
+<div class="proposal-wrapper">
+    <header class="doc-header">
+        <div class="brand-section">
+            <img src="logo_portada.png" alt="Morales Plumbing Logo" class="brand-logo">
+            <div class="brand-text">
+                <h1>MORALES PLUMBING</h1>
+                <p>AI-INTEGRATED SERVICES</p>
+                <p style="font-size: 0.75rem;">Lic. C-36 #1156542 &nbsp;|&nbsp; San Jose, CA</p>
+            </div>
+        </div>
+        <div class="contact-info">
+            <div>📞 <a href="tel:+16692342444"><strong>(669) 234-2444</strong></a></div>
+            <div>✉️ <a href="mailto:moralesplumbing026@gmail.com">moralesplumbing026@gmail.com</a></div>
+            <div>🌐 <a href="https://www.moralesplumbing.com">www.moralesplumbing.com</a></div>
+        </div>
+    </header>
+
+    <div class="doc-body">
+        <div class="meta-grid">
+            <div class="meta-item">
+                <span class="label">Cliente</span>
+                <span class="value">Rodrigo Arroyo</span>
+            </div>
+            <div class="meta-item">
+                <span class="label">Dirección</span>
+                <span class="value">538 Leigh Ave, San Jose, CA 95128</span>
+            </div>
+            <div class="meta-item">
+                <span class="label">Proyecto</span>
+                <span class="value">Consultoría: Auditoría ADU y Pruebas As-Built</span>
+            </div>
+            <div class="meta-item">
+                <span class="label">Fase Actual</span>
+                <span class="value">Diagnóstico e Inspección</span>
+            </div>
+        </div>
+
+        <h2 class="section-title">1. Resumen Ejecutivo de Consultoría</h2>
+        <div class="exec-summary">
+            Para cumplir con las normativas vigentes del <strong>Departamento de Construcción de San José</strong> y las leyes estatales referentes a estructuras independientes (ADU), es un requisito legal ineludible demostrar que las instalaciones sanitarias cumplen estrictamente con los códigos de Salud y Seguridad (Health & Safety Code). La presencia de construcciones sin permisos expone a la propiedad a severas multas, acciones de <em>Code Enforcement</em> y riesgo de inhabitabilidad.<br><br>
+            <strong>La intervención técnica es obligatoria.</strong> Esta propuesta detalla los procedimientos técnicos exigidos por la ciudad (auditoría visual profunda, pruebas rigurosas de presión y elaboración de planos As-Built) para validar la integridad del sistema. Nuestro objetivo es blindar su propiedad legalmente y proveer la documentación técnica exacta que los inspectores requieren para aprobar la estructura.
+        </div>
+
+        <!-- CSS Infographic -->
+        <div class="infographic-wrapper">
+            <div class="infographic-title">Ruta de Aprobación Municipal</div>
+            <div class="timeline">
+                <div class="step">
+                    <div class="step-icon">📸</div>
+                    <div class="step-title">1. Auditoría</div>
+                    <div class="step-desc">Inspección interna y exposición estructural.</div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">⏱️</div>
+                    <div class="step-title">2. Pruebas</div>
+                    <div class="step-desc">Presurización de agua y aire (Water & Air Tests).</div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">📐</div>
+                    <div class="step-title">3. Planos As-Built</div>
+                    <div class="step-desc">Dibujo de esquemas isométricos exigidos.</div>
+                </div>
+                <div class="step">
+                    <div class="step-icon">✅</div>
+                    <div class="step-title">4. Inspección</div>
+                    <div class="step-desc">Acompañamiento y aprobación de la Ciudad.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert-box">
+            <span>ℹ️</span>
+            <div>
+                <strong>Aviso de Fase de Diagnóstico:</strong><br>
+                Esta propuesta NO incluye trabajos de reparación, demolición de concreto (Slab-on-Grade), reemplazo de tuberías ni instalación de acabados. Una vez concluidas las pruebas documentadas aquí, se entregará una <strong>Segunda Propuesta (Fase de Correcciones)</strong> detallando únicamente los arreglos que hayan sido exigidos por la inspección.
+            </div>
+        </div>
+
+        <h2 class="section-title">2. Alcance del Proyecto (Scope of Work)</h2>
+        
+        <div class="scope-grid">
+            <div class="scope-card">
+                <h3>🔍 Fase 1: Auditoría Técnica y Exposición</h3>
+                <ul>
+                    <li>Inspección endoscópica con cámara en líneas de drenaje (DWV) para verificar estado bajo concreto.</li>
+                    <li>Marcaje preciso y cortes estratégicos limitados en drywall (sheetrock).</li>
+                    <li>Exposición quirúrgica de válvulas, conexiones y tuberías para inspección visual.</li>
+                </ul>
+            </div>
+            <div class="scope-card">
+                <h3>⏱️ Fase 2: Pruebas Rigurosas de Presión (Plumbing Tests)</h3>
+                <ul>
+                    <li>Preparación del sistema para pruebas de presión de agua y aire.</li>
+                    <li>Ejecución de pruebas estandarizadas (Water & Air Tests) requeridas por la Ciudad de San José.</li>
+                    <li>Monitoreo de caídas de presión e identificación técnica de fallas en la red.</li>
+                </ul>
+            </div>
+            <div class="scope-card">
+                <h3>📄 Fase 3: Acompañamiento Documental y Asesoría</h3>
+                <ul>
+                    <li>Presencia de soporte técnico durante la inspección municipal oficial.</li>
+                    <li>Asesoría para el proceso de legalización As-Built.</li>
+                </ul>
+            </div>
+            <div class="scope-card">
+                <h3>📐 Fase 4: Elaboración de Esquemas (Drafting)</h3>
+                <ul>
+                    <li>Elaboración de planos isométricos de plomería "As-Built".</li>
+                    <li>Preparación de esquemas técnicos requeridos por el departamento de construcción.</li>
+                    <li>Documentación visual de hallazgos para respaldar la aprobación.</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="section-title">3. Inversión (Consultoría y Pruebas)</h2>
+        
+        <div class="pricing-section">
+            <table class="pricing-table">
+                <thead>
+                    <tr>
+                        <th>Descripción del Servicio</th>
+                        <th>Inversión</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fase 1: Auditoría Privada, Cámara Endoscópica y Cortes de Exposición</td>
+                        <td>$600.00</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 2: Ejecución de Pruebas de Presión de Agua y Aire (Sin reparaciones)</td>
+                        <td>$1,450.00</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 3: Acompañamiento Documental y Soporte Técnico en Inspección</td>
+                        <td>$450.00</td>
+                    </tr>
+                    <tr>
+                        <td>Fase 4: Elaboración de Esquemas y Planos Isométricos (As-Built)</td>
+                        <td>$450.00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>TOTAL (FASE DE DIAGNÓSTICO Y ESQUEMAS)</td>
+                        <td>$2,950.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2 class="section-title">4. Condiciones Especiales</h2>
+        <ul>
+            <li><strong>Unidad Habitada (Owner-Occupied):</strong> El área de trabajo (paredes y suelos a intervenir) debe estar completamente despejada de muebles y objetos personales antes del inicio. Morales Plumbing no asume responsabilidad por limpieza profunda de polvo en mobiliario no cubierto.</li>
+            <li><strong>Interrupción de Servicios:</strong> Las pruebas de presión requieren la suspensión temporal de los servicios de agua y drenaje en la unidad. Se coordinará el horario exacto con el propietario residente.</li>
+            <li><strong>Reparación de Paredes:</strong> La reconstrucción del Drywall, texturizado y pintura post-inspección no está incluida.</li>
+        </ul>
+
+        <!-- Signatures -->
+        <div class="signature-area">
+            <div class="sig-block">
+                <div class="sig-line"></div>
+                <div class="sig-text">
+                    <strong>Firma del Cliente</strong>
+                    Acepto los términos de esta fase inicial de auditoría y pruebas.
+                </div>
+            </div>
+            <div class="sig-block">
+                <div class="sig-line"></div>
+                <div class="sig-text">
+                    <strong>Alex G. Espinosa</strong>
+                    Representante Autorizado, Morales Plumbing.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="doc-footer">
+        &copy; 2026 Morales Plumbing. Todos los derechos reservados. Expertos en el Código de Plomería de California (CPC).
+    </footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Oficial - Morales Plumbing</title>
+    <style>
+        :root {
+            --primary-blue: #0A192F;
+            --accent-gold: #D4AF37;
+            --alert-red: #D32F2F;
+            --text-dark: #202124;
+            --bg-light: #F8F9FA;
+            --border-color: #E0E0E0;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 40px auto;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #112240 100%);
+            border-bottom: 4px solid var(--accent-gold);
+            color: white;
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .company-info h1 {
+            margin: 0 0 5px 0;
+            font-size: 2.2rem;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+        }
+
+        .company-info p {
+            margin: 3px 0;
+            font-size: 0.95rem;
+            color: #ccd6f6;
+        }
+
+        .client-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 4px;
+            text-align: right;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            min-width: 250px;
+        }
+
+        .client-info h3 { margin: 0 0 10px 0; color: var(--accent-gold); text-transform: uppercase; font-size: 1rem; letter-spacing: 1px; }
+        .client-info p { margin: 4px 0; font-size: 0.9rem; color: white; }
+
+        .doc-body {
+            padding: 40px 50px;
+        }
+
+        h2.section-title {
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 8px;
+            margin-top: 40px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h3.subsection {
+            color: #112240;
+            margin-top: 25px;
+            font-size: 1.2rem;
+        }
+
+        p, li { font-size: 0.95rem; }
+        ul { padding-left: 20px; margin-bottom: 15px; }
+
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { background-color: var(--bg-light); color: var(--primary-blue); font-weight: 700; }
+        .total-row { font-weight: 800; font-size: 1.1rem; background-color: rgba(212, 175, 55, 0.1); color: var(--primary-blue); }
+
+        .condition-box { background: var(--bg-light); border-left: 4px solid var(--accent-gold); padding: 15px 20px; margin: 20px 0; font-size: 0.9rem; }
+
+        .signature-section { margin-top: 60px; display: flex; justify-content: space-between; gap: 40px; }
+        .signature-block { flex: 1; }
+        .signature-line { border-top: 1px solid var(--primary-blue); padding-top: 10px; margin-top: 50px; font-weight: bold; font-size: 0.9rem; color: var(--primary-blue); }
+        .page-footer { text-align: center; padding: 20px; font-size: 0.8rem; color: #666; border-top: 1px solid var(--border-color); margin-top: 40px; }
+
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; margin: 0; max-width: 100%; }
+            .header { padding: 30px; -webkit-print-color-adjust: exact; }
+            .doc-body { padding: 20px; }
+            .condition-box { break-inside: avoid; }
+            .signature-section { break-inside: avoid; }
+        }
+
+        .diagnostic-section {
+            background: #fffaf0;
+            border-left: 4px solid var(--alert-red);
+            padding: 30px;
+            margin: 30px 0;
+            border-radius: 4px;
+        }
+
+        .diagnostic-header {
+            color: var(--alert-red);
+            margin-top: 0;
+            margin-bottom: 25px;
+            border-bottom: 2px solid rgba(211, 47, 47, 0.2);
+            padding-bottom: 10px;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .diagnostic-card {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        @media (min-width: 768px) {
+            .diagnostic-card {
+                flex-direction: row;
+            }
+        }
+
+        .diagnostic-img-container {
+            flex: 0 0 320px;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .diagnostic-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .diagnostic-content {
+            padding: 25px;
+            flex: 1;
+        }
+
+        .diagnostic-content h3 {
+            margin-top: 0;
+            color: var(--primary-blue);
+            font-size: 1.15rem;
+            margin-bottom: 15px;
+        }
+
+        .diagnostic-content ul {
+            margin-bottom: 0;
+            padding-left: 18px;
+        }
+
+        .diagnostic-content li {
+            margin-bottom: 10px;
+            font-size: 0.92rem;
+            color: #444;
+        }
+        .diagnostic-content li strong {
+            color: var(--primary-blue);
+        }
+
+        .diagnostic-summary {
+            background: var(--primary-blue);
+            color: white;
+            padding: 25px;
+            border-radius: 6px;
+            margin-top: 30px;
+            border-bottom: 4px solid var(--accent-gold);
+        }
+
+        .diagnostic-summary h3 {
+            color: var(--accent-gold);
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .diagnostic-summary p {
+            color: #ccd6f6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <div class="company-info">
+                <img src="logo_portada.png" alt="Morales Plumbing" style="height:70px; background:white; padding:8px; border-radius:4px; margin-bottom:15px; display:block;">
+                <h1>MORALES PLUMBING</h1>
+                <p style="font-size:0.85rem; letter-spacing: 2px;">AI-INTEGRATED SERVICES</p>
+                <p><strong>Licencia CSLB C-36 #1156542</strong></p>
+                <p>San Jose, CA</p>
+                <p>📞 (669) 234-2444</p>
+                <p>✉️ moralesplumbing026@gmail.com</p>
+                <p>🌐 www.moralesplumbing.com</p>
+            </div>
+            <div class="client-info">
+                <h3>Propuesta de Servicios</h3>
+                <p><strong>Nº Propuesta:</strong> MP-2026-07-538L</p>
+                <p><strong>Fecha:</strong> 21 de Julio, 2026</p>
+                <div style="margin: 15px 0; border-top: 1px solid rgba(212,175,55,0.3);"></div>
+                <p><strong>Cliente:</strong> Rodrigo Arroyo</p>
+                <p><strong>Dirección:</strong> 538 Leigh Ave</p>
+                <p>San José, CA 95128</p>
+            </div>
+        </div>
+
+        <div class="doc-body">
+            
+            <h2 class="section-title">I. Descripción del Proyecto</h2>
+            <p><strong>Tipo de Propiedad:</strong> Residencial (Casa Principal).<br>
+            <strong>Ubicación Exacta:</strong> Crawlspace (espacio confinado) abarcando Cocina, 1 Baño Completo, 1 Medio Baño y Cuarto de Lavado (Laundry), además del cuarto de equipos (Water Heater).<br>
+            <strong>Descripción General:</strong> Remoción de sistema de tuberías deficiente, reparación de daño estructural y reconstrucción integral del sistema DWV y suministro de agua (híbrido Cobre/PEX) bajo los estándares del California Plumbing Code 2025. Incluye la instalación y actualización completa del calentador de agua (Water Heater) a las normativas vigentes.</p>
+
+            <!-- INICIO SECCIÓN DIAGNÓSTICO FORENSE -->
+            <div class="diagnostic-section">
+                <h2 class="diagnostic-header">I-B. Diagnóstico Forense y Auditoría Técnica</h2>
+                <p>Se realizó una inspección visual exhaustiva tanto en el exterior/interior como en el crawlspace. La evidencia fotográfica documenta múltiples fallas catastróficas, daño estructural por agua, violaciones al código (UPC/NEC) y riesgos severos que exigen intervención inmediata antes de solicitar cualquier inspección municipal.</p>
+                <!-- Card 1 (Falla Tina) -->
+                <div class="diagnostic-card">
+                    <div class="diagnostic-img-container">
+                        <img src="WhatsApp Image 2026-07-21 at 5.08.36 PM.jpeg" alt="Falla de Tina y Pudrición" class="diagnostic-img">
+                    </div>
+                    <div class="diagnostic-content">
+                        <h3>Falla Terminal en Ensamble de Tina y Pudrición Activa</h3>
+                        <ul>
+                            <li><strong>Corrosión Extrema (Tub Shoe):</strong> El desagüe de la tina presenta masiva calcificación azul/verde, evidenciando fugas crónicas de largo plazo.</li>
+                            <li><strong>Reparación Ilegal (Manguera de Goma):</strong> El tubo de rebose (overflow) está conectado con una manguera de goma automotriz y abrazaderas simples. Estrictamente prohibido por código (UPC).</li>
+                            <li><strong>Pudrición Activa en Viguetas (Wood Rot):</strong> La madera estructural adyacente muestra manchas oscuras profundas, indicando pudrición y riesgo estructural.</li>
+                            <li><strong>Oxidación Crítica en Cobre:</strong> La tubería de agua presurizada presenta gruesas costras de oxidación, a punto de fallar por fuga inminente.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 2 (Línea Principal Hierro Fundido) -->
+                <div class="diagnostic-card">
+                    <div class="diagnostic-img-container">
+                        <img src="WhatsApp Image 2026-07-21 at 5.08.36 PM (1).jpeg" alt="Línea Principal de Hierro Fundido" class="diagnostic-img">
+                    </div>
+                    <div class="diagnostic-content">
+                        <h3>Línea Principal de Drenaje Obsoleta (Hierro Fundido)</h3>
+                        <ul>
+                            <li><strong>Antigüedad y Degradación:</strong> La tubería principal de hierro fundido (Cast Iron) ha superado con creces su vida útil de diseño.</li>
+                            <li><strong>Contacto Directo con Subsuelo:</strong> La tubería se encuentra parcialmente enterrada en escombros y tierra, lo cual acelera severamente la corrosión galvánica y oxidación externa.</li>
+                            <li><strong>Riesgo de Tuberculación:</strong> Este tipo de material desarrolla corrosión interna que reduce el diámetro efectivo, causando lentitud en el drenaje y obstrucciones crónicas.</li>
+                            <li><strong>Falla Estructural Inminente:</strong> Las juntas de campana antiguas son propensas a agrietarse bajo el asentamiento de la tierra, permitiendo filtraciones de aguas negras directamente al subsuelo de la propiedad.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 3 (Trampa P y Pudrición) -->
+                <div class="diagnostic-card">
+                    <div class="diagnostic-img-container">
+                        <img src="WhatsApp Image 2026-07-21 at 5.08.32 PM.jpeg" alt="Falla de Trampa P y Pudrición Seca" class="diagnostic-img">
+                    </div>
+                    <div class="diagnostic-content">
+                        <h3>Falla de Trampa-P Metálica y Pudrición Seca (Dry Rot)</h3>
+                        <ul>
+                            <li><strong>Trampa-P Corroída:</strong> El ensamblaje de la trampa-P metálica muestra oxidación y cristalización severa en su base, evidencia clara de fugas de agua crónicas.</li>
+                            <li><strong>Daño Estructural (Dry Rot):</strong> La madera del subsuelo justo arriba de la tubería presenta un grado avanzado de pudrición seca y descamación, perdiendo totalmente su integridad y capacidad de carga.</li>
+                            <li><strong>Soporte Inadecuado:</strong> La tubería pesada de descarga carece de soporte adecuado (se observa una cinta perforada suelta), lo que genera estrés mecánico excesivo sobre uniones ya debilitadas.</li>
+                            <li><strong>Conexiones Roscadas Fusionadas:</strong> Las uniones entre metales distintos (galvanizado a hierro fundido) están severamente oxidadas, imposibilitando cualquier reparación parcial y requiriendo un reemplazo desde la base.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 4 (Penetración) -->
+                <div class="diagnostic-card">
+                    <div class="diagnostic-img-container">
+                        <img src="WhatsApp Image 2026-07-22 at 9.37.56 AM.jpeg" alt="Penetración de Cimentación" class="diagnostic-img">
+                    </div>
+                    <div class="diagnostic-content">
+                        <h3>Penetración de Cimentación Deficiente y Riesgo Estructural</h3>
+                        <ul>
+                            <li><strong>Ruptura Estructural Destructiva (Sin Core-Drill):</strong> Orificio realizado con impactos, debilitando el muro de carga perimetral en lugar de usar taladro con broca de diamante.</li>
+                            <li><strong>Ausencia de Manga Protectora (Sleeve):</strong> El tubo ABS hace contacto directo con el concreto afilado, prohibido por UPC por riesgo de guillotina por fricción.</li>
+                            <li><strong>Falta de Sellado:</strong> Boquete abierto permitiendo paso de intrusión de aguas subterráneas, roedores y plagas a la madera de la subestructura.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 5 (Acople de Goma y Pandeo) -->
+                <div class="diagnostic-card">
+                    <div class="diagnostic-img-container">
+                        <img src="WhatsApp Image 2026-07-22 at 9.37.53 AM.jpeg" alt="Acople de goma y pandeo" class="diagnostic-img">
+                    </div>
+                    <div class="diagnostic-content">
+                        <h3>Falla de Alineación y Acoples Ilegales en Línea Principal</h3>
+                        <ul>
+                            <li><strong>Uso de Acople No Blindado (Unshielded Fernco):</strong> Unión de goma simple sin escudo perimetral de acero. Prohibido por UPC para instalaciones suspendidas.</li>
+                            <li><strong>Deflexión y Pandeo Extremo (Pipe Belly):</strong> El acople está gravemente combado, retorcido y desalineado. Esto crea retención garantizada de sólidos y taponamientos crónicos.</li>
+                            <li><strong>Erosión sobre Terreno:</strong> Zanja o grieta profunda debajo de la tubería, evidenciando fuga constante de aguas negras.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 6 (Fricción Cobre-ABS) -->
+                <div class="diagnostic-card">
+                    <div class="diagnostic-img-container">
+                        <img src="WhatsApp Image 2026-07-22 at 9.37.40 AM.jpeg" alt="Fricción Cobre ABS" class="diagnostic-img">
+                    </div>
+                    <div class="diagnostic-content">
+                        <h3>Fricción por Contacto Cruzado y Corrosión Mixta</h3>
+                        <ul>
+                            <li><strong>Fricción Mecánica Cobre-ABS:</strong> Línea de agua de cobre descansando directamente sobre drenaje ABS. El golpe de ariete (water hammer) desgastará la pared del cobre causando ruptura.</li>
+                            <li><strong>Pudrición Activa de Viguetas (Wood Rot):</strong> Viguetas estructurales presentan manchas negras de saturación profunda. Existe fuga activa pudriendo la estructura.</li>
+                            <li><strong>Riesgo Eléctrico de Proximidad:</strong> Cable Romex engrapado a madera podrida, cerca del agua contaminada. Riesgo de arco eléctrico o incendio.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 7 (Main Sewer Stack Tee Falla) -->
+                <div class="diagnostic-card">
+                    <div class="diagnostic-img-container">
+                        <img src="WhatsApp Image 2026-07-22 at 9.37.39 AM.jpeg" alt="Falla Troncal Cast Iron" class="diagnostic-img">
+                    </div>
+                    <div class="diagnostic-content">
+                        <h3>Falla Catastrófica del Troncal Principal (Main Sewer Stack)</h3>
+                        <ul>
+                            <li><strong>Fugas Masivas de Aguas Negras:</strong> La "T" sanitaria (Sanitary Tee) en la base del tronco de hierro fundido está cubierta de eflorescencia. Fugas crudas al suelo y gas de alcantarilla al ambiente.</li>
+                            <li><strong>Reparación Ilegal (Band-Aid):</strong> Acople horizontal "parchado" amarrando cinta metálica perforada (plumber's tape) alrededor de la junta de hierro fundido. Incapaz de contener líquidos.</li>
+                            <li><strong>Erosión del Terreno (Sinkhole):</strong> Tierra perimetral socavada por los escurrimientos. La pesada columna está perdiendo soporte de su lecho base.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 8 (Campana) -->
+                <div class="diagnostic-card">
+                    <div class="diagnostic-img-container">
+                        <img src="WhatsApp Image 2026-07-22 at 9.37.34 AM.jpeg" alt="Colapso Trampa Hierro Fundido" class="diagnostic-img">
+                    </div>
+                    <div class="diagnostic-content">
+                        <h3>Colapso de Trampa Antigua y Riesgo Eléctrico Extremo (Code Red)</h3>
+                        <ul>
+                            <li><strong>Ruptura de Campana y Derrame Crudo:</strong> Falla catastrófica en campana (hub) de Cast Iron. Costra de eflorescencia revela derrame crónico activo de aguas negras.</li>
+                            <li><strong>Peligro de Electrocución:</strong> Cable eléctrico Romex recargado *directamente* encima de la junta con aguas negras. Violación masiva de seguridad (OSHA/NEC) con riesgo de incendio.</li>
+                            <li><strong>Falta de Soporte:</strong> Columna pesada suspendida al vacío, apenas sujetada con cinta perforada oxidada e inútil (Cantilever peligroso).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 9 (Fractura) -->
+                <div class="diagnostic-card">
+                    <div class="diagnostic-img-container">
+                        <img src="WhatsApp Image 2026-07-22 at 9.37.32 AM.jpeg" alt="Fractura y Socavón" class="diagnostic-img">
+                    </div>
+                    <div class="diagnostic-content">
+                        <h3>Fractura Vertical en Bajante Principal y Socavón Activo</h3>
+                        <ul>
+                            <li><strong>Fractura Masiva del Tubo (Split Pipe):</strong> Grieta vertical masiva partiendo la pared del tubo de hierro fundido. Supuración de eflorescencia directamente desde la fisura.</li>
+                            <li><strong>Hundimiento del Terreno (Sinkhole):</strong> Fugas ininterrumpidas de aguas negras han lavado el terreno, dejando la base sin piso, forzando la rotura por exceso de peso colgado.</li>
+                            <li><strong>Degradación del Concreto:</strong> Manchas oscuras y saturación en cimientos aledaños causadas por el ácido sulfhídrico de las aguas negras, atacando los cimientos de la vivienda.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Card 10 (Cobre y Electricidad) -->
+                <div class="diagnostic-card">
+                    <div class="diagnostic-img-container">
+                        <img src="WhatsApp Image 2026-07-22 at 9.37.26 AM.jpeg" alt="Peligro Eléctrico y Cobre" class="diagnostic-img">
+                    </div>
+                    <div class="diagnostic-content">
+                        <h3>Falla en Soportes de Cobre y Peligro Eléctrico de Alto Voltaje</h3>
+                        <ul>
+                            <li><strong>Cobre Suspendido (Water Hammer Risk):</strong> Línea de suministro de cobre presurizada tendida sin anclajes, provocando estrés en soldaduras al abrir llaves.</li>
+                            <li><strong>Oxidación Ácida en Uniones:</strong> Fugas o uso incorrecto de fundente (flux ácido) sin limpiar en conexiones tipo "Tee", corroyendo las paredes del tubo de cobre.</li>
+                            <li><strong>Peligro Crítico (Cable Naranja 30A):</strong> Línea de voltaje (10/2) colgando en el aire sin asegurar, cerca de la tierra húmeda, presentando un riesgo mortal en caso de sumersión.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Summary Box -->
+                <div class="diagnostic-summary">
+                    <h3>Resumen y Conclusiones</h3>
+                    <p>El diagnóstico forense integral de la <strong>Casa Principal</strong> demuestra que el sistema de plomería bajo el subsuelo (crawlspace) se encuentra en una etapa crítica de falla inminente. La combinación de fugas crónicas, conexiones ilegales y tuberías de hierro fundido totalmente degradadas ha desatado una cadena destructiva. De no intervenirse de inmediato, la agresiva pudrición seca (Dry Rot) causará el <strong>colapso estructural del subpiso</strong> (como el área bajo la tina), mientras que la oxidación extrema en las líneas presurizadas resultará en una ruptura catastrófica, inundando el subsuelo de la vivienda y exponiendo cableado de alto voltaje.</p>
+                    <p>Adicionalmente, el ambiente perpetuamente húmedo y la filtración de aguas servidas bajo la propiedad están creando el ecosistema ideal para la <strong>proliferación de plagas y enfermedades</strong>. Este escenario atrae directamente a termitas subterráneas, roedores e insectos que buscan humedad y madera blanda, lo que acelerará la destrucción de la estructura e introducirá riesgos biológicos (moho, patógenos) hacia el interior de la casa.</p>
+                    <p style="margin-bottom:0;"><strong>Resolución Inmediata (Prevención de Colapso):</strong> Para evitar un desastre estructural y sanitario severo —que en caso de emergencia dispararía enormemente los costos por mitigación de aguas negras, exterminio, limpieza biológica (hazmat) y obligaría a la posible reubicación temporal de la familia— es imperativo actuar de manera preventiva. Se demolerá la plomería defectuosa para dar paso a una reconstrucción total del sistema de drenaje (ABS) y suministro (Cobre/PEX) bajo los estándares del <em>California Plumbing Code</em>, protegiendo así el patrimonio y la salud de los residentes.</p>
+                </div>
+            </div>
+            <!-- FIN SECCIÓN DIAGNÓSTICO FORENSE -->
+
+            <h2 class="section-title">II. Alcance del Trabajo (Scope of Work)</h2>
+            <ul>
+                <li><strong>Demolición:</strong> Corte y remoción de tubería de hierro fundido/ABS deficiente, trampas P corroídas bajo la tina y líneas de suministro antiguas de toda el área intervenida.</li>
+                <li><strong>Mitigación de Riesgos:</strong> Aislamiento y protección temporal de líneas eléctricas (Romex) expuestas sobre lodo en el crawlspace.</li>
+                <li><strong>Trabajo Incidental (Estructura):</strong> Corte y remoción de viguetas (joists) podridas y subpiso afectado bajo la tina. Instalación de madera tratada (PT) nueva y anclajes estructurales.</li>
+                <li><strong>Instalación DWV:</strong> Instalación de nueva línea principal de drenaje en ABS de 3" y 2" con pendiente exacta de 1/4" por pie, sirviendo a la cocina, 1.5 baños y cuarto de lavado. Uso exclusivo de acoples blindados de acero inoxidable (Husky bands) en transiciones a cast iron/clay.</li>
+                <li><strong>Suministro de Agua (Híbrido):</strong> Instalación de tubería de <strong>Cobre rígido Tipo L</strong> para toda la red de distribución horizontal (ground/crawlspace), con aislamiento térmico integral. Instalación de tubería <strong>PEX-A Uponor</strong> exclusivamente para las subidas verticales hacia los fixtures.</li>
+                <li><strong>Actualización Water Heater:</strong> Provisión e instalación de un nuevo Calentador de Agua a gas (50 Galones). Incluye la instalación obligatoria por código de: Tanque de Expansión Térmica, Trampa de sedimentos de gas (Dirt Leg), Válvula de alivio de presión y temperatura (T&P) con extensión de descarga hacia el exterior, y Correas Sísmicas (Seismic Straps).</li>
+                <li><strong>Instalación de Fixtures Rough-in (y Trim):</strong> Instalación de válvulas de tina/ducha <strong>incluyendo la colocación de su trim (placa y maneral)</strong>, Laundry Box (1), Ice Maker Box para refrigerador (1), llaves de paso (angle stops) para todos los servicios, e instalación de arrestadores de golpe de ariete (Water Hammer Arrestors).</li>
+                <li><strong>Componentes Exteriores:</strong> Instalación de un <strong>Manifold (distribuidor) exterior</strong>, una <strong>Válvula Reductora de Presión (PRV)</strong> principal, y <strong>dos llaves de manguera (Hose Bibbs)</strong> nuevas ubicadas en el frente y en el patio.</li>
+                <li><strong>Pruebas de Presión (Water Test):</strong> Aplicación de prueba de columna de agua (DWV) y presión hidrostática (Cobre/PEX) en presencia del inspector municipal.</li>
+                <li><strong>Limpieza:</strong> Retiro total de escombros de plomería y madera, carga en contenedor (dumpster) y disposición final.</li>
+            </ul>
+
+            <h2 class="section-title">III. Detalles de Materiales y Mano de Obra</h2>
+            
+            <h3 class="subsection">Materiales Incluidos</h3>
+            <ul>
+                <li><strong>Agua a Presión:</strong> Tubería de Cobre Tipo L (Horizontal), Tubería Uponor AquaPEX (Verticales), accesorios ProPress de bronce/cobre.</li>
+                <li><strong>Equipos y Seguridad (Code Compliance):</strong> Water Heater 50 Gal a Gas, Tanque de Expansión, Válvula T&P, Correas Sísmicas, Dirt Leg para gas y Hammer Arrestors.</li>
+                <li><strong>Componentes y Válvulas:</strong> Válvula Reductora de Presión (PRV) principal, Tanque de Expansión Térmica (Thermal Expansion Tank), Manifold de distribución de cobre, Laundry Box (Caja de lavadora), Ice Maker Box (Caja de refrigerador), Válvula de Tina/Ducha, Angle Stops de 1/4 y 3/8, y 2 Hose Bibbs anti-sifón.</li>
+                <li><strong>Drenaje (DWV):</strong> Tubería Charlotte Pipe ABS (Schedule 40) de 3" y 2". Acoples de transición blindados (Husky Band Couplings).</li>
+                <li><strong>Estructura:</strong> Madera tratada a presión (Pressure Treated 2x8 y Plywood 3/4") y hardware estructural.</li>
+            </ul>
+
+            <h3 class="subsection">Mano de Obra Incluida</h3>
+            <p>Toda la labor necesaria para la instalación en cobre, PEX y ABS, demolición, pruebas de presión exigidas por el código y limpieza (Ejecutada por Plomero Journeyman, Ayudante y Carpintero subcontratado).</p>
+
+            <h3 class="subsection">Exclusiones (No incluido en esta propuesta)</h3>
+            <ul>
+                <li><strong>Drywall y Pintura:</strong> Cualquier parcheo de paredes o techos fuera del crawlspace.</li>
+                <li><strong>Electricidad:</strong> Reemplazo definitivo o entubado (conduit) de las líneas Romex.</li>
+                <li><strong>Análisis de Asbesto (Prueba):</strong> La toma de muestra y análisis de laboratorio están <strong>INCLUIDOS</strong> en esta propuesta. Sin embargo, la remediación o abatimiento profesional (si el test resulta positivo) NO está incluida y requerirá una orden de cambio o subcontratista especializado.</li>
+                <li><strong>Plomería de Acabado (Finish Plumbing):</strong> La instalación de inodoros (toilets), lavamanos, llaves de lavabo (faucets) y electrodomésticos está <strong>EXCLUIDA</strong> (solo se incluye el trim de la tina/ducha). El resto de la fase de "Finish" queda a opción del cliente mediante una Orden de Cambio (Change Order) separada.</li>
+            </ul>
+
+            <h2 class="section-title">IV. Logística, Permisos y Tiempos</h2>
+            <ul>
+                <li><strong>Permisos (INCLUIDOS):</strong> Morales Plumbing obtendrá y pagará el <em>Residential Plumbing Permit</em> de la Ciudad de San José.</li>
+                <li><strong>Inspecciones (INCLUIDAS):</strong> Coordinaremos la <em>Rough Inspection</em> y la <em>Final Inspection</em> con los oficiales de la Ciudad.</li>
+                <li><strong>Cronograma:</strong> 6 días hábiles estimados de obra.</li>
+            </ul>
+
+            <h2 class="section-title">V. Inversión y Forma de Pago</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concepto (Desglose General)</th>
+                        <th style="text-align: right;">Monto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Materiales y Equipos:</strong> Tuberías (Cobre/PEX/ABS), válvulas (PRV/Tina/Angle Stops/Hammer Arrestors), Water Heater + Accesorios Code Compliance, madera estructural y rentas logísticas.</td>
+                        <td style="text-align: right;">$ 5,082.00</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mano de Obra y Subcontratos:</strong> Instalación híbrida de red completa, instalación de calentador de agua, demolición y carpintería especializada (Crew por 6 días).</td>
+                        <td style="text-align: right;">$ 9,640.00</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gestión, Permisos, Laboratorio e Impuestos:</strong> Permiso de San José, inspecciones, prueba de asbesto (toma y lab), gestión del proyecto (PM) y taxes aplicables.</td>
+                        <td style="text-align: right;">$ 3,778.00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td style="text-align: right;">INVERSIÓN TOTAL DEL PROYECTO:</td>
+                        <td style="text-align: right;">$ 18,500.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="condition-box">
+                <strong>Estructura de Pagos (Cumplimiento CSLB):</strong>
+                <ul style="margin-top: 5px; margin-bottom: 0;">
+                    <li><strong>Anticipo ($1,000.00):</strong> A la firma del contrato (Máximo legal permitido por el CSLB).</li>
+                    <li><strong>Pago de Avance 1 ($8,300.00):</strong> A la entrega de materiales en sitio, equipos (Water Heater) y finalización de la demolición.</li>
+                    <li><strong>Pago de Avance 2 ($8,300.00):</strong> Al finalizar la instalación completa (Rough-in) lista para inspección.</li>
+                    <li><strong>Pago Final ($900.00):</strong> Tras pasar exitosamente las inspecciones de la Ciudad, limpieza total y satisfacción del cliente.</li>
+                </ul>
+            </div>
+
+            <div class="condition-box" style="border-left-color: #2E7D32;">
+                <strong>Métodos de Pago Aceptados:</strong>
+                <ul style="margin-top: 5px; margin-bottom: 0;">
+                    <li><strong>Efectivo (Cash), Cheque o Transferencia Zelle:</strong> Sin recargos adicionales. Los precios en esta propuesta ya incluyen el descuento por pago en efectivo (Cash Discount).</li>
+                    <li><strong>Tarjeta de Crédito / Plataformas Electrónicas:</strong> Toda transacción con tarjeta está sujeta a un <strong>cargo administrativo de procesamiento del 3% (Processing Fee)</strong> sobre el monto de la transacción.</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title">VI. Términos y Condiciones Generales</h2>
+            <p><strong>Cambios al Proyecto (Change Orders):</strong> Cualquier desviación, alteración o trabajo extra fuera de este alcance se ejecutará SOLAMENTE tras una orden de cambio escrita y firmada por ambas partes.</p>
+            <p><strong>Garantía:</strong> Morales Plumbing ofrece <strong>1 año de garantía en mano de obra</strong> contra defectos de instalación a partir de la inspección final. <em>Nota: Esta garantía se extenderá a <strong>10 años (no transferibles, válida únicamente para el titular actual de la propiedad)</strong> si se realiza un repipe completo (reemplazo total de red de agua y drenaje). Si el reemplazo es parcial, la garantía se mantendrá por 1 año.</em> Los materiales están sujetos a la garantía del fabricante.</p>
+            <p><strong>Responsabilidades:</strong> El Cliente proveerá acceso libre al área de trabajo, agua y electricidad. El Contratista mantendrá el área segura, limpiará los escombros y cumplirá con el código vigente.</p>
+            <p><strong>Validez de la Propuesta:</strong> Esta propuesta es válida por <strong>30 días</strong> a partir de la fecha de emisión.</p>
+            <p><strong>Fluctuación de Materiales:</strong> Los precios de los materiales están fijados a las condiciones actuales de mercado. En caso de existir condiciones externas que modifiquen dichos costos durante el periodo de contratación, estos deberán ser incluidos en la firma del contrato.</p>
+
+            <div class="signature-section">
+                <div class="signature-block">
+                    <p style="font-size: 0.85rem; color: #555; min-height: 40px;">Esta firma es de recibo de la propuesta, no es vinculante.</p>
+                    <div class="signature-line">Firma del Cliente (Rodrigo Arroyo)</div>
+                    <p style="margin-top: 5px;">Fecha: _____________________</p>
+                </div>
+                
+                <div class="signature-block">
+                    <p style="font-size: 0.85rem; color: #555; min-height: 40px;">Propuesta preparada, revisada y autorizada por representante de la compañía.</p>
+                    <div class="signature-line">Representante Morales Plumbing</div>
+                    <p style="margin-top: 5px;">Fecha: _____________________</p>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                Documento Oficial Morales Plumbing | Lic. C-36 #1156542 | Propuesta MP-2026-07-538L
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>

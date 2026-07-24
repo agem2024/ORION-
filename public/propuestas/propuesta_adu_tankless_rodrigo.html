@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Propuesta Oficial - Morales Plumbing</title>
+    <style>
+        :root {
+            --primary-blue: #0A192F;
+            --accent-gold: #D4AF37;
+            --alert-red: #D32F2F;
+            --text-dark: #202124;
+            --bg-light: #F8F9FA;
+            --border-color: #E0E0E0;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f2f5;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 40px auto;
+            background: #ffffff;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-radius: 0;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, #112240 100%);
+            border-bottom: 4px solid var(--accent-gold);
+            color: white;
+            padding: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .company-info h1 {
+            margin: 0 0 5px 0;
+            font-size: 2.2rem;
+            color: var(--accent-gold);
+            letter-spacing: 1px;
+        }
+
+        .company-info p {
+            margin: 3px 0;
+            font-size: 0.95rem;
+            color: #ccd6f6;
+        }
+
+        .client-info {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 4px;
+            text-align: right;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            min-width: 250px;
+        }
+
+        .client-info h3 { margin: 0 0 10px 0; color: var(--accent-gold); text-transform: uppercase; font-size: 1rem; letter-spacing: 1px; }
+        .client-info p { margin: 4px 0; font-size: 0.9rem; color: white; }
+
+        .doc-body {
+            padding: 40px 50px;
+        }
+
+        h2.section-title {
+            color: var(--primary-blue);
+            border-bottom: 2px solid var(--accent-gold);
+            padding-bottom: 8px;
+            margin-top: 40px;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        h3.subsection {
+            color: #112240;
+            margin-top: 25px;
+            font-size: 1.2rem;
+        }
+
+        p, li { font-size: 0.95rem; }
+        ul { padding-left: 20px; margin-bottom: 15px; }
+
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 0.95rem; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid var(--border-color); }
+        th { background-color: var(--bg-light); color: var(--primary-blue); font-weight: 700; }
+        .total-row { font-weight: 800; font-size: 1.1rem; background-color: rgba(212, 175, 55, 0.1); color: var(--primary-blue); }
+
+        .condition-box { background: var(--bg-light); border-left: 4px solid var(--accent-gold); padding: 15px 20px; margin: 20px 0; font-size: 0.9rem; }
+
+        .signature-section { margin-top: 60px; display: flex; justify-content: space-between; gap: 40px; }
+        .signature-block { flex: 1; }
+        .signature-line { border-top: 1px solid var(--primary-blue); padding-top: 10px; margin-top: 50px; font-weight: bold; font-size: 0.9rem; color: var(--primary-blue); }
+        .page-footer { text-align: center; padding: 20px; font-size: 0.8rem; color: #666; border-top: 1px solid var(--border-color); margin-top: 40px; }
+
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; margin: 0; max-width: 100%; }
+            .header { padding: 30px; -webkit-print-color-adjust: exact; }
+            .doc-body { padding: 20px; }
+            .condition-box { break-inside: avoid; }
+            .signature-section { break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header">
+            <div class="company-info">
+                <img src="logo_portada.png" alt="Morales Plumbing" style="height:70px; background:white; padding:8px; border-radius:4px; margin-bottom:15px; display:block;">
+                <h1>MORALES PLUMBING</h1>
+                <p style="font-size:0.85rem; letter-spacing: 2px;">AI-INTEGRATED SERVICES</p>
+                <p><strong>Licencia CSLB C-36 #1156542</strong></p>
+                <p>San Jose, CA</p>
+                <p>📞 (669) 234-2444</p>
+                <p>✉️ moralesplumbing026@gmail.com</p>
+                <p>🌐 www.moralesplumbing.com</p>
+            </div>
+            <div class="client-info">
+                <h3>Propuesta de Servicios</h3>
+                <p><strong>Nº Propuesta:</strong> MP-2026-07-ADU-TK</p>
+                <p><strong>Fecha:</strong> 22 de Julio, 2026</p>
+                <div style="margin: 15px 0; border-top: 1px solid rgba(212,175,55,0.3);"></div>
+                <p><strong>Cliente:</strong> Rodrigo Arroyo</p>
+                <p><strong>Sitio:</strong> ADU (Accesory Dwelling Unit)</p>
+                <p>San José, CA 95128</p>
+            </div>
+        </div>
+
+        <div class="doc-body">
+            
+            <p>Estimado Rodrigo, le presentamos la propuesta detallada para dotar de agua caliente a su ADU mediante un sistema <strong>Eléctrico Tankless de Alta Eficiencia</strong>. Dado que los equipos eléctricos estándar no están diseñados para la intemperie, nuestra propuesta incluye una solución técnica profesional mediante un gabinete protector exterior.</p>
+
+            <h2 class="section-title">I. Estrategia y Equipo Seleccionado</h2>
+            <ul>
+                <li><strong>El Equipo:</strong> Calentador Eléctrico Tankless de 27kW (Ej. <em>Rheem RTEX-27</em> o similar). Proporciona agua caliente continua bajo demanda, ideal para abastecer hasta 2 regaderas y lavamanos simultáneamente.</li>
+                <li><strong>El Reto (Weatherproofing):</strong> Los calentadores eléctricos de estas marcas están certificados exclusivamente para interiores. La lluvia daña irreparablemente sus componentes electrónicos.</li>
+                <li><strong>La Solución (NEMA 4 Enclosure):</strong> Para instalarlo legalmente y de forma segura en el exterior, <strong>Morales Plumbing</strong> instalará un gabinete metálico hermético grado <strong>NEMA 4 (Weatherproof)</strong> montado en la pared de estuco/madera exterior.</li>
+            </ul>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="referencia_tankless.jpg" alt="Referencia de Instalación Tankless NEMA 4" style="max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                <div style="font-size: 13px; color: #666; margin-top: 8px; font-style: italic;">Imagen de Referencia: Calentador Eléctrico instalado profesionalmente dentro de Gabinete NEMA 4 con Válvulas de Aislamiento.</div>
+            </div>
+
+            <h2 class="section-title">II. Alcance del Trabajo (Scope of Work)</h2>
+            <ul>
+                <li><strong>Líneas de Agua:</strong> Extensión de líneas de agua fría y caliente (en Cobre Tipo L y PEX-A Uponor) desde el punto de conexión disponible más cercano hasta el muro exterior.</li>
+                <li><strong>Válvulas de Aislamiento:</strong> Instalación de un <em>Isolation Valve Kit</em>. Esto es vital para poder hacerle el servicio de descalcificación anual (flushing) al equipo.</li>
+                <li><strong>Montaje Exterior:</strong> Perforación, anclaje estructural y sellado para montar el gabinete NEMA 4.</li>
+                <li><strong>Pruebas:</strong> Ensamblaje del equipo dentro de la caja y pruebas de presión hidrostática.</li>
+            </ul>
+
+            <div class="condition-box" style="border-left-color: #D32F2F; background-color: #FFF3F3;">
+                <strong style="color: #D32F2F;">⚠️ EXCLUSIÓN CRÍTICA - INSTALACIÓN ELÉCTRICA</strong><br>
+                Este proyecto de plomería <strong>NO INCLUYE</strong> la instalación del cableado eléctrico, disyuntores (breakers) ni los conductos (conduits). Un calentador tankless eléctrico exterior requiere una carga de energía masiva: <strong>Tres (3) breakers dobles de 40 Amperios (aprox. 112 Amps en total)</strong>. <br><br>
+                El cliente deberá contratar por separado a un <strong>Electricista Licenciado (C-10)</strong> para verificar si el panel principal o el sub-panel del ADU soporta esta carga y para realizar el tendido del cableado desde el panel hasta la caja NEMA 4 del calentador.
+            </div>
+
+            <h2 class="section-title">III. Inversión y Forma de Pago</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concepto</th>
+                        <th style="text-align: right;">Monto Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Provisión de Calentador Tankless, Gabinete Metálico NEMA 4, Kit de válvulas, Tuberías Cobre/PEX, Permiso de Plomería y Mano de Obra Especializada (Instalación de 1 Día).</td>
+                        <td style="text-align: right;">$ 3,950.00</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td style="text-align: right;">INVERSIÓN TOTAL:</td>
+                        <td style="text-align: right;">$ 3,950.00</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="condition-box">
+                <strong>Estructura de Pagos (Cumplimiento CSLB):</strong>
+                <ul style="margin-top: 5px; margin-bottom: 0;">
+                    <li><strong>Anticipo ($395.00):</strong> A la firma del contrato (Equivalente al 10% máximo legal permitido).</li>
+                    <li><strong>Pago de Avance ($3,357.50):</strong> A la entrega del equipo, montaje del gabinete NEMA 4 y finalización de la red de tuberías de agua.</li>
+                    <li><strong>Pago Final ($197.50):</strong> Al concluir la inspección final de plomería (5%).</li>
+                </ul>
+            </div>
+
+            <div class="condition-box" style="border-left-color: #2E7D32;">
+                <strong>Métodos de Pago Aceptados:</strong>
+                <ul style="margin-top: 5px; margin-bottom: 0;">
+                    <li><strong>Efectivo (Cash), Cheque o Transferencia Zelle:</strong> Sin recargos adicionales. El precio total mostrado ($3,950.00) incluye el descuento por pago directo (Cash Discount).</li>
+                    <li><strong>Tarjeta de Crédito / Plataformas Electrónicas:</strong> Toda transacción con tarjeta está sujeta a un <strong>cargo administrativo del 3% (Processing Fee)</strong> sobre el monto a pagar.</li>
+                </ul>
+            </div>
+
+            <h2 class="section-title">IV. Términos y Garantía</h2>
+            <p><strong>Garantía:</strong> Morales Plumbing ofrece <strong>1 año de garantía en mano de obra</strong> contra fugas y defectos de instalación a partir de la finalización del trabajo. Los equipos están sujetos a la garantía limitada del fabricante (siempre que el agua tenga la dureza adecuada y el equipo no sufra fallos eléctricos ajenos a la plomería).</p>
+            <p><strong>Cambios al Proyecto:</strong> Cualquier desviación o alteración se ejecutará mediante una orden de cambio escrita y firmada por ambas partes.</p>
+            <p><strong>Validez de la Propuesta:</strong> Esta propuesta es válida por <strong>30 días</strong> a partir de la fecha de emisión.</p>
+            <p><strong>Fluctuación de Materiales:</strong> Los precios de los materiales están fijados a las condiciones actuales de mercado. En caso de existir condiciones externas que modifiquen dichos costos durante el periodo de contratación, estos deberán ser incluidos en la firma del contrato.</p>
+
+            <div class="signature-section">
+                <div class="signature-block">
+                    <p style="font-size: 0.85rem; color: #555; min-height: 40px;">Al firmar, el cliente acepta los términos y autoriza el inicio de labores.</p>
+                    <div class="signature-line">Firma del Cliente (Rodrigo Arroyo)</div>
+                    <p style="margin-top: 5px;">Fecha: _____________________</p>
+                </div>
+                
+                <div class="signature-block">
+                    <p style="font-size: 0.85rem; color: #555; min-height: 40px;">Propuesta preparada, revisada y autorizada por representante de la compañía.</p>
+                    <div class="signature-line">Representante Morales Plumbing</div>
+                    <p style="margin-top: 5px;">Fecha: _____________________</p>
+                </div>
+            </div>
+
+            <div class="page-footer">
+                Documento Oficial Morales Plumbing | Lic. C-36 #1156542 | Propuesta MP-2026-07-ADU-TK
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
