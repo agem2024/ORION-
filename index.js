@@ -1816,6 +1816,17 @@ _Powered by Wan 2.1 I2V_`
                 continue;
             }
 
+            // 🪠 MORALES PLUMBING CARD
+            if (cleanText === '/mp' || cleanText === 'mp') {
+                const imgPath = path.join(__dirname, 'public', 'images', 'tarjeta_mp.png');
+                if (fs.existsSync(imgPath)) {
+                    await sock.sendMessage(from, { image: { url: imgPath }, caption: '🛠️ *MORALES PLUMBING*\nAI-INTEGRATED SERVICES\n\nLic. C-36 #1156542 | San Jose, CA\n📞 (669) 234-2444\n📧 moralesplumbing026@gmail.com\n🌐 www.moralesplumbing.com' });
+                } else {
+                    await sock.sendMessage(from, { text: '⚠️ Tarjeta no encontrada.' });
+                }
+                continue;
+            }
+
             // ❓ AYUDA
             if (cleanText === 'ayuda' || cleanText === 'help' || cleanText === '?') {
                 await sock.sendMessage(from, { text: `❓ *AYUDA ORION CLEAN v2.1*\n\n🧠 *IA & Voz:*\n• /say [texto] - Texto a voz\n• /orvoz [texto] - IA + voz\n• /tr [texto] a [idioma] - Traducir\n\n🔍 *AI Tools:*\n• /buscar [query] - Google Search\n• /scrape [url] - Leer web\n• /groq [query] - AI gratis\n\n📱 *Mensajes:*\n• /enviar [num] [msg] - Enviar WhatsApp\n\n💼 *Profesional:*\n• /cv /tj /skills /landing\n\n🚀 *Productividad:*\n• /ag [tarea] - Nueva tarea\n• /tareas - Ver pendientes\n• /cal - Calendario\n\n📹 *Multimedia:*\n• /yt [url] - YouTube video\n• /qr [texto] - Generar QR\n\n🔗 *Accesos:*\n• pb - Price Book\n• acutor - Manual\n• otp - Orion Bots\n• links - Apps\n\n📱 WhatsApp: +1(669) 234-2444` });
