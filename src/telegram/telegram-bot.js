@@ -460,6 +460,32 @@ function initTelegramBot() {
         });
 
         // ==========================================
+        // 🪠 MORALES PLUMBING CARD
+        // ==========================================
+        bot.onText(/\/(mp)/, async (msg) => {
+            if (!checkAuth(msg)) return;
+            const imgPath = path.join(__dirname, '../../public/images/tarjeta_mp.png');
+            if (fs.existsSync(imgPath)) {
+                await bot.sendPhoto(msg.chat.id, imgPath, { caption: '🛠️ *MORALES PLUMBING*\nAI-INTEGRATED SERVICES\n\nLic. C-36 #1156542 | San Jose, CA\n📞 (669) 234-2444\n📧 moralesplumbing026@gmail.com\n🌐 www.moralesplumbing.com', parse_mode: 'Markdown' });
+            } else {
+                bot.sendMessage(msg.chat.id, '⚠️ Tarjeta no encontrada.');
+            }
+        });
+
+        // ==========================================
+        // 📝 PROPUESTAS RODRIGO
+        // ==========================================
+        bot.onText(/\/(r1)/, (msg) => {
+            if (!checkAuth(msg)) return;
+            const textMsg = `📄 *Propuestas - 538 Leigh Ave*\n\n` +
+                            `1️⃣ *Reparación:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/propuesta_reparacion_538_leigh.html\n\n` +
+                            `2️⃣ *Opción B:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/propuesta_opcion_b_538_leigh.html\n\n` +
+                            `3️⃣ *ADU Tankless:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/propuesta_adu_tankless_rodrigo.html\n\n` +
+                            `⚖️ *Términos Legales:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/propuesta_lega_538_leigh.html`;
+            bot.sendMessage(msg.chat.id, textMsg, { parse_mode: 'Markdown' });
+        });
+
+        // ==========================================
         // 🎭 GESTIÓN DE MODOS (PERSONAS)
         // ==========================================
         bot.onText(/\/menu/, (msg) => {
