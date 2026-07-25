@@ -897,6 +897,31 @@ Contacto: WhatsApp (669) 234-2444`
                 continue;
             }
 
+            // 🪠 MORALES PLUMBING CARD
+            if (['/mp', '!mp', 'mp'].includes(cleanText)) {
+                const imgPath = path.join(__dirname, 'public', 'images', 'tarjeta_mp.png');
+                if (fs.existsSync(imgPath)) {
+                    await sock.sendMessage(from, { 
+                        image: { url: imgPath }, 
+                        caption: '🛠️ *MORALES PLUMBING*\nAI-INTEGRATED SERVICES\n\nLic. C-36 #1156542 | San Jose, CA\n📞 (669) 234-2444\n📧 moralesplumbing026@gmail.com\n🌐 www.moralesplumbing.com' 
+                    });
+                } else {
+                    await sock.sendMessage(from, { text: '⚠️ Tarjeta no encontrada.' });
+                }
+                continue;
+            }
+
+            // 📝 PROPUESTAS RODRIGO
+            if (['/r1', '!r1', 'r1'].includes(cleanText)) {
+                const textMsg = `📄 *Propuestas - 538 Leigh Ave*\n\n` +
+                                `1️⃣ *Reparación:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/propuesta_reparacion_538_leigh.html\n\n` +
+                                `2️⃣ *Opción B:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/propuesta_opcion_b_538_leigh.html\n\n` +
+                                `3️⃣ *ADU Tankless:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/propuesta_adu_tankless_rodrigo.html\n\n` +
+                                `⚖️ *Términos Legales:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/propuesta_lega_538_leigh.html`;
+                await sock.sendMessage(from, { text: textMsg });
+                continue;
+            }
+
             // 🎄 TJNAV / TLINV - Asistente de Tarjetas Navideñas (Nelson AI)
             if (['/tjnav', '!tjnav', 'tjnav', '/tlinv', '!tlinv', 'tlinv'].includes(cleanText)) {
                 const response = `🚀 *Hello! I'm Nelson.* \n\nStarting your Christmas card assistant. \n\n🌐 *Access here:* \n${CHRISTMAS_URL}\n\n_Tell me:_ *Who is the card for?* \n(Eg: My mother, A friend, My boss, etc.)`;
