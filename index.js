@@ -1830,10 +1830,10 @@ _Powered by Wan 2.1 I2V_`
             // 📝 PROPUESTAS RODRIGO
             if (cleanText === '/r1' || cleanText === 'r1') {
                 const msg = `📄 *Propuestas - 538 Leigh Ave*\n\n` +
-                            `1️⃣ *Reparación:*\nhttps://agem2024.github.io/ORION-/public/propuestas/propuesta_reparacion_538_leigh.html\n\n` +
-                            `2️⃣ *Opción B:*\nhttps://agem2024.github.io/ORION-/public/propuestas/propuesta_opcion_b_538_leigh.html\n\n` +
-                            `3️⃣ *ADU Tankless:*\nhttps://agem2024.github.io/ORION-/public/propuestas/propuesta_adu_tankless_rodrigo.html\n\n` +
-                            `⚖️ *Términos Legales:*\nhttps://agem2024.github.io/ORION-/public/propuestas/propuesta_lega_538_leigh.html`;
+                            `1️⃣ *Reparación:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/propuesta_reparacion_538_leigh.html\n\n` +
+                            `2️⃣ *Opción B:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/propuesta_opcion_b_538_leigh.html\n\n` +
+                            `3️⃣ *ADU Tankless:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/propuesta_adu_tankless_rodrigo.html\n\n` +
+                            `⚖️ *Términos Legales:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/propuesta_lega_538_leigh.html`;
                 
                 await sock.sendMessage(from, { text: msg });
                 continue;
