@@ -486,6 +486,18 @@ function initTelegramBot() {
         });
 
         // ==========================================
+        // 📝 PROPUESTAS JOAN WRABETZ
+        // ==========================================
+        bot.onText(/\/(j1)/, (msg) => {
+            if (!checkAuth(msg)) return;
+            const textMsg = `📄 *Propuestas - Joan Wrabetz*\n\n` +
+                            `1️⃣ *Instalación Lavabo Doble:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/lavy_installation_proposal.html\n\n` +
+                            `2️⃣ *Actualización Tankless:*\nhttps://agem2024.github.io/SEGURITI-USC/docs/proposals/water_heater_update_o_replace.html`;
+            
+            bot.sendMessage(msg.chat.id, textMsg, { parse_mode: 'Markdown' });
+        });
+
+        // ==========================================
         // 🎭 GESTIÓN DE MODOS (PERSONAS)
         // ==========================================
         bot.onText(/\/menu/, (msg) => {
