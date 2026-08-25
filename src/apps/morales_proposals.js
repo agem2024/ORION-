@@ -117,11 +117,19 @@ async function handleM1Callback(bot, cbq) {
 
     const statusTxt = ok ? 'Subido a GitHub Pages exitosamente' : 'Sin GITHUB_TOKEN - sube manualmente y usa el link';
 
-    const clientMsg = `*PROPUESTA OFICIAL - MORALES PLUMBING*\n\n` +
-      `Cliente: ${M1.client}\n` +
-      `Ref: ${M1.id}\n` +
-      `Total Estimado: ${M1.total}\n\n` +
-      `Revise y firme digitalmente su propuesta aqui:\n${M1.public_url}`;
+    const clientMsg = `*PROPUESTA OFICIAL - MORALES PLUMBING*\n` +
+      `AI-INTEGRATED SERVICES\n` +
+      `Lic. C-36 #1156542 | San Jose, CA\n` +
+      `Tel: (669) 213-4422 | Web: www.morales-plumbing.com\n\n` +
+      `*DETALLES DE LA PROPUESTA:*\n` +
+      `• Cliente: ${M1.client}\n` +
+      `• Referencia: ${M1.id}\n` +
+      `• Total Estimado: ${M1.total}\n\n` +
+      `*INSTRUCCIONES PARA EL CLIENTE:*\n` +
+      `1. Abra el enlace para acceder a su propuesta digital.\n` +
+      `2. Firme el Acuso de Recibo para desbloquear los precios y detalles.\n` +
+      `3. Revise la cotizacion y firme al final si autoriza los trabajos.\n\n` +
+      `*Acceda y firme digitalmente su propuesta aqui:*\n${M1.public_url}`;
 
     bot.editMessageText(
       (ok?'PROPUESTA ENVIADA':'LINK LISTO')+' - '+M1.id+'\n\n'+
