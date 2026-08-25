@@ -114,11 +114,11 @@ async function handleM1Callback(bot, cbq) {
 
     const statusTxt = ok ? 'Subido a GitHub Pages exitosamente' : 'Sin GITHUB_TOKEN - sube manualmente y usa el link';
 
-    const clientMsg = `📄 *PROPUESTA OFICIAL - MORALES PLUMBING*\n\n` +
-      `👤 *Cliente:* ${M1.client}\n` +
-      `🔖 *Ref:* ${M1.id}\n` +
-      `💰 *Total Estimado:* ${M1.total}\n\n` +
-      `📲 *Revise y firme digitalmente su propuesta aquí:*\n${M1.public_url}`;
+    const clientMsg = `*PROPUESTA OFICIAL - MORALES PLUMBING*\n\n` +
+      `Cliente: ${M1.client}\n` +
+      `Ref: ${M1.id}\n` +
+      `Total Estimado: ${M1.total}\n\n` +
+      `Revise y firme digitalmente su propuesta aqui:\n${M1.public_url}`;
 
     bot.editMessageText(
       (ok?'PROPUESTA ENVIADA':'LINK LISTO')+' - '+M1.id+'\n\n'+

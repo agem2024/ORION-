@@ -48,18 +48,19 @@ function handleProfessionalCommand(msgLower) {
 🔗 https://agem2024.github.io/SEGURITI-USC/docs/cv_professional.html`;
     }
 
-    if (msgLower === 'tj' || msgLower === 'tarjeta' || msgLower === 'tarjeta digital' || msgLower === 'card' || msgLower === '/mp') {
-        return `💳 *Tarjeta Digital - Morales Plumbing*
+    if (msgLower === 'tj' || msgLower === 'tarjeta' || msgLower === 'tarjeta digital' || msgLower === 'card' || msgLower === 'mp' || msgLower === '/mp') {
+        return `*TARJETA DIGITAL - MORALES PLUMBING*
 
-🔧 AI-INTEGRATED SERVICES
-📜 Lic. C-36 #1156542 | San Jose, CA
-📞 (669) 213-4422
-📧 moralesplumbing026@gmail.com
-🌐 www.morales-plumbing.com
+AI-INTEGRATED SERVICES
+Lic. C-36 #1156542 | San Jose, CA
+Tel: (669) 213-4422
+Email: moralesplumbing026@gmail.com
+Web: www.morales-plumbing.com
 
-📲 *Tarjeta Digital:*
-Click aquí para abrir la tarjeta digital
-[Morales-Plumbing](https://agem2024.github.io/morales-plumbing-web/tarjeta_presentacion.html)
+*Tarjeta Digital Interactiva:*
+Click aqui para abrir la tarjeta digital
+https://agem2024.github.io/morales-plumbing-web/tarjeta_presentacion.html
+
 Morales Plumbing | Un Plomero En Tu Bolsillo`;
     }
 
