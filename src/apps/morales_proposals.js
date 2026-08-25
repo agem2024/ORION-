@@ -16,7 +16,6 @@ const M1 = {
   file_local:  path.resolve(__dirname, '../../../../../propuestas mp/majinder mahter/propuesta_cotizacion_4423_vistapark_v1.1.html'),
   github_path: 'proposals/sandhu-4423/propuesta_cotizacion_4423_vistapark.html',
   public_url:  'https://agem2024.github.io/SEGURITI-USC/proposals/sandhu-4423/propuesta_cotizacion_4423_vistapark.html',
-  contract_url:'https://agem2024.github.io/SEGURITI-USC/proposals/sandhu-4423/contrato_cslb_4423_vistapark.html',
   expires_d:   30,
 };
 
@@ -130,8 +129,7 @@ async function handleM1Callback(bot, cbq) {
       `1. Abra el enlace para acceder a su propuesta digital.\n` +
       `2. Firme el Acuso de Recibo para desbloquear los precios y detalles.\n` +
       `3. Revise la cotizacion y firme al final si autoriza los trabajos.\n\n` +
-      `*Acceda y firme digitalmente su propuesta aqui:*\n${M1.public_url}\n\n` +
-      `*Contrato Legal CSLB (Mejoras del Hogar):*\n${M1.contract_url}`;
+      `*Acceda y firme digitalmente su propuesta aqui:*\n${M1.public_url}`;
 
     bot.editMessageText(
       (ok?'PROPUESTA ENVIADA':'LINK LISTO')+' - '+M1.id+'\n\n'+

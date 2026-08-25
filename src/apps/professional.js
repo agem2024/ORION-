@@ -82,10 +82,7 @@ Tel: (669) 213-4422 | Web: www.morales-plumbing.com
 3. Revise la cotizacion y firme al final si autoriza los trabajos.
 
 *Acceda y firme digitalmente su propuesta aqui:*
-https://agem2024.github.io/SEGURITI-USC/proposals/sandhu-4423/propuesta_cotizacion_4423_vistapark.html
-
-*Contrato Legal CSLB (Mejoras del Hogar):*
-https://agem2024.github.io/SEGURITI-USC/proposals/sandhu-4423/contrato_cslb_4423_vistapark.html`;
+https://agem2024.github.io/SEGURITI-USC/proposals/sandhu-4423/propuesta_cotizacion_4423_vistapark.html`;
     }
 
     if (msgLower === 'propuesta' || msgLower === 'propuesta chris' || msgLower === 'quote' || msgLower === 'cotizacion') {
