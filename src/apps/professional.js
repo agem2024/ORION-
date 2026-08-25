@@ -64,6 +64,30 @@ https://agem2024.github.io/morales-plumbing-web/tarjeta_presentacion.html
 Morales Plumbing | Un Plomero En Tu Bolsillo`;
     }
 
+    if (msgLower === 'm1' || msgLower === '/m1' || msgLower === 'sandhu' || msgLower === 'vistapark') {
+        return `*PROPUESTA OFICIAL - MORALES PLUMBING*
+AI-INTEGRATED SERVICES
+Lic. C-36 #1156542 | San Jose, CA
+Tel: (669) 213-4422 | Web: www.morales-plumbing.com
+
+*DETALLES DE LA PROPUESTA:*
+• Cliente: Manjinder S. Sandhu - Gurmeet K. Sandhu
+• Ubicacion: 4423 Vistapark Dr, San Jose, CA 95136
+• Referencia: MP-PROP-4423V-SANDHU
+• Total Estimado: $19,671.18 USD
+
+*INSTRUCCIONES PARA EL CLIENTE:*
+1. Abra el enlace para acceder a su propuesta digital.
+2. Firme el Acuso de Recibo para desbloquear los precios y detalles.
+3. Revise la cotizacion y firme al final si autoriza los trabajos.
+
+*Acceda y firme digitalmente su propuesta aqui:*
+https://agem2024.github.io/SEGURITI-USC/proposals/sandhu-4423/propuesta_cotizacion_4423_vistapark.html
+
+*Contrato Legal CSLB (Mejoras del Hogar):*
+https://agem2024.github.io/SEGURITI-USC/proposals/sandhu-4423/contrato_cslb_4423_vistapark.html`;
+    }
+
     if (msgLower === 'propuesta' || msgLower === 'propuesta chris' || msgLower === 'quote' || msgLower === 'cotizacion') {
         return `🔧 *Propuesta Profesional de Plomería*
 
