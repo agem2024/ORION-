@@ -23,7 +23,10 @@ function loadDB() {
   try { return JSON.parse(fs.readFileSync(PROPOSALS_DB, 'utf8')); }
   catch(e) { return { proposals:[], events:[] }; }
 }
-function saveDB(db) { fs.writeFileSync(PROPOSALS_DB, JSON.stringify(db,null,2),'utf8'); }
+function saveDB(db) {
+  try { fs.writeFileSync(PROPOSALS_DB, JSON.stringify(db,null,2),'utf8'); }
+  catch(e) { console.warn('[M1 DB] Could not write DB:', e.message); }
+}
 function logEv(pid, event, meta) {
   const db = loadDB();
   if (!db.events) db.events = [];

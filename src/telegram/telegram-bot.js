@@ -34,6 +34,10 @@ try { serper = require('../apps/serper'); console.log('✅ Serper Loaded'); } ca
 try { scraper = require('../apps/scraper'); console.log('✅ Scraper Loaded'); } catch (e) { console.log('⚠️ Scraper Missing'); }
 try { freeai = require('../apps/freeai'); console.log('✅ FreeAI Loaded'); } catch (e) { console.log('⚠️ FreeAI Missing'); }
 
+// MORALES PLUMBING - PROPOSALS MODULE
+let moralesProposals;
+try { moralesProposals = require('../apps/morales_proposals'); console.log('Proposals Loaded'); } catch (e) { console.log('Proposals Missing: ' + e.message); }
+
 // 📂 DATA FILES
 const TAREAS_FILE = path.join(__dirname, '../../tareas_antigravity.json');
 const CONTACTOS_FILE = path.join(__dirname, '../../contactos.json');
@@ -562,6 +566,18 @@ function initTelegramBot() {
                 bot.sendMessage(msg.chat.id, `🎤 *Transcripción:*\n${transcription}`, { parse_mode: 'Markdown' });
             } catch (e) { bot.sendMessage(msg.chat.id, '❌ Error transcribiendo.'); }
         });
+
+        // MORALES PLUMBING - /m1 command (Propuesta Sandhu 4423 Vistapark)
+        if (moralesProposals) {
+            bot.onText(/\/m1/, function(msg) {
+                if (!checkAuth(msg)) return;
+                moralesProposals.handleM1Command(bot, msg);
+            });
+            bot.on('callback_query', async function(cbq) {
+                if (!cbq.data || !cbq.data.startsWith('mp1_')) return;
+                await moralesProposals.handleM1Callback(bot, cbq);
+            });
+        }
 
         console.log(`✅ [TG INIT] SUCCESS. Owner ID: ${OWNER_ID}`);
         return bot;
