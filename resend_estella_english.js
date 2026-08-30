@@ -14,7 +14,7 @@ async function sendEnglish() {
 
             const text = `Hi Estella, Alex here from ORION Tech. 👋\n\nJust wanted to share the full Digital Proposal we designed for *New Millennium Interiors*.\n\nIt’s built to automate your quote process and capture every missed call, so you can focus 100% on restoration.\n\n👉 *View Proposal:* ${link}\n\nIncludes a live demo with "Mike", your new AI Assistant.\n\nLet me know what you think!`;
 
-            const number = '16692342444@s.whatsapp.net';
+            const number = '16692134422@s.whatsapp.net';
 
             try {
                 // Send text. Baileys should preview the link.

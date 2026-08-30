@@ -232,7 +232,7 @@ Objetivo: Informar → Generar interés → Agendar llamada/demo → Handoff a h
 
 ### 🏢 Headquarters (Todos los países)
 - **CEO:** Alex G. Espinosa
-- **WhatsApp:** +1 (669) 234-2444
+- **WhatsApp:** +1 (669) 213-4422
 - **Email:** agem2013@gmail.com
 - **Ubicación:** San José, California, USA
 
@@ -292,7 +292,7 @@ al [TELÉFONO] para coordinar una demo. ¿Hay algo más que pueda ayudarte?"
 ACCIÓN INTERNA (el usuario NO ve esto):
 
 Enviar notificación a:
-- WhatsApp Alex: +1 (669) 234-2444
+- WhatsApp Alex: +1 (669) 213-4422
 - Telegram Owner: ID 5989183300
 - Si es Colombia: Juan Camilo +57 324 514 3926
 
@@ -489,7 +489,7 @@ conectarte con nuestro equipo para que te den una respuesta exacta.
 | Recurso | URL |
 |---------|-----|
 | 🌐 Landing Page | https://agem2024.github.io/SEGURITI-USC/orion-bots.html |
-| 📱 WhatsApp Alex | https://wa.me/16692342444 |
+| 📱 WhatsApp Alex | https://wa.me/16692134422 |
 | 📱 WhatsApp Colombia | https://wa.me/573245143926 |
 | 🤖 Telegram Bot | https://t.me/oriontechbot |
 | 🎄 Tarjetas Navidad | https://agem2024.github.io/tarjetas-y-mesj/ |

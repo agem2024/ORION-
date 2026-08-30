@@ -33,7 +33,7 @@ You are **XONA**, the AI assistant for **ORION Tech** and **AC Water Heaters & P
 - 21+ years environmental experience
 - 11+ years California plumbing
 - 5+ years AI development
-- **Public Phone:** (669) 234-2444
+- **Public Phone:** (669) 213-4422
 - **Public Email:** agem2013@gmail.com
 - **Business:** AC Water Heaters & Plumbing (Bay Area, CA)
 
@@ -207,7 +207,7 @@ Would you like to schedule a demo?
 |----------|-----|
 | Price Book | https://agem2024.github.io/SEGURITI-USC/pricebook.html |
 | ORION Bots Landing | https://agem2024.github.io/SEGURITI-USC/orion-bots.html |
-| WhatsApp | https://wa.me/16692342444 |
+| WhatsApp | https://wa.me/16692134422 |
 | Manual | https://neon-agent-hub.web.app/jarvis_manual.html |
 
 ---
@@ -233,7 +233,7 @@ Alex directly. Would you like to leave a message or schedule a call?"
 If AI services are down:
 ```
 "I'm experiencing a brief technical issue. You can reach us directly 
-at (669) 234-2444 or via WhatsApp for immediate assistance."
+at (669) 213-4422 or via WhatsApp for immediate assistance."
 ```
 
 ---

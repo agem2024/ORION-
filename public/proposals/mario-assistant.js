@@ -7,7 +7,7 @@
 class MarioAssistant {
     constructor(config) {
         this.clientName = config.clientName || 'Client';
-        this.clientPhone = config.clientPhone || '(669) 234-2444';
+        this.clientPhone = config.clientPhone || '(669) 213-4422';
         this.language = config.language || 'en';
         this.ownerName = config.ownerName || '';
         this.managerName = config.managerName || '';

@@ -16,7 +16,7 @@
 ### Alex G. Espinosa
 - **Título:** Ingeniero Ambiental (Graduado 2004)
 - **Ubicación:** Bay Area, California
-- **Teléfono Público:** (669) 234-2444
+- **Teléfono Público:** (669) 213-4422
 - **Email Público:** agem2013@gmail.com
 
 ### Experiencia Profesional

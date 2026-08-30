@@ -28,7 +28,7 @@ It should now display the **Open Graph** preview (Image + Title + Description).
 
 *(Note: If the image doesn't appear immediately, it might be due to GitHub Pages cache. Give it 2-3 minutes).*`;
 
-            const number = '16692342444@s.whatsapp.net';
+            const number = '16692134422@s.whatsapp.net';
 
             console.log('📤 Sending Preview to User...');
             try {

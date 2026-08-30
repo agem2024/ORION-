@@ -257,7 +257,7 @@ Sede: San José, California | También en Colombia: +57 324 514 3926
 3. Ofrece: "¿Te gustaría que un especialista te contacte para una demo personalizada?"
 4. Si acepta, pide: nombre, teléfono, mejor horario
 
-📞 Contacto: WhatsApp (669) 234-2444 | Colombia: +57 324 514 3926
+📞 Contacto: WhatsApp (669) 213-4422 | Colombia: +57 324 514 3926
 
 ⚠️ REGLAS:
 - Máximo 3 oraciones por respuesta
@@ -301,7 +301,7 @@ HQ: San José, California | Also in Colombia: +57 324 514 3926
 3. Offer: "Would you like a specialist to contact you for a personalized demo?"
 4. If yes, collect: name, phone, best time to call
 
-📞 Contact: WhatsApp (669) 234-2444 | Colombia: +57 324 514 3926
+📞 Contact: WhatsApp (669) 213-4422 | Colombia: +57 324 514 3926
 
 ⚠️ RULES:
 - Maximum 3 sentences per response
@@ -474,7 +474,7 @@ Hablas español paisa colombiano - cálido, amigable, profesional.
 Respuestas CORTAS (máximo 2 oraciones).
 Servicios: Bots WhatsApp con IA, automatización para negocios.
 Precios: Individual $297-$497, Salones $997, Restaurantes $1,497, Enterprise $4,997+
-Contacto: WhatsApp (669) 234-2444`
+Contacto: WhatsApp (669) 213-4422`
                     })
                 });
 
@@ -683,7 +683,7 @@ Contacto: WhatsApp (669) 234-2444`
                                     `🕐 Horario: ${apt.time_slot}\n` +
                                     `📱 Fuente: ${apt.source}\n\n` +
                                     `✅ Te contactaremos pronto para confirmar.\n\n` +
-                                    `_ORION Tech - WhatsApp: (669) 234-2444_`;
+                                    `_ORION Tech - WhatsApp: (669) 213-4422_`;
 
                                 await sock.sendMessage(whatsappId, { text: msg });
                                 logger.info(`📅 Appointment confirmation sent to ${apt.phone}`);
@@ -826,7 +826,7 @@ Contacto: WhatsApp (669) 234-2444`
             // 2. Message is sent TO MYSELF (self-chat) - not to other contacts
             // This prevents treating messages to friends/clients as commands
 
-            const myNumber = settings.owner || settings.AUTHORIZED_NUMBERS?.[0] || '16692342444';
+            const myNumber = settings.owner || settings.AUTHORIZED_NUMBERS?.[0] || '16692134422';
             // Check both phone number format AND LID format (after QR reconnect)
             const myLID = '181015809122484'; // Alex's LID
             const isToMyself = from.includes(myNumber) || from.includes(myLID) || from === 'status@broadcast';
@@ -881,7 +881,7 @@ Contacto: WhatsApp (669) 234-2444`
 
             // 🌐 ACUTOR 2 - NEKON LANDING
             if (cleanText === 'acutor 2' || cleanText === 'acutor2' || cleanText === '!acutor2' || cleanText === 'nekon landing') {
-                await sock.sendMessage(from, { text: `✅ *Landing Page neKon AI*\n\n🌐 ${NEKON_URL}\n\n📱 WhatsApp: +1 (669) 234-2444\n📧 Email: orion.system.ai@gmail.com\n\n💡 Accesible Globalmente` });
+                await sock.sendMessage(from, { text: `✅ *Landing Page neKon AI*\n\n🌐 ${NEKON_URL}\n\n📱 WhatsApp: +1 (669) 213-4422\n📧 Email: orion.system.ai@gmail.com\n\n💡 Accesible Globalmente` });
                 continue;
             }
 
@@ -1866,7 +1866,7 @@ _Powered by Wan 2.1 I2V_`
 
             // ❓ AYUDA
             if (cleanText === 'ayuda' || cleanText === 'help' || cleanText === '?') {
-                await sock.sendMessage(from, { text: `❓ *AYUDA ORION CLEAN v2.1*\n\n🧠 *IA & Voz:*\n• /say [texto] - Texto a voz\n• /orvoz [texto] - IA + voz\n• /tr [texto] a [idioma] - Traducir\n\n🔍 *AI Tools:*\n• /buscar [query] - Google Search\n• /scrape [url] - Leer web\n• /groq [query] - AI gratis\n\n📱 *Mensajes:*\n• /enviar [num] [msg] - Enviar WhatsApp\n\n💼 *Profesional:*\n• /cv /tj /skills /landing\n\n🚀 *Productividad:*\n• /ag [tarea] - Nueva tarea\n• /tareas - Ver pendientes\n• /cal - Calendario\n\n📹 *Multimedia:*\n• /yt [url] - YouTube video\n• /qr [texto] - Generar QR\n\n🔗 *Accesos:*\n• pb - Price Book\n• acutor - Manual\n• otp - Orion Bots\n• links - Apps\n\n📱 WhatsApp: +1(669) 234-2444` });
+                await sock.sendMessage(from, { text: `❓ *AYUDA ORION CLEAN v2.1*\n\n🧠 *IA & Voz:*\n• /say [texto] - Texto a voz\n• /orvoz [texto] - IA + voz\n• /tr [texto] a [idioma] - Traducir\n\n🔍 *AI Tools:*\n• /buscar [query] - Google Search\n• /scrape [url] - Leer web\n• /groq [query] - AI gratis\n\n📱 *Mensajes:*\n• /enviar [num] [msg] - Enviar WhatsApp\n\n💼 *Profesional:*\n• /cv /tj /skills /landing\n\n🚀 *Productividad:*\n• /ag [tarea] - Nueva tarea\n• /tareas - Ver pendientes\n• /cal - Calendario\n\n📹 *Multimedia:*\n• /yt [url] - YouTube video\n• /qr [texto] - Generar QR\n\n🔗 *Accesos:*\n• pb - Price Book\n• acutor - Manual\n• otp - Orion Bots\n• links - Apps\n\n📱 WhatsApp: +1(669) 213-4422` });
                 continue;
             }
 

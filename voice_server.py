@@ -75,7 +75,7 @@ AUTOMOTRIZ:
 - Car Wash: $1,997 setup. Membership bot.
 
 CONTACTO:
-- WhatsApp: (669) 234-2444
+- WhatsApp: (669) 213-4422
 - Voice AI: (831) 222-1072
 - Telegram: @oriontechbot
 - Email: agem2013@gmail.com
@@ -155,7 +155,7 @@ AUTOMOTIVE:
 - Car Wash: $1,997. Membership bot.
 
 CONTACT:
-- WhatsApp: (669) 234-2444
+- WhatsApp: (669) 213-4422
 - Voice AI: (831) 222-1072
 - Telegram: @oriontechbot
 - Email: agem2013@gmail.com

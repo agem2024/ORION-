@@ -41,7 +41,7 @@ Here are the direct links to ALL active proposals, including Auto/Plumbing.
 _Note: The Featured list has full AI asset customization. The Mechanical/Plumbing list uses the robust standard engine._`;
 
             // User's number
-            const number = '16692342444@s.whatsapp.net';
+            const number = '16692134422@s.whatsapp.net';
 
             try {
                 await sock.sendMessage(number, { text: text });

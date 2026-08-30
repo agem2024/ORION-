@@ -1,7 +1,7 @@
 require('dotenv').config();
 const client = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-const targetNumber = 'whatsapp:+16692342444'; // Alex's Number
+const targetNumber = 'whatsapp:+16692134422'; // Alex's Number
 const fromNumber = 'whatsapp:' + process.env.TWILIO_PHONE_NUMBER; // Orion Bot Number
 
 const messageBody = `Hola Estella, Alex de ORION Tech. 👋

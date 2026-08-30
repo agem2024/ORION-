@@ -1,7 +1,7 @@
 # ALEX G. ESPINOSA
 **Senior AI Solutions Architect | Environmental Engineer | Project Manager**
 
-📍 San Jose, California | 📞 (669) 234-2444 | 📧 [Professional Email Available on Request]
+📍 San Jose, California | 📞 (669) 213-4422 | 📧 [Professional Email Available on Request]
 *Bilingual Engineering Professional (English/Spanish)*
 
 ---

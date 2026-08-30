@@ -52,7 +52,7 @@ HQ: San José, California | Also in Colombia: +57 324 514 3926
 3. Offer: "Would you like a specialist to contact you for a personalized demo?"
 4. If yes, collect: name, phone, best time to call
 
-📞 Contact: WhatsApp (669) 234-2444 | Colombia: +57 324 514 3926
+📞 Contact: WhatsApp (669) 213-4422 | Colombia: +57 324 514 3926
 
 ⚠️ RULES:
 - Maximum 3 sentences per response
@@ -115,7 +115,7 @@ WhatsApp/Telegram notifications to Alex owner.
   },
 
   // 🛡️ SECURITY
-  owner: '16692342444',
-  AUTHORIZED_NUMBERS: process.env.AUTHORIZED_NUMBERS ? process.env.AUTHORIZED_NUMBERS.split(',') : ['16692342444'],
+  owner: '16692134422',
+  AUTHORIZED_NUMBERS: process.env.AUTHORIZED_NUMBERS ? process.env.AUTHORIZED_NUMBERS.split(',') : ['16692134422'],
   TELEGRAM_OWNER_ID: 8572298959
 };

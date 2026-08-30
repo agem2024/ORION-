@@ -80,7 +80,7 @@ AI PACKAGES (monthly):
 - Contractors: $449
 - Enterprise: $1,499+
 
-Contact: (669) 234-2444`,
+Contact: (669) 213-4422`,
         url: 'https://agem2024.github.io/SEGURITI-USC/docs/pricebook-index.html'
     },
     'orion-bots': {

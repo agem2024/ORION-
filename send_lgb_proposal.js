@@ -32,7 +32,7 @@ https://agem2024.github.io/SEGURITI-USC/proposals/napa%20auto%20care%20foxworthy
 3.  **Deployment:** Live on GitHub Pages.`;
 
             // User's number
-            const number = '16692342444@s.whatsapp.net';
+            const number = '16692134422@s.whatsapp.net';
 
             try {
                 await sock.sendMessage(number, { text: text });
